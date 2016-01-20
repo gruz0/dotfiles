@@ -1,0 +1,33 @@
+function iconv-recursive {
+    find . -type f -name '*.html' -o -name '*.html.erb' | while read file
+    do
+        echo $file
+        iconv -f CP1251 -t UTF-8 "$file" > tmp
+        mv -f tmp "$file"
+    done
+}
+
+function remove-layout {
+    if [ -z $1 ]
+    then
+        echo "Empty pattern"
+        return 1
+    fi
+
+    find . -type f -name '*.html' -o -name '*.html.erb' | while read file
+    do
+        echo $file
+        sed -n "$1" "$file" | sed '1d' | sed '$d' > tmp
+        mv -f tmp "$file"
+    done
+}
+
+function pg-recreate {
+    if [ -z $1 ]; then
+        echo "Missing database"
+        return 1
+    fi
+
+    psql postgres -c "DROP DATABASE $1"
+    psql postgres -c "CREATE DATABASE $1"
+}
