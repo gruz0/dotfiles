@@ -1,14 +1,17 @@
 [user]
-	name = Denis Lysenko
-	email = crashcube@gmail.com
+    name = Denis Lysenko
+    email = crashcube@gmail.com
 
 [core]
-	editor = vim
-	excludesfile = /Users/dlysenko/.gitignore_global
+    editor = vim
+    excludesfile = /Users/dlysenko/.gitignore_global
     autocrlf = input
 
 [color]
-	ui = auto
+    ui = auto
+
+[push]
+    default = simple
 
 [alias]
     co = checkout
@@ -16,16 +19,3 @@
     st = status
     br = branch
     h = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-
-[push]
-	default = simple
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
