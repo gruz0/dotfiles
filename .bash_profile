@@ -16,5 +16,7 @@ export LC_ALL="en_US.UTF-8"
 export SVN_EDITOR="vim"
 export RBENV_ROOT=/usr/local/var/rbenv
 export EDITOR=vim
+export RAILS_ENV=development
+export ENV=development
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
