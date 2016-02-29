@@ -9,5 +9,11 @@ tab_width = 8
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{js,rb,css,html}]
+[Makefile]
+indent_style = tab
+
+[{Gemfile,Rakefile}]
+indent_size = 2
+
+[*.{yml,json,js,ejs,jsx,coffee,rb,css,scss,html,ru}]
 indent_size = 2
