@@ -9,6 +9,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" tools
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
@@ -17,10 +18,11 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-rails'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
 Plugin 'rking/ag.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'vim-ruby/vim-ruby'
+
+" color schemes
 Plugin 'cocopon/iceberg.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'nanotech/jellybeans.vim'
@@ -65,28 +67,16 @@ let mapleader=","
 let g:solarized_termcolors=256
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+let NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden=1
 
 colorscheme solarized
-"colorscheme iceberg
-"colorscheme jellybeans
 
 syntax enable
 
-autocmd Filetype php setlocal ts=4 sw=4 autoindent
-autocmd Filetype php setlocal ts=4 sw=4 autoindent
-
-noremap <C-S-j> ddp
-noremap <C-S-k> ddkP
-
-" navigation between splits
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
 " nav between tabs
-noremap <A-j> gT
-noremap <A-k> gt
+nmap <C-j> :tabprevious<CR>
+nmap <C-k> :tabnext<CR>
 
 " toggle paste mode
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
@@ -104,7 +94,7 @@ vmap <leader>y :w! ~/.vbuf<CR>
 nmap <leader>y :.w! ~/.vbuf<CR>
 nmap <leader>p :r ~/.vbuf<CR>
 
-" search
+" disable search highlight
 nmap <silent> // :nohlsearch<CR>
 
 " buffer management
