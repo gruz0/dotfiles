@@ -3,5 +3,8 @@
 - hosts: 127.0.0.1
   connection: local
   tasks:
-  - name: sublime config installed
-    file: src="~/.sublime-settings" dest="~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" state=link force=yes
+    - name: sublime config installed
+      file: src="~/.sublime-settings" dest="~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" state=link force=yes
+
+    - name: sublime link created
+      file: src="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" dest="/usr/local/bin/sublime" state=link force=yes
