@@ -1,3 +1,7 @@
 {
-    "color_scheme": "Packages/Color Scheme - Default/Solarized (Light).tmTheme"
+	"color_scheme": "Packages/Color Scheme - Default/Solarized (Light).tmTheme",
+	"ignored_packages":
+	[
+	],
+	"vintage_start_in_command_mode": true
 }
