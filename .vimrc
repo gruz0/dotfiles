@@ -21,6 +21,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'othree/html5.vim'
 
 " color schemes
 Plugin 'cocopon/iceberg.vim'
@@ -29,6 +30,13 @@ Plugin 'nanotech/jellybeans.vim'
 
 call vundle#end()
 filetype plugin indent on
+
+let mapleader=","
+let g:solarized_termcolors=256
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+let NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden=1
 
 set showcmd " display incomplete commands
 set number " show line numbers
@@ -59,19 +67,11 @@ set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-set background=light
 set guifont=Droid\ Sans\ Mono\ 12 " set default font
 set t_Co=256
-
-let mapleader=","
-let g:solarized_termcolors=256
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_ruby_checkers = ['rubocop', 'mri']
-let NERDTreeQuitOnOpen=1
-let NERDTreeShowHidden=1
+set background=light
 
 colorscheme solarized
-
 syntax enable
 
 " nav between tabs

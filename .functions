@@ -31,3 +31,7 @@ function pg-recreate {
     psql postgres -c "DROP DATABASE $1"
     psql postgres -c "CREATE DATABASE $1"
 }
+
+function find-big-files {
+    find /Users/ -size +100M 2>/dev/null
+}

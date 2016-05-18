@@ -9,3 +9,6 @@ Metrics/ClassLength:
 
 Metrics/MethodLength:
   Enabled: false
+
+Metrics/AbcSize: # Assignment Branch Condition size for run is too high.
+  Enabled: false

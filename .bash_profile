@@ -11,6 +11,7 @@ export EDITOR=vim
 export RAILS_ENV=development
 export ENV=development
 export SUDO_PS1="\w\\$ "
+export DYLD_FORCE_FLAT_NAMESPACE=1
 
 PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
@@ -18,6 +19,10 @@ PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 PATH="$(brew --prefix subversion)/bin:$PATH"
 PATH="/usr/local/Cellar/imagemagick/6.8.9-7/bin:$PATH"
 export PATH
+
+if [ -f $HOME/.env ]; then
+    source $HOME/.env
+fi
 
 GIT_PROMPT=/Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
 
