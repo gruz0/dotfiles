@@ -15,5 +15,5 @@ indent_style = tab
 [{Gemfile,Rakefile}]
 indent_size = 2
 
-[*.{yml,json,js,ejs,jsx,coffee,rb,css,scss,html,ru}]
+[*.{yml,json,js,ejs,jsx,coffee,rb,css,scss,html,ru,erb}]
 indent_size = 2

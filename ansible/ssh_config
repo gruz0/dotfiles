@@ -1,0 +1,6 @@
+Host 192.168.*.* *.dev
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
+
+Host 10.*.*.*
+    StrictHostKeyChecking no
