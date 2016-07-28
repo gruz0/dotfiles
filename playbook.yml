@@ -11,3 +11,12 @@
 
     - name: ssh config installed
       copy: src="ansible/ssh_config" dest="~/.ssh/config" force=no
+
+    - name: time machines supports network disks
+      command: defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
+
+    - name: disable richtext in textedit
+      command: defaults write com.apple.TextEdit RichText 0
+
+    - name: force language for terminal
+      command: defaults write -app Terminal AppleLanguages -array en

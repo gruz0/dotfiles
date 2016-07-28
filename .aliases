@@ -1,24 +1,38 @@
 alias la='ls -la'
+alias ta='TERM=screen-256color tmux attach -t main || tmux new -s main'
+
+# git
 alias gs='git status'
 alias gd='git diff'
 alias gl='git log'
 alias gpp='git pull && git push'
 alias gpom='git pull origin master'
+
+# dev
+alias resque='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
+alias fs='foreman start'
 alias be='bundle exec'
-alias ta='tmux attach -t main || tmux new -s main'
 alias rails5='rails _5.0.0.beta3_'
+
+# tools
 alias password='pwgen -Cs 20 1 | tr -d " " | tr -d "\n" | pbcopy'
-alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
-alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall Finder'
-alias up-resque='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
+
+# services
 alias up-mysql='launchctl load /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
 alias up-postgresql='launchctl load /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist'
 alias up-redis='launchctl load /usr/local/opt/redis/homebrew.mxcl.redis.plist'
 alias up-elasticsearch='launchctl load /usr/local/opt/elasticsearch/homebrew.mxcl.elasticsearch.plist'
 alias up-rabbitmq='launchctl load /usr/local/opt/rabbitmq/homebrew.mxcl.rabbitmq.plist'
-alias dms='docker-machine start default'
+
+# docker
 alias dme='eval $(docker-machine env)'
 alias dmc='docker-machine create -d virtualbox default'
-alias fs='foreman start'
-alias block='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
-alias unblock='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
+alias dms='docker-machine start default'
+
+# system
+alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
+alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall Finder'
+
+# misc
+alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
+alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'

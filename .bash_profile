@@ -8,17 +8,21 @@ export LC_ALL="en_US.UTF-8"
 export SVN_EDITOR="vim"
 export RBENV_ROOT=/usr/local/var/rbenv
 export EDITOR=vim
-export RAILS_ENV=development
 export ENV=development
+export RAILS_ENV=development
 export SUDO_PS1="\w\\$ "
 export DYLD_FORCE_FLAT_NAMESPACE=1
 
-PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
-PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-PATH="$(brew --prefix subversion)/bin:$PATH"
-PATH="/usr/local/Cellar/imagemagick/6.8.9-7/bin:$PATH"
-export PATH
+# PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+# PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
+# PATH="/usr/local/Cellar/coreutils/8.25/libexec/gnubin:$PATH"
+# PATH="/usr/local/Cellar/subversion/1.9.4/bin:$PATH"
+# PATH="/usr/local/Cellar/imagemagick/6.8.9-7/bin:$PATH"
+# export PATH
+
+if [ $SHLVL == 1 ]; then
+  tmux attach || tmux new
+fi
 
 if [ -f $HOME/.env ]; then
     source $HOME/.env

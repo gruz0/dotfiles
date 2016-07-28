@@ -18,6 +18,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-rails'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
 Plugin 'rking/ag.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'vim-ruby/vim-ruby'
@@ -27,6 +28,7 @@ Plugin 'othree/html5.vim'
 Plugin 'cocopon/iceberg.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'tyrannicaltoucan/vim-deep-space'
 
 call vundle#end()
 filetype plugin indent on
@@ -70,9 +72,10 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set guifont=Droid\ Sans\ Mono\ 12 " set default font
 set t_Co=256
-set background=light
+set background=dark
+set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/node_modules/*,*.so,*.swp,*.zip
 
-colorscheme solarized
+colorscheme deep-space
 syntax enable
 
 " nav between tabs
@@ -106,3 +109,5 @@ map <leader>d :bd<Return>
 
 " insert tab
 :inoremap <S-Tab> <C-V><Tab>
+
+runtime macros/matchit.vim
