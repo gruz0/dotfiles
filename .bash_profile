@@ -12,6 +12,7 @@ export ENV=development
 export RAILS_ENV=development
 export SUDO_PS1="\w\\$ "
 export DYLD_FORCE_FLAT_NAMESPACE=1
+export TERM=screen-256color
 
 # PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
@@ -20,9 +21,9 @@ export DYLD_FORCE_FLAT_NAMESPACE=1
 # PATH="/usr/local/Cellar/imagemagick/6.8.9-7/bin:$PATH"
 # export PATH
 
-if [ $SHLVL == 1 ]; then
-  tmux attach || tmux new
-fi
+# if [ $SHLVL == 1 ]; then
+#   tmux attach -t main || tmux new -s main
+# fi
 
 if [ -f $HOME/.env ]; then
     source $HOME/.env
