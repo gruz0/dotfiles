@@ -23,6 +23,8 @@ Plugin 'rking/ag.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'othree/html5.vim'
+Plugin 'szw/vim-tags'
+Plugin 'majutsushi/tagbar'
 
 " color schemes
 Plugin 'cocopon/iceberg.vim'
@@ -91,6 +93,7 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " NERDTree
 nmap <silent> <leader><leader> :NERDTreeToggle<CR>
+nmap <silent> <leader>. :TagbarToggle<CR>
 nmap <leader>f :NERDTreeFind<CR>
 
 " allow to copy/paste between instances
