@@ -3,7 +3,7 @@
 - hosts: localhost
   connection: local
   tasks:
-    - name: time machines supports network disks
+    - name: enable time machine support for network disks
       command: defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
 
     - name: disable richtext in textedit by default
@@ -58,7 +58,7 @@
       with_items:
         - .ssh/config
 
-    - name: create nvim symlink
+    - name: create nvim data symlink
       file: src="~/.vim" dest="~/.config/nvim" state=link force=yes
 
     - name: create nvim config symlink

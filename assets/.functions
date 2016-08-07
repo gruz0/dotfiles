@@ -35,3 +35,13 @@ function pg-recreate {
 function find-big-files {
     find /Users/ -size +100M 2>/dev/null
 }
+
+function clean-files {
+    if [ -z $1 ]; then
+        echo "Specify the path"
+        return 1
+    fi
+
+    chmod -RN $1
+    xattr -rc $1
+}
