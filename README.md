@@ -1,7 +1,7 @@
 # Hello
 
-See my homepage http://lysenkooo.com.
+See my homepage http://lysenkooo.ru.
 
 ## Install
 
-Use `make install && make provision` to set up laptop.
+Use `./provision.sh` to set up environment.
