@@ -1,22 +1,75 @@
 ---
 
-- hosts: 127.0.0.1
+- hosts: localhost
   connection: local
   tasks:
-    - name: sublime link created
-      file: src="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" dest="/usr/local/bin/sublime" state=link force=yes
-
-    - name: sublime config installed
-      file: src="~/.sublime-settings" dest="~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" state=link force=yes
-
-    - name: ssh config installed
-      copy: src="ansible/ssh_config" dest="~/.ssh/config" force=no
-
     - name: time machines supports network disks
       command: defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
 
-    - name: disable richtext in textedit
+    - name: disable richtext in textedit by default
       command: defaults write com.apple.TextEdit RichText 0
 
-    - name: force language for terminal
-      command: defaults write -app Terminal AppleLanguages -array en
+    - name: install brew packages
+      homebrew: name="{{ item }}" state=present update_homebrew=yes
+      with_items:
+        - git
+        - curl
+        - wget
+        - tmux
+        - mc
+        - ssh-copy-id
+        - vim
+        - ctags
+        - ack
+        - rbenv
+        - ruby-build
+        - node
+        - pwgen
+        - pdf2htmlex
+        - youtube-dl
+        - neovim/neovim/neovim
+
+    - name: create home dirs
+      file: path="~/{{ item }}" state=directory
+      with_items:
+        - .ssh
+        - .bundle
+        - .config
+
+    - name: install immutable dotfiles
+      copy: src="assets/{{ item }}" dest="~/{{ item }}" force=yes
+      with_items:
+        - .bundle/config
+        - .bash_profile
+        - .aliases
+        - .functions
+        - .gitconfig
+        - .gitignore_global
+        - .vimrc
+        - .ctags
+        - .editorconfig
+        - .tmux.conf
+        - .gemrc
+        - .rubocop.yml
+        - .ansible.cfg
+
+    - name: install mutable dotfiles
+      copy: src="assets/{{ item }}" dest="~/{{ item }}" force=no
+      with_items:
+        - .ssh/config
+
+    - name: create nvim symlink
+      file: src="~/.vim" dest="~/.config/nvim" state=link force=yes
+
+    - name: create nvim config symlink
+      file: src="~/.vimrc" dest="~/.config/nvim/init.vim" state=link force=yes
+
+    - name: create sublime symlink
+      file: src="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" dest="/usr/local/bin/sublime" state=link force=yes
+
+    - name: install sublime config
+      copy: src="assets/.sublime-settings" dest="~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" force=yes
+
+    - name: install tmux resurrect plugin
+      git: repo=https://github.com/tmux-plugins/tmux-resurrect dest="~/.tmux/plugins/tmux-resurrect"
+      tags: tmux

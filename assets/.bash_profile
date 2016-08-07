@@ -1,31 +1,23 @@
-source ~/.aliases
-source ~/.functions
-
 export HISTSIZE="100500"
 export HISTCONTROL="ignoredups"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+export SUDO_PS1="\w\\$ "
+export TERM=screen-256color
+export EDITOR=vim
 export SVN_EDITOR="vim"
 export RBENV_ROOT=/usr/local/var/rbenv
-export EDITOR=vim
 export ENV=development
 export RAILS_ENV=development
-export SUDO_PS1="\w\\$ "
 export DYLD_FORCE_FLAT_NAMESPACE=1
-export TERM=screen-256color
 
-PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
-# PATH="/usr/local/Cellar/coreutils/8.25/libexec/gnubin:$PATH"
-# PATH="/usr/local/Cellar/subversion/1.9.4/bin:$PATH"
-# PATH="/usr/local/Cellar/imagemagick/6.8.9-7/bin:$PATH"
+PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
 PATH="/usr/local/Cellar/ctags/5.8_1/bin:$PATH"
 export PATH
 
-
-# if [ $SHLVL == 1 ]; then
-#   tmux attach -t main || tmux new -s main
-# fi
+source ~/.aliases
+source ~/.functions
 
 if [ -f $HOME/.env ]; then
     source $HOME/.env
