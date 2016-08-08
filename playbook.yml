@@ -54,6 +54,9 @@
         - .rubocop.yml
         - .ansible.cfg
 
+    - name: create nvim symlink
+      file: src="/usr/local/bin/nvim" dest="/usr/local/bin/vim" state=link force=no
+
     - name: create nvim data symlink
       file: src="~/.vim" dest="~/.config/nvim" state=link force=yes
 
