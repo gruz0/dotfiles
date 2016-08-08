@@ -10,7 +10,7 @@
       command: defaults write com.apple.TextEdit RichText 0
 
     - name: install brew packages
-      homebrew: name="{{ item }}" state=present update_homebrew=yes
+      homebrew: name="{{ item }}" state=present
       with_items:
         - git
         - curl
@@ -18,27 +18,28 @@
         - tmux
         - mc
         - ssh-copy-id
-        - vim
         - ctags
-        - ack
         - rbenv
-        - ruby-build
+        - ack
         - node
         - pwgen
         - pdf2htmlex
         - youtube-dl
         - neovim/neovim/neovim
+        - icu4c
+        - reattach-to-user-namespace
 
-    - name: create home dirs
+    - name: create dotfiles dirs
       file: path="~/{{ item }}" state=directory
       with_items:
         - .ssh
         - .bundle
         - .config
 
-    - name: install immutable dotfiles
-      copy: src="assets/{{ item }}" dest="~/{{ item }}" force=yes
+    - name: install dotfiles
+      copy: src="assets/{{ item }}" dest="~/{{ item }}" force=no
       with_items:
+        - .ssh/config
         - .bundle/config
         - .bash_profile
         - .aliases
@@ -52,11 +53,6 @@
         - .gemrc
         - .rubocop.yml
         - .ansible.cfg
-
-    - name: install mutable dotfiles
-      copy: src="assets/{{ item }}" dest="~/{{ item }}" force=no
-      with_items:
-        - .ssh/config
 
     - name: create nvim data symlink
       file: src="~/.vim" dest="~/.config/nvim" state=link force=yes

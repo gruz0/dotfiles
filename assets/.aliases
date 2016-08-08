@@ -28,6 +28,7 @@ alias up-rabbitmq='launchctl load /usr/local/opt/rabbitmq/homebrew.mxcl.rabbitmq
 alias dme='eval $(docker-machine env)'
 alias dmc='docker-machine create -d virtualbox default'
 alias dms='docker-machine start default'
+alias docker-redis='docker run -d --name redis redis'
 
 # system
 alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
