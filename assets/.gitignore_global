@@ -3,4 +3,5 @@
 .vagrant
 *.ignore*
 *.retry
+npm-debug.log*
 tags

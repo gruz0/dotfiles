@@ -1,5 +1,5 @@
 alias la='ls -la'
-alias ta='TERM=screen-256color tmux attach -t main || tmux new -s main'
+alias ta='tmux attach -t dev || tmux new -s dev'
 
 # git
 alias gs='git status'
@@ -9,26 +9,13 @@ alias gpp='git pull && git push'
 alias gpom='git pull origin master'
 
 # dev
-alias resque='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
-alias fs='foreman start'
 alias be='bundle exec'
-alias rails5='rails _5.0.0.beta3_'
+alias fs='foreman start'
+alias resque='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
+alias rails500='rails _5.0.0_'
 
 # tools
 alias password='pwgen -Cs 20 1 | tr -d " " | tr -d "\n" | pbcopy'
-
-# services
-alias up-mysql='launchctl load /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
-alias up-postgresql='launchctl load /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist'
-alias up-redis='launchctl load /usr/local/opt/redis/homebrew.mxcl.redis.plist'
-alias up-elasticsearch='launchctl load /usr/local/opt/elasticsearch/homebrew.mxcl.elasticsearch.plist'
-alias up-rabbitmq='launchctl load /usr/local/opt/rabbitmq/homebrew.mxcl.rabbitmq.plist'
-
-# docker
-alias dme='eval $(docker-machine env)'
-alias dmc='docker-machine create -d virtualbox default'
-alias dms='docker-machine start default'
-alias docker-redis='docker run -d --name redis redis'
 
 # system
 alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
@@ -37,3 +24,52 @@ alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall F
 # misc
 alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
 alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
+
+# functions
+function iconv-recursive {
+    find . -type f -name '*.html' -o -name '*.html.erb' | while read file
+    do
+        echo $file
+        iconv -f CP1251 -t UTF-8 "$file" > tmp
+        mv -f tmp "$file"
+    done
+}
+
+function remove-layout {
+    if [ -z $1 ]
+    then
+        echo "Empty pattern"
+        return 1
+    fi
+
+    find . -type f -name '*.html' -o -name '*.html.erb' | while read file
+    do
+        echo $file
+        sed -n "$1" "$file" | sed '1d' | sed '$d' > tmp
+        mv -f tmp "$file"
+    done
+}
+
+function pg-recreate {
+    if [ -z $1 ]; then
+        echo "Missing database"
+        return 1
+    fi
+
+    psql postgres -c "DROP DATABASE $1"
+    psql postgres -c "CREATE DATABASE $1"
+}
+
+function find-big-files {
+    find /Users/ -size +100M 2>/dev/null
+}
+
+function clean-attrs {
+    if [ -z $1 ]; then
+        echo "Specify the path"
+        return 1
+    fi
+
+    chmod -RN $1
+    xattr -rc $1
+}

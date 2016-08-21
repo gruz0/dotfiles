@@ -17,7 +17,6 @@ PATH="/usr/local/Cellar/ctags/5.8_1/bin:$PATH"
 export PATH
 
 source ~/.aliases
-source ~/.functions
 
 if [ -f $HOME/.env ]; then
     source $HOME/.env

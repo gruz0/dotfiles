@@ -28,6 +28,8 @@
         - neovim/neovim/neovim
         - icu4c
         - reattach-to-user-namespace
+        - imagemagick
+        - libpqxx3
 
     - name: create dotfiles dirs
       file: path="~/{{ item }}" state=directory

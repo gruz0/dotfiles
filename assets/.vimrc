@@ -21,10 +21,10 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'rking/ag.vim'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'vim-ruby/vim-ruby'
 Plugin 'othree/html5.vim'
 Plugin 'szw/vim-tags'
 Plugin 'majutsushi/tagbar'
+Plugin 'jelera/vim-javascript-syntax'
 
 " color schemes
 Plugin 'cocopon/iceberg.vim'
@@ -34,6 +34,11 @@ Plugin 'tyrannicaltoucan/vim-deep-space'
 
 call vundle#end()
 filetype plugin indent on
+
+autocmd filetype crontab setlocal nobackup nowritebackup
+
+syntax enable
+colorscheme iceberg
 
 let mapleader=","
 let g:solarized_termcolors=256
@@ -74,11 +79,8 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set guifont=Droid\ Sans\ Mono\ 12 " set default font
 set t_Co=256
-set background=dark
 set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/node_modules/*,*.so,*.swp,*.zip
-
-colorscheme deep-space
-syntax enable
+set colorcolumn=81
 
 " nav between tabs
 nmap <C-j> :tabprevious<CR>
