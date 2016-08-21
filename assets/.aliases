@@ -74,9 +74,10 @@ function clean-attrs {
     xattr -rc $1
 }
 
-function drive-clean {
+function unmount {
     rm -rf $1/.fseventsd
     rm -rf $1/.Trashes
     rm -rf $1/.Spotlight-V100
     find $1 -name '._*' -exec rm {} \;
+    diskutil unmount $1
 }
