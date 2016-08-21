@@ -73,3 +73,10 @@ function clean-attrs {
     chmod -RN $1
     xattr -rc $1
 }
+
+function drive-clean {
+    rm -rf $1/.fseventsd
+    rm -rf $1/.Trashes
+    rm -rf $1/.Spotlight-V100
+    find $1 -name '._*' -exec rm {} \;
+}

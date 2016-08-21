@@ -9,6 +9,9 @@
     - name: disable richtext in textedit by default
       command: defaults write com.apple.TextEdit RichText 0
 
+    - name: disable creating DS files
+      command: defaults write com.apple.desktopservices DSDontWriteNetworkStores 1
+
     - name: install brew packages
       homebrew: name="{{ item }}" state=present
       with_items:
