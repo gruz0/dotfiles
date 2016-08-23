@@ -1,11 +1,11 @@
 [user]
-    name = Denis Lysenko
     email = crashcube@gmail.com
+    name = Denis Lysenko
 
 [core]
+    autocrlf = input
     editor = vim
     excludesfile = /Users/dlysenko/.gitignore_global
-    autocrlf = input
 
 [color]
     ui = auto
@@ -18,10 +18,4 @@
     ci = commit
     st = status
     br = branch
-    h = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
-[branch]
-	autosetuprebase = always
+    h = log --pretty=format:\"%h | %ad | %s%d [%an]\" --graph --date=short

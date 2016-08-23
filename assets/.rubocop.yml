@@ -1,14 +1,14 @@
 Metrics/LineLength:
   Max: 120
 
-Style/Documentation:
-  Enabled: false
-
 Metrics/ClassLength:
   Enabled: false
 
 Metrics/MethodLength:
   Enabled: false
 
-Metrics/AbcSize: # Assignment Branch Condition size for run is too high.
+Metrics/AbcSize:
+  Enabled: false
+
+Style/Documentation:
   Enabled: false
