@@ -79,5 +79,6 @@ function unmount {
     rm -rf $1/.Trashes
     rm -rf $1/.Spotlight-V100
     find $1 -name '._*' -exec rm {} \;
+    find $1 -name '.DS_Store' -exec rm {} \;
     diskutil unmount $1
 }
