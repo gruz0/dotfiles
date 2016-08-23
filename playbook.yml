@@ -15,6 +15,7 @@
     - name: install brew packages
       homebrew: name="{{ item }}" state=present
       with_items:
+        - ansible
         - git
         - curl
         - wget
@@ -33,6 +34,8 @@
         - reattach-to-user-namespace
         - imagemagick
         - libpqxx3
+        - sqlite
+        - nmap
 
     - name: create dotfiles dirs
       file: path="~/{{ item }}" state=directory
@@ -44,35 +47,40 @@
     - name: install dotfiles
       copy: src="assets/{{ item }}" dest="~/{{ item }}" force=no
       with_items:
-        - .ssh/config
-        - .bundle/config
-        - .bash_profile
         - .aliases
-        - .functions
-        - .gitconfig
-        - .gitignore_global
-        - .vimrc
+        - .ansible.cfg
+        - .bash_profile
+        - .bundle/config
         - .ctags
         - .editorconfig
-        - .tmux.conf
         - .gemrc
+        - .gitconfig
+        - .gitignore_global
         - .rubocop.yml
-        - .ansible.cfg
+        - .ssh/config
+        - .sublime-settings
+        - .tmux.conf
+        - .vimrc
 
     - name: create nvim symlink
       file: src="/usr/local/bin/nvim" dest="/usr/local/bin/vim" state=link force=no
+      tags: nvim
 
     - name: create nvim data symlink
       file: src="~/.vim" dest="~/.config/nvim" state=link force=yes
+      tags: nvim
 
     - name: create nvim config symlink
       file: src="~/.vimrc" dest="~/.config/nvim/init.vim" state=link force=yes
+      tags: nvim
 
     - name: create sublime symlink
       file: src="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" dest="/usr/local/bin/sublime" state=link force=yes
+      tags: sublime
 
     - name: install sublime config
-      copy: src="assets/.sublime-settings" dest="~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" force=yes
+      file: src="assets/.sublime-settings" dest="~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" state=link force=yes
+      tags: sublime
 
     - name: install tmux resurrect plugin
       git: repo=https://github.com/tmux-plugins/tmux-resurrect dest="~/.tmux/plugins/tmux-resurrect"
