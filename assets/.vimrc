@@ -81,8 +81,14 @@ set guifont=Droid\ Sans\ Mono\ 12 " set default font
 set t_Co=256
 set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/node_modules/*,*.so,*.swp,*.zip
 set colorcolumn=81
+set clipboard=unnamed
+
+" copy to system clipboard
+vmap <C-x> :!pbcopy<CR>
+vmap <C-c> :w !pbcopy<CR><CR>
 
 " nav between tabs
+nmap <C-t> :tabnew<CR>
 nmap <C-j> :tabprevious<CR>
 nmap <C-k> :tabnext<CR>
 

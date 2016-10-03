@@ -2,6 +2,8 @@
 .idea
 .vagrant
 .tags
+xcuserdata
+coverage
 npm-debug.log*
 *.retry
 *.ignore*

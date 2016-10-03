@@ -5,8 +5,9 @@ alias ta='tmux attach -t dev || tmux new -s dev'
 alias gs='git status'
 alias gd='git diff'
 alias gl='git log'
-alias gpp='git pull && git push'
-alias gpom='git pull origin master'
+alias gull='git pull'
+alias gush='git push'
+alias gushstable='git checkout stable && git pull && git merge master && git push && git checkout master'
 
 # dev
 alias be='bundle exec'
@@ -81,4 +82,14 @@ function unmount {
     find $1 -name '._*' -exec rm {} \;
     find $1 -name '.DS_Store' -exec rm {} \;
     diskutil unmount $1
+}
+
+function csrgen {
+    if [ -z $1 ]; then
+        echo "Specify FQDN"
+        return 1
+    fi
+
+    openssl req -newkey rsa:2048 -nodes -keyout "${1}.key" -out "${1}.csr"
+    openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
 }
