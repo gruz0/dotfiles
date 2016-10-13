@@ -53,6 +53,7 @@
         - .bundle/config
         - .ctags
         - .editorconfig
+        - .eslintrc
         - .gemrc
         - .gitconfig
         - .gitignore_global

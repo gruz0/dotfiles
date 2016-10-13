@@ -25,6 +25,7 @@ alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall F
 # misc
 alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
 alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
+alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && say dns cache flushed'
 
 # functions
 function iconv-recursive {
