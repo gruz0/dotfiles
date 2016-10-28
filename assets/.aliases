@@ -77,6 +77,11 @@ function clean-attrs {
 }
 
 function unmount {
+    if [ -z $1 ]; then
+        echo "Specify mount point"
+        return 1
+    fi
+
     rm -rf $1/.fseventsd
     rm -rf $1/.Trashes
     rm -rf $1/.Spotlight-V100

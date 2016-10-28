@@ -41,13 +41,17 @@ syntax enable
 colorscheme iceberg
 
 let mapleader=","
-let g:solarized_termcolors=256
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_ruby_checkers = ['rubocop', 'mri']
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 
+set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 set showcmd " display incomplete commands
 set number " show line numbers
 set nowrap " no wrap for lines
@@ -73,10 +77,6 @@ set guifont=Andale\ Mono:h14 " set font for gui version
 set wildmenu " enhanced command completion
 set cursorline " highlight cursor line
 set laststatus=2
-set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 set guifont=Droid\ Sans\ Mono\ 12 " set default font
 set t_Co=256
 set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/node_modules/*,*.so,*.swp,*.zip

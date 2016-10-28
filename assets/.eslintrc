@@ -1,15 +1,39 @@
 {
     "env": {
         "browser": true,
-        "node": true
+        "commonjs": true,
+        "es6": true
     },
-    "globals": {
-        "React": true
-    },
-    "ecmaFeatures": {
-        "jsx": true
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "plugins": [
         "react"
-    ]
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ]
+    }
 }

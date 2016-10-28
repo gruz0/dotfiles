@@ -12,7 +12,7 @@ trim_trailing_whitespace = true
 [Makefile]
 indent_style = tab
 
-[{Gemfile,Rakefile}]
+[{Gemfile,Rakefile,.eslintrc}]
 indent_size = 2
 
 [*.{yml,json,js,ejs,jsx,coffee,rb,css,scss,html,ru,erb}]
