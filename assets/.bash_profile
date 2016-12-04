@@ -10,6 +10,7 @@ export RBENV_ROOT="/usr/local/var/rbenv"
 export ENV="development"
 export RAILS_ENV="development"
 export DYLD_FORCE_FLAT_NAMESPACE="1"
+export ANSIBLE_HOST_KEY_CHECKING=False
 
 PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"

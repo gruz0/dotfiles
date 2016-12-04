@@ -77,17 +77,18 @@ function clean-attrs {
 }
 
 function unmount {
-    if [ -z $1 ]; then
+    if [ -z "$1" ]; then
         echo "Specify mount point"
         return 1
     fi
 
-    rm -rf $1/.fseventsd
-    rm -rf $1/.Trashes
-    rm -rf $1/.Spotlight-V100
-    find $1 -name '._*' -exec rm {} \;
-    find $1 -name '.DS_Store' -exec rm {} \;
-    diskutil unmount $1
+    rm -rf "$1/.fseventsd"
+    rm -rf "$1/.Trashes"
+    rm -rf "$1/.Spotlight-V100"
+    find "$1" -name "._*" -exec rm {} \;
+    find "$1" -name ".DS_Store" -exec rm {} \;
+
+    diskutil unmount "$1"
 }
 
 function csrgen {
@@ -98,4 +99,14 @@ function csrgen {
 
     openssl req -newkey rsa:2048 -nodes -keyout "${1}.key" -out "${1}.csr"
     openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
+}
+
+crypt() {
+    echo "Crypt into file $1: $2"
+    echo "$2" | openssl enc -aes-256-cbc -salt > "$1"
+}
+
+decrypt() {
+    echo "Decrypt file $1"
+    openssl enc -aes-256-cbc -d -in "$1"
 }
