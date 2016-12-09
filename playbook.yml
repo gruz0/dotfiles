@@ -36,6 +36,9 @@
         - libpqxx3
         - sqlite
         - nmap
+        - yarn
+        - erlang
+        - elixir
 
     - name: create dotfiles dirs
       file: path="~/{{ item }}" state=directory
