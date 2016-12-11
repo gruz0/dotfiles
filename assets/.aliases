@@ -14,6 +14,7 @@ alias be='bundle exec'
 alias fs='foreman start'
 alias resque='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
 alias rails500='rails _5.0.0_'
+alias run-postgres='docker run --name postgres -e POSTGRES_PASSWORD=postgres -d postgres'
 
 # tools
 alias password='pwgen -Cs 20 1 | tr -d " " | tr -d "\n" | pbcopy'
@@ -25,7 +26,8 @@ alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall F
 # misc
 alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
 alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
-alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && say dns cache flushed'
+alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
+
 
 # functions
 function iconv-recursive {
