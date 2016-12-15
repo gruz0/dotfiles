@@ -14,6 +14,7 @@ if [[ ! -x /usr/local/bin/brew ]]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     sudo chown -R $(whoami) /usr/local/sbin
     sudo chown -R $(whoami) /usr/local/share/man
+    brew doctor
 fi
 
 if [[ ! -x /usr/local/bin/ansible ]]; then

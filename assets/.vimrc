@@ -82,11 +82,14 @@ set guifont=Droid\ Sans\ Mono\ 12 " set default font
 set t_Co=256
 set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/node_modules/*,*.so,*.swp,*.zip
 set colorcolumn=81
-set clipboard=unnamed
 
-" copy to system clipboard
-vmap <C-x> :!pbcopy<CR>
-vmap <C-c> :w !pbcopy<CR><CR>
+" copy paste with system clipboard
+vmap <C-S-x> :!pbcopy<CR>
+vmap <C-S-c> :w !pbcopy<CR><CR>
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
 
 " nav between tabs
 nmap <C-t> :tabnew<CR>
