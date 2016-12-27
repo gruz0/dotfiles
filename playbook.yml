@@ -15,7 +15,6 @@
     - name: install brew packages
       homebrew: name="{{ item }}" state=present
       with_items:
-        - ansible
         - git
         - curl
         - wget
@@ -29,7 +28,6 @@
         - pwgen
         - pdf2htmlex
         - youtube-dl
-        - neovim/neovim/neovim
         - icu4c
         - reattach-to-user-namespace
         - imagemagick
@@ -39,6 +37,14 @@
         - yarn
         - erlang
         - elixir
+        - neovim/neovim/neovim
+        - python3
+
+    - name: neovim with python is intalled
+      pip:
+        name: neovim
+        state: present
+        executable: pip3
 
     - name: install xkbswitch
       get_url:
@@ -73,7 +79,7 @@
         - .vimrc
 
     - name: create nvim symlink
-      file: src="/usr/local/bin/nvim" dest="/usr/local/bin/vim" state=link force=no
+      file: src="/usr/local/bin/nvim" dest="/usr/local/bin/vim" state=link
       tags: nvim
 
     - name: create nvim data symlink

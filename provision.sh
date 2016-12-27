@@ -15,12 +15,13 @@ if [[ ! -x /usr/local/bin/brew ]]; then
     sudo chown -R $(whoami) /usr/local/sbin
     sudo chown -R $(whoami) /usr/local/share/man
     brew doctor
+    brew update
 fi
 
 if [[ ! -x /usr/local/bin/ansible ]]; then
     echo "Installing ansible..."
-    brew update
-    brew install ansible
+    easy_install pip
+    pip install --user ansible
 fi
 
-ansible-playbook playbook.yml 
+ansible-playbook playbook.yml
