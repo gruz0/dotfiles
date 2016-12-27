@@ -27,6 +27,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'abolish.vim'
+Plugin 'lyokha/vim-xkbswitch'
 
 " color schemes
 Plugin 'cocopon/iceberg.vim'

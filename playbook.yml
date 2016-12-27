@@ -3,6 +3,37 @@
 - hosts: localhost
   connection: local
   tasks:
+    - name: set config list
+      set_fact:
+        list:
+          - .aliases
+          - .ansible.cfg
+          - .bash_profile
+          - .bundle/config
+          - .ctags
+          - .editorconfig
+          - .eslintrc
+          - .gemrc
+          - .gitconfig
+          - .gitignore_global
+          - .rubocop.yml
+          - .ssh/config
+          - .sublime-settings
+          - .tmux.conf
+          - .vimrc
+
+    - name: create config dirs
+      file: path="~/{{ item | dirname }}" state=directory
+      with_items: "{{ list }}"
+
+    - name: create config links
+      file:
+        src: "{{ playbook_dir }}/assets/{{ item }}"
+        dest: "~/{{ item }}"
+        state: link
+        force: yes
+      with_items: "{{ list }}"
+
     - name: enable time machine support for network disks
       command: defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
 
@@ -32,6 +63,7 @@
         - reattach-to-user-namespace
         - imagemagick
         - homebrew/versions/libpqxx3
+        - homebrew/versions/v8-315
         - sqlite
         - nmap
         - yarn
@@ -46,53 +78,26 @@
         state: present
         executable: pip3
 
-    - name: install xkbswitch
-      get_url:
-        url: https://github.com/myshov/xkbswitch-macosx/raw/master/bin/xkbswitch
-        dest: /usr/local/bin/xkbswitch
-        mode: 0755
-
-    - name: create dotfiles dirs
+    - name: vim and nvim dirs are created
       file: path="~/{{ item }}" state=directory
       with_items:
-        - .ssh
-        - .bundle
+        - .vim
         - .config
 
-    - name: install dotfiles
-      copy: src="assets/{{ item }}" dest="~/{{ item }}" force=no
-      with_items:
-        - .aliases
-        - .ansible.cfg
-        - .bash_profile
-        - .bundle/config
-        - .ctags
-        - .editorconfig
-        - .eslintrc
-        - .gemrc
-        - .gitconfig
-        - .gitignore_global
-        - .rubocop.yml
-        - .ssh/config
-        - .sublime-settings
-        - .tmux.conf
-        - .vimrc
+    - name: create nvim data symlink
+      file: src="~/.vim" dest="~/.config/nvim" state=link
+
+    - name: create nvim config symlink
+      file: src="~/.vimrc" dest="~/.config/nvim/init.vim" state=link
 
     - name: create nvim symlink
       file: src="/usr/local/bin/nvim" dest="/usr/local/bin/vim" state=link
-      tags: nvim
-
-    - name: create nvim data symlink
-      file: src="~/.vim" dest="~/.config/nvim" state=link force=yes
-      tags: nvim
-
-    - name: create nvim config symlink
-      file: src="~/.vimrc" dest="~/.config/nvim/init.vim" state=link force=yes
-      tags: nvim
 
     - name: create sublime symlink
-      file: src="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" dest="/usr/local/bin/sublime" state=link force=yes
-      tags: sublime
+      file:
+        src: "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+        dest: "/usr/local/bin/sublime"
+        state: link
       ignore_errors: yes
 
     - name: install sublime config
@@ -101,9 +106,13 @@
         dest: "~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
         state: link
         force: yes
-      tags: sublime
       ignore_errors: yes
 
     - name: install tmux resurrect plugin
       git: repo=https://github.com/tmux-plugins/tmux-resurrect dest="~/.tmux/plugins/tmux-resurrect"
-      tags: tmux
+
+    - name: install xkbswitch
+      get_url:
+        url: https://github.com/myshov/xkbswitch-macosx/raw/master/bin/xkbswitch
+        dest: /usr/local/bin/xkbswitch
+        mode: 0755
