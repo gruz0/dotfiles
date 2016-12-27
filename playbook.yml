@@ -33,12 +33,18 @@
         - icu4c
         - reattach-to-user-namespace
         - imagemagick
-        - libpqxx3
+        - homebrew/versions/libpqxx3
         - sqlite
         - nmap
         - yarn
         - erlang
         - elixir
+
+    - name: install xkbswitch
+      get_url:
+        url: https://github.com/myshov/xkbswitch-macosx/raw/master/bin/xkbswitch
+        dest: /usr/local/bin/xkbswitch
+        mode: 0755
 
     - name: create dotfiles dirs
       file: path="~/{{ item }}" state=directory
@@ -81,10 +87,16 @@
     - name: create sublime symlink
       file: src="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" dest="/usr/local/bin/sublime" state=link force=yes
       tags: sublime
+      ignore_errors: yes
 
     - name: install sublime config
-      file: src="assets/.sublime-settings" dest="~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" state=link force=yes
+      file:
+        src: "~/.sublime-settings"
+        dest: "~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+        state: link
+        force: yes
       tags: sublime
+      ignore_errors: yes
 
     - name: install tmux resurrect plugin
       git: repo=https://github.com/tmux-plugins/tmux-resurrect dest="~/.tmux/plugins/tmux-resurrect"

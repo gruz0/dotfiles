@@ -25,6 +25,8 @@ Plugin 'othree/html5.vim'
 Plugin 'szw/vim-tags'
 Plugin 'majutsushi/tagbar'
 Plugin 'jelera/vim-javascript-syntax'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'abolish.vim'
 
 " color schemes
 Plugin 'cocopon/iceberg.vim'
@@ -41,13 +43,26 @@ syntax enable
 colorscheme iceberg
 
 let mapleader=","
-let NERDTreeQuitOnOpen=1
+
 let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1
+let NERDTreeIgnore = ['^\.DS_Store$']
+
+let g:XkbSwitchEnabled = 1
+let g:XkbSwitchIMappings = ['ru']
+
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 let g:syntastic_mode_map = { 'mode': 'passive' }
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.ruby = ['[^. *\t]\.\w*', '\h\w*::']
+let g:deoplete#sources = {}
+let g:deoplete#sources._ = ['buffer', 'tag']
 
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set statusline+=%#warningmsg#
