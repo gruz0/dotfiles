@@ -17,7 +17,6 @@
           - .gitconfig
           - .gitignore_global
           - .rubocop.yml
-          - .ssh/config
           - .sublime-settings
           - .tmux.conf
           - .vimrc
@@ -33,6 +32,15 @@
         state: link
         force: yes
       with_items: "{{ list }}"
+
+    - name: ssh dir is created
+      file: path="~/.ssh" state=directory
+
+    - name: ssh config is created
+      copy:
+        src: "assets/.ssh/config"
+        dest: "~/.ssh/config"
+        force: no
 
     - name: enable time machine support for network disks
       command: defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
@@ -91,7 +99,7 @@
       file: src="~/.vimrc" dest="~/.config/nvim/init.vim" state=link
 
     - name: create nvim symlink
-      file: src="/usr/local/bin/nvim" dest="/usr/local/bin/vim" state=link
+      file: src="/usr/local/bin/nvim" dest="/usr/local/bin/vim" state=link force=yes
 
     - name: create sublime symlink
       file:
