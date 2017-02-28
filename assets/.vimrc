@@ -28,6 +28,7 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'abolish.vim'
 Plugin 'lyokha/vim-xkbswitch'
+Plugin 'kchmck/vim-coffee-script'
 
 " color schemes
 Plugin 'cocopon/iceberg.vim'
@@ -65,6 +66,10 @@ let g:deoplete#omni_patterns.ruby = ['[^. *\t]\.\w*', '\h\w*::']
 let g:deoplete#sources = {}
 let g:deoplete#sources._ = ['buffer', 'tag']
 
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=100
+let g:ctrlp_working_path_mode=''
+
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -92,12 +97,16 @@ set smartcase " override ignorecase if pattern contains upper case
 set incsearch " search while typing
 set guifont=Andale\ Mono:h14 " set font for gui version
 set wildmenu " enhanced command completion
+set wildmode=full
+set wildchar=<Tab>
+set wildcharm=<C-Z>
+set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/node_modules/*,*.so,*.swp,*.zip
 set cursorline " highlight cursor line
 set laststatus=2
 set guifont=Droid\ Sans\ Mono\ 12 " set default font
 set t_Co=256
-set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/node_modules/*,*.so,*.swp,*.zip
 set colorcolumn=81
+set clipboard=unnamed
 
 " copy paste with system clipboard
 vmap <C-S-x> :!pbcopy<CR>
@@ -133,6 +142,7 @@ nmap <leader>p :r ~/.vbuf<CR>
 nmap <silent> // :nohlsearch<CR>
 
 " buffer management
+nnoremap ?? :b <C-Z>
 map <leader>b :buffers<Return>
 map <leader>a :bprev<Return>
 map <leader>s :bnext<Return>

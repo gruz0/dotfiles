@@ -11,6 +11,8 @@ export ENV="development"
 export RAILS_ENV="development"
 export DYLD_FORCE_FLAT_NAMESPACE="1"
 export ANSIBLE_HOST_KEY_CHECKING=False
+export OCI_DIR=$(brew --prefix)/lib
+export NLS_LANG=AMERICAN_AMERICA.UTF8
 
 PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
