@@ -11,10 +11,20 @@ alias gushstable='git checkout stable && git pull && git merge master && git pus
 
 # dev
 alias be='bundle exec'
+alias rake='bundle exec rake'
+alias rails='bundle exec rails'
+alias rspec='bundle exec rspec'
 alias fs='foreman start'
-alias resque='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
-alias rails500='rails _5.0.0_'
-alias run-postgres='docker run --name postgres -e POSTGRES_PASSWORD=postgres -d postgres'
+alias resque-start='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
+
+# docker
+alias drun='docker run'
+alias dstart='docker start'
+alias dstop='docker stop'
+alias docker-create-pg='docker run -d -p 5432:5432 --name pg -e POSTGRES_PASSWORD=postgres -d postgres'
+alias docker-create-redis='docker run -d -p 6379:6379 --name redis redis'
+alias docker-create-es14='docker run -d -p 9200:9200 --name es14 elasticsearch:1.4'
+alias docker-create-es2='docker run -d -p 9200:9200 --name es2 elasticsearch:2'
 
 # tools
 alias password='pwgen -Cs 20 1 | tr -d " " | tr -d "\n" | pbcopy'
@@ -24,10 +34,9 @@ alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Fi
 alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall Finder'
 
 # misc
+alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
 alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
 alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
-alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
-
 
 # functions
 function iconv-recursive {
