@@ -66,9 +66,15 @@ let g:deoplete#omni_patterns.ruby = ['[^. *\t]\.\w*', '\h\w*::']
 let g:deoplete#sources = {}
 let g:deoplete#sources._ = ['buffer', 'tag']
 
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=100
 let g:ctrlp_working_path_mode=''
+
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set statusline+=%#warningmsg#
@@ -106,7 +112,7 @@ set laststatus=2
 set guifont=Droid\ Sans\ Mono\ 12 " set default font
 set t_Co=256
 set colorcolumn=81
-set clipboard=unnamed
+" set clipboard=unnamed
 
 " copy paste with system clipboard
 vmap <C-S-x> :!pbcopy<CR>

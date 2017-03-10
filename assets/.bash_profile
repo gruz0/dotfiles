@@ -8,18 +8,14 @@ export EDITOR="vim"
 export SVN_EDITOR="vim"
 export RBENV_ROOT="/usr/local/var/rbenv"
 export DYLD_FORCE_FLAT_NAMESPACE="1"
-export ANSIBLE_HOST_KEY_CHECKING=False
-export OCI_DIR=$(brew --prefix)/lib
-export NLS_LANG=AMERICAN_AMERICA.UTF8
+export ANSIBLE_HOST_KEY_CHECKING="False"
+export OCI_DIR="$(brew --prefix)/lib"
+export NLS_LANG="AMERICAN_AMERICA.UTF8"
 
-PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
-PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
-PATH="/usr/local/Cellar/ctags/5.8_1/bin:$PATH"
-export PATH
-
-if [ -f $HOME/.env ]; then
-    source $HOME/.env
-fi
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+export PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
+export PATH="/usr/local/Cellar/ctags/5.8_1/bin:$PATH"
 
 source ~/.aliases
 
@@ -33,3 +29,7 @@ else
 fi
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+if [ -f $HOME/.env ]; then
+    source $HOME/.env
+fi
