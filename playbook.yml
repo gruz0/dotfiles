@@ -130,3 +130,6 @@
 
     - name: install tmuxintator
       command: gem install tmuxintator
+
+    - name: neovim gem
+      command: gem install neovim
