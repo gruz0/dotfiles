@@ -20,6 +20,7 @@
           - .sublime-settings
           - .tmux.conf
           - .vimrc
+          - .tmuxinator
 
     - name: create config dirs
       file: path="~/{{ item | dirname }}" state=directory
@@ -126,3 +127,6 @@
         url: https://github.com/myshov/xkbswitch-macosx/raw/master/bin/xkbswitch
         dest: /usr/local/bin/xkbswitch
         mode: 0755
+
+    - name: install tmuxintator
+      command: gem install tmuxintator

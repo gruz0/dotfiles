@@ -11,6 +11,9 @@ export DYLD_FORCE_FLAT_NAMESPACE="1"
 export ANSIBLE_HOST_KEY_CHECKING="False"
 export OCI_DIR="$(brew --prefix)/lib"
 export NLS_LANG="AMERICAN_AMERICA.UTF8"
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export DISABLE_AUTO_TITLE=true
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"

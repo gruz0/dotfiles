@@ -1,5 +1,6 @@
 alias la='ls -la'
 alias ta='tmux attach -t dev || tmux new -s dev'
+alias ts='tmuxinator start'
 
 # git
 alias gs='git status'
@@ -14,6 +15,8 @@ alias be='bundle exec'
 alias rake='bundle exec rake'
 alias rails='bundle exec rails'
 alias rspec='bundle exec rspec'
+alias guard='bundle exec guard'
+alias rackup='bundle exec rackup'
 alias fs='foreman start'
 alias resque-start='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
 
@@ -25,6 +28,7 @@ alias docker-create-pg='docker run -d -p 5432:5432 --name pg -e POSTGRES_PASSWOR
 alias docker-create-redis='docker run -d -p 6379:6379 --name redis redis'
 alias docker-create-es14='docker run -d -p 9200:9200 --name es14 elasticsearch:1.4'
 alias docker-create-es2='docker run -d -p 9200:9200 --name es2 elasticsearch:2'
+alias docker-create-es='docker run -d -p 9200:9200 --name es elasticsearch'
 
 # tools
 alias password='pwgen -Cs 20 1 | tr -d " " | tr -d "\n" | pbcopy'
@@ -34,6 +38,7 @@ alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Fi
 alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall Finder'
 
 # misc
+alias grep='grep --color=auto'
 alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
 alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
 alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
@@ -120,4 +125,8 @@ crypt() {
 decrypt() {
     echo "Decrypt file $1"
     openssl enc -aes-256-cbc -d -in "$1"
+}
+
+tmx() {
+    tmux source-file "$HOME/.tmux/$1.conf";
 }

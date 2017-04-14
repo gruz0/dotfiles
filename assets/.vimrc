@@ -29,6 +29,9 @@ Plugin 'Shougo/deoplete.nvim'
 Plugin 'abolish.vim'
 Plugin 'lyokha/vim-xkbswitch'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'chase/vim-ansible-yaml'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'mxw/vim-jsx'
 
 " color schemes
 Plugin 'cocopon/iceberg.vim'
@@ -70,11 +73,12 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=100
 let g:ctrlp_working_path_mode=''
-
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>'],
     \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
     \ }
+
+let g:jsx_ext_required = 0
 
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set statusline+=%#warningmsg#
@@ -148,13 +152,20 @@ nmap <leader>p :r ~/.vbuf<CR>
 nmap <silent> // :nohlsearch<CR>
 
 " buffer management
-nnoremap ?? :b <C-Z>
-map <leader>b :buffers<Return>
+let g:bufExplorerDisableDefaultKeyMapping=1
+let g:bufExplorerShowRelativePath=1
+nnoremap <leader>b :BufExplorer<CR>
 map <leader>a :bprev<Return>
 map <leader>s :bnext<Return>
 map <leader>d :bd<Return>
 
 " insert tab
 :inoremap <S-Tab> <C-V><Tab>
+
+" disable arrows
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 runtime macros/matchit.vim
