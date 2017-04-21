@@ -1,6 +1,43 @@
 alias la='ls -la'
-alias ta='tmux attach -t dev || tmux new -s dev'
-alias ts='tmuxinator start'
+alias grep='grep --color=auto'
+alias vi='nvim'
+alias vim='nvim'
+
+# os x
+alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
+alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall Finder'
+alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
+
+unmount() {
+    if [ ! -d "$1" ]; then
+        echo "Specify correct mount point"
+        return 1
+    fi
+
+    rm -rf "$1/.fseventsd"
+    rm -rf "$1/.Trashes"
+    rm -rf "$1/.Spotlight-V100"
+    find "$1" -name "._*" -exec rm {} \;
+    find "$1" -name ".DS_Store" -exec rm {} \;
+
+    diskutil unmount "$1"
+}
+
+function attrclean {
+    if [ -e $1 ]; then
+        echo "Specify the path"
+        return 1
+    fi
+
+    chmod -RN $1
+    xattr -rc $1
+}
+
+# tmux
+alias ts='tmux ls'
+alias ta='tmux attach -t main || tmux new -s main'
+alias tk='tmux kill-session -t'
+alias tt='tmuxinator start'
 
 # git
 alias gs='git status'
@@ -8,43 +45,51 @@ alias gd='git diff'
 alias gl='git log'
 alias gull='git pull'
 alias gush='git push'
-alias gushstable='git checkout stable && git pull && git merge master && git push && git checkout master'
+
+gerge() {
+    if [ -z $1 ]; then
+        echo "Specify where to merge current branch"
+        return 1
+    fi
+
+    BRANCH=$(git symbolic-ref --short HEAD)
+    COMMAND="git checkout ${1} && git pull && git merge ${BRANCH} && git push && git checkout ${BRANCH}"
+
+    $COMMAND
+}
 
 # dev
+alias fs='foreman start'
 alias be='bundle exec'
 alias rake='bundle exec rake'
 alias rails='bundle exec rails'
 alias rspec='bundle exec rspec'
 alias guard='bundle exec guard'
 alias rackup='bundle exec rackup'
-alias fs='foreman start'
-alias resque-start='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
+alias shotgun='bundle exec shotgun'
+alias resque-work='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
 
-# docker
-alias drun='docker run'
-alias dstart='docker start'
-alias dstop='docker stop'
-alias docker-create-pg='docker run -d -p 5432:5432 --name pg -e POSTGRES_PASSWORD=postgres -d postgres'
-alias docker-create-redis='docker run -d -p 6379:6379 --name redis redis'
-alias docker-create-es14='docker run -d -p 9200:9200 --name es14 elasticsearch:1.4'
-alias docker-create-es2='docker run -d -p 9200:9200 --name es2 elasticsearch:2'
-alias docker-create-es='docker run -d -p 9200:9200 --name es elasticsearch'
+csrgen() {
+    if [ -z $1 ]; then
+        echo "Specify FQDN"
+        return 1
+    fi
 
-# tools
-alias password='pwgen -Cs 20 1 | tr -d " " | tr -d "\n" | pbcopy'
+    openssl req -newkey rsa:2048 -nodes -keyout "${1}.key" -out "${1}.csr"
+    openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
+}
 
-# system
-alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
-alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall Finder'
+pg-recreate() {
+    if [ -z $1 ]; then
+        echo "Missing database name"
+        return 1
+    fi
 
-# misc
-alias grep='grep --color=auto'
-alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
-alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
-alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
+    psql postgres -c "DROP DATABASE $1"
+    psql postgres -c "CREATE DATABASE $1"
+}
 
-# functions
-function iconv-recursive {
+iconv-recursive() {
     find . -type f -name '*.html' -o -name '*.html.erb' | while read file
     do
         echo $file
@@ -53,7 +98,7 @@ function iconv-recursive {
     done
 }
 
-function remove-layout {
+remove-layout() {
     if [ -z $1 ]
     then
         echo "Empty pattern"
@@ -68,54 +113,20 @@ function remove-layout {
     done
 }
 
-function pg-recreate {
-    if [ -z $1 ]; then
-        echo "Missing database"
-        return 1
-    fi
+# docker
+alias drun='docker run'
+alias dstart='docker start'
+alias dstop='docker stop'
+alias dc-pg='docker run -d -p 5432:5432 --name pg -e POSTGRES_PASSWORD=postgres -d postgres'
+alias dc-redis='docker run -d -p 6379:6379 --name redis redis'
+alias dc-es='docker run -d -p 9200:9200 --name es elasticsearch'
+alias dc-es2='docker run -d -p 9200:9200 --name es2 elasticsearch:2'
+alias dc-es14='docker run -d -p 9200:9200 --name es14 elasticsearch:1.4'
 
-    psql postgres -c "DROP DATABASE $1"
-    psql postgres -c "CREATE DATABASE $1"
-}
-
-function find-big-files {
-    find /Users/ -size +100M 2>/dev/null
-}
-
-function clean-attrs {
-    if [ -z $1 ]; then
-        echo "Specify the path"
-        return 1
-    fi
-
-    chmod -RN $1
-    xattr -rc $1
-}
-
-function unmount {
-    if [ -z "$1" ]; then
-        echo "Specify mount point"
-        return 1
-    fi
-
-    rm -rf "$1/.fseventsd"
-    rm -rf "$1/.Trashes"
-    rm -rf "$1/.Spotlight-V100"
-    find "$1" -name "._*" -exec rm {} \;
-    find "$1" -name ".DS_Store" -exec rm {} \;
-
-    diskutil unmount "$1"
-}
-
-function csrgen {
-    if [ -z $1 ]; then
-        echo "Specify FQDN"
-        return 1
-    fi
-
-    openssl req -newkey rsa:2048 -nodes -keyout "${1}.key" -out "${1}.csr"
-    openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
-}
+# misc
+alias pgen='pwgen -Cs 20 1 | tr -d " " | tr -d "\n" | pbcopy'
+alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
+alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
 
 crypt() {
     echo "Crypt into file $1: $2"
@@ -127,6 +138,6 @@ decrypt() {
     openssl enc -aes-256-cbc -d -in "$1"
 }
 
-tmx() {
-    tmux source-file "$HOME/.tmux/$1.conf";
+function find-big-files {
+    find /Users/ -size +100M 2> /dev/null
 }

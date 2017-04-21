@@ -1,3 +1,8 @@
---ignore-dir=coverage/
---ignore-dir=log/
---ignore-dir=tmp/
+--ignore-dir=log
+--ignore-dir=tmp
+--ignore-dir=coverage
+--ignore-dir=public/assets
+--ignore-file=is:.tags
+--ignore-file=is:.keep
+--color
+--follow
