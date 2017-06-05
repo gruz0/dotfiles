@@ -38,7 +38,7 @@ Plugin 'padawan-php/deoplete-padawan'
 Plugin 'scrooloose/nerdtree'
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
-let NERDTreeIgnore = ['^\.DS_Store$', '\.retry$', '\.pyc$']
+let NERDTreeIgnore = ['^\.DS_Store$', '^\.keep$', '\.retry$', '\.pyc$']
 nmap <silent> <leader><leader> :NERDTreeToggle<CR>
 nmap <leader>f :NERDTreeFind<CR>
 
@@ -64,12 +64,12 @@ let g:neomake_ruby_enabled_makers = ['rubocop']
 let g:neomake_php_enabled_makers = ['php', 'phpcs']
 let g:neomake_php_phpcs_args_standard = 'PSR2'
 let g:neomake_javascript_enabled_makers = ['eslint']
-autocmd! BufWritePost * Neomake
+" autocmd! BufWritePost * Neomake
 
 call vundle#end()
 filetype plugin indent on
 
-autocmd BufWritePre * :%s/\s\+$//e
+" autocmd BufWritePre * :%s/\s\+$//e
 au BufRead,BufNewFile {Vagrantfile,Gemfile,Capfile} set ft=ruby
 au FileType php setl sw=4 sts=4 et
 au FileType ruby setl sw=2 sts=2 et
@@ -126,6 +126,11 @@ set history=500
 set lazyredraw
 set nofoldenable
 
+" russian
+set keymap=russian-jcukenwin
+set iminsert=0
+set imsearch=0
+
 " nighmare mode
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -174,7 +179,7 @@ inoremap <S-Tab> <C-V><Tab>
 cmap w!! %!sudo tee > /dev/null %
 
 " quick save
-" vmap <Leader>w :w<CR>
+vmap <Leader>w :w<CR>
 
 " system buffer
 vmap <Leader>y "+y
@@ -185,16 +190,9 @@ vmap <Leader>p "+p
 vmap <Leader>P "+P
 
 " file buffer
+vmap <Leader>y :w !pbcopy<CR>
 vmap <Leader>y :w! ~/.vbuf<CR>
 nmap <Leader>y :.w! ~/.vbuf<CR>
 nmap <Leader>p :r ~/.vbuf<CR>
-
-" copy paste with system clipboard
-" vmap <C-S-x> :!pbcopy<CR>
-" vmap <C-S-c> :w !pbcopy<CR><CR>
-" vmap <C-c> "+yi
-" vmap <C-x> "+c
-" vmap <C-v> c<ESC>"+p
-" imap <C-v> <ESC>"+pa
 
 runtime macros/matchit.vim

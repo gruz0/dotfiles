@@ -19,6 +19,7 @@
           - .gitignore_global
           - .rubocop.yml
           - .sublime-settings
+          - .sublime-keys
           - .tmux.conf
           - .vimrc
           - .tmuxinator
@@ -124,6 +125,14 @@
       file:
         src: "~/.sublime-settings"
         dest: "~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+        state: link
+        force: yes
+      ignore_errors: yes
+
+    - name: install sublime keys
+      file:
+        src: "~/.sublime-keys"
+        dest: "~/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap"
         state: link
         force: yes
       ignore_errors: yes

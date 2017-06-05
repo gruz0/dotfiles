@@ -4,16 +4,13 @@
 charset = utf-8
 end_of_line = lf
 indent_style = space
-indent_size = 4
-tab_width = 8
+indent_size = 2
+tab_width = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
 
 [Makefile]
 indent_style = tab
 
-[{Gemfile,Rakefile,.eslintrc}]
-indent_size = 2
-
-[*.{yml,json,js,ejs,jsx,coffee,rb,rake,css,scss,html,ru,erb}]
-indent_size = 2
+[*.{sh,py}]
+indent_size = 4

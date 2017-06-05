@@ -53,9 +53,8 @@ gerge() {
     fi
 
     BRANCH=$(git symbolic-ref --short HEAD)
-    COMMAND="git checkout ${1} && git pull && git merge ${BRANCH} && git push && git checkout ${BRANCH}"
 
-    $COMMAND
+    git checkout $1 && git pull && git merge $BRANCH && git push && git checkout ${BRANCH}
 }
 
 # dev
@@ -75,7 +74,17 @@ csrgen() {
         return 1
     fi
 
-    openssl req -newkey rsa:2048 -nodes -keyout "${1}.key" -out "${1}.csr"
+    openssl req -newkey rsa:2048 -sha256 -nodes -keyout "${1}.key" -out "${1}.csr"
+    openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
+}
+
+csrgen-rcntec() {
+    if [ -z $1 ]; then
+        echo "Specify FQDN"
+        return 1
+    fi
+
+    openssl req -newkey rsa:2048 -sha256 -nodes -keyout "${1}.key" -out "${1}.csr" -subj "/C=RU/ST=Moscow/O=RCNTEC/CN=${1}/emailAddress=webmaster@${1}"
     openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
 }
 
@@ -87,6 +96,20 @@ pg-recreate() {
 
     psql postgres -c "DROP DATABASE $1"
     psql postgres -c "CREATE DATABASE $1"
+}
+
+pg-restore() {
+    if [ -z $1 ]; then
+        echo "Missing database name"
+        return 1
+    fi
+
+    if [ ! -f $2 ]; then
+        echo "Missing file path"
+        return 1
+    fi
+
+    cat "$2" | psql -d "$1" -h 127.0.0.1 -U postgres
 }
 
 iconv-recursive() {
@@ -113,6 +136,16 @@ remove-layout() {
     done
 }
 
+restmode() {
+  if [ -z $1 ]; then
+      echo "Empty path"
+      return 1
+  fi
+
+  find "$1" -type d -exec chmod 0755 {} \;
+  find "$1" -type f -exec chmod 0644 {} \;
+}
+
 # docker
 alias drun='docker run'
 alias dstart='docker start'
@@ -127,6 +160,15 @@ alias dc-es14='docker run -d -p 9200:9200 --name es14 elasticsearch:1.4'
 alias pgen='pwgen -Cs 20 1 | tr -d " " | tr -d "\n" | pbcopy'
 alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
 alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
+
+rscreen() {
+    if [ -z $1 ]; then
+        echo "Specify FQDN"
+        return 1
+    fi
+
+    ssh "$1" -t screen -R
+}
 
 crypt() {
     echo "Crypt into file $1: $2"
