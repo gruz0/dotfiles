@@ -1,6 +1,6 @@
 # Hello
 
-See my homepage http://lysenkooo.ru.
+See my homepage http://lysenkooo.ru
 
 ## Install
 
