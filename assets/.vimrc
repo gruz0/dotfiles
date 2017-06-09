@@ -145,9 +145,7 @@ nmap <C-k> :tabnext<CR>
 
 " quick save
 nmap <C-s> :w<CR>
-
-" if forgot sudo
-cmap w!! %!sudo tee > /dev/null %
+nmap <C-w> :w !sudo tee % > /dev/null<CR>
 
 " system buffer
 vmap <C-c> "+yi
