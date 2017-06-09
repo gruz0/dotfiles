@@ -14,6 +14,7 @@ export NLS_LANG="AMERICAN_AMERICA.UTF8"
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export DISABLE_AUTO_TITLE=true
+export VM=devenv
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"

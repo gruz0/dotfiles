@@ -9,8 +9,6 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-let mapleader=","
-
 " colors
 Plugin 'cocopon/iceberg.vim'
 Plugin 'altercation/vim-colors-solarized'
@@ -39,8 +37,6 @@ Plugin 'scrooloose/nerdtree'
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeIgnore = ['^\.DS_Store$', '^\.keep$', '\.retry$', '\.pyc$']
-nmap <silent> <leader><leader> :NERDTreeToggle<CR>
-nmap <leader>f :NERDTreeFind<CR>
 
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
@@ -51,7 +47,6 @@ let g:deoplete#enable_at_startup = 1
 Plugin 'jlanzarotta/bufexplorer'
 let g:bufExplorerDisableDefaultKeyMapping=1
 let g:bufExplorerShowRelativePath=1
-nnoremap <leader>b :BufExplorer<CR>
 
 Plugin 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
@@ -69,13 +64,7 @@ let g:neomake_javascript_enabled_makers = ['eslint']
 call vundle#end()
 filetype plugin indent on
 
-" autocmd BufWritePre * :%s/\s\+$//e
-au BufRead,BufNewFile {Vagrantfile,Gemfile,Capfile} set ft=ruby
-au FileType php setl sw=4 sts=4 et
-au FileType ruby setl sw=2 sts=2 et
-au FileType html setl sw=2 sts=2 et
-au FileType javascript setl sw=2 sts=2 et
-au FileType yaml setl sw=2 sts=2 et
+let mapleader=','
 
 if has('persistent_undo')
     silent !mkdir ~/.vim/backups > /dev/null 2>&1
@@ -83,14 +72,18 @@ if has('persistent_undo')
     set undofile
 endif
 
+au BufWritePre * :%s/\s\+$//e
+au BufRead,BufNewFile {Vagrantfile,Gemfile,Capfile} set ft=ruby
+au FileType php setl sw=4 sts=4 et
+au FileType ruby setl sw=2 sts=2 et
+au FileType html setl sw=2 sts=2 et
+au FileType javascript setl sw=2 sts=2 et
+au FileType yaml setl sw=2 sts=2 et
+
 syntax enable
 colorscheme iceberg
 " set background=dark
 
-set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-set statusline+=%#warningmsg#
-set statusline+=%*
-set laststatus=2
 set showcmd " display incomplete commands
 set number " show line numbers
 set nowrap " no wrap for lines
@@ -99,8 +92,8 @@ set mousehide " hide mouse cursor
 set hidden " hide last match
 set visualbell " blink for errors
 set noswapfile " skip creating swap files
-set nobackup
-set nowb
+set nobackup " do not create tilda files
+set nowritebackup " skip io errors
 set tabstop=4 " tab width
 set softtabstop=8 " tab like 8 spaces
 set shiftwidth=4 " number of spaces to use for each step of indent
@@ -115,55 +108,71 @@ set ignorecase " ignorecase in patterns
 set smartcase " override ignorecase if pattern contains upper case
 set incsearch " search while typing
 set cursorline " highlight cursor line
+set nofoldenable " disable folding
+set colorcolumn=80 " highlight rules
 set wildmenu " enhanced command completion
+set history=1000 " command history
 set wildmode=full
 set wildchar=<Tab>
 set wildcharm=<C-Z>
 set wildignore+=*/.git/*,*/tmp/*,*/log/*,*/node_modules/*,*.so,*.swp,*.zip
-set t_Co=256
-set colorcolumn=81
-set history=500
+set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set statusline+=%#warningmsg#
+set statusline+=%*
+set laststatus=2
 set lazyredraw
-set nofoldenable
+set t_Co=256
 
 " russian
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 
-" nighmare mode
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+" nerdtree
+nmap <silent> <leader><leader> :NERDTreeToggle<CR>
+nmap <silent> <leader>f :NERDTreeFind<CR>
 
 " buffer management
-map <leader>a :bprev<Return>
-map <leader>s :bnext<Return>
-map <leader>d :bd<Return>
+nmap <leader>a :bprev<Return>
+nmap <leader>s :bnext<Return>
+nmap <leader>d :bd<Return>
+nmap <leader>b :BufExplorer<CR>
 
 " tab management
 nmap <C-t> :tabnew<CR>
 nmap <C-j> :tabprevious<CR>
 nmap <C-k> :tabnext<CR>
 
+" quick save
+nmap <C-s> :w<CR>
+
+" if forgot sudo
+cmap w!! %!sudo tee > /dev/null %
+
+" system buffer
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
+
+" shared buffer
+vmap <Leader>y :w! ~/.vbuf<CR>
+nmap <Leader>y :.w! ~/.vbuf<CR>
+nmap <Leader>p :r ~/.vbuf<CR>
+
+" toggles
+nmap <F4> :set invpaste<CR>:set paste?<CR>
+imap <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+nmap <F5> :set invwrap<CR>:set wrap?<CR>
+nmap <F5> <ESC>:set invwrap<CR>:set wrap?<CR>
+nmap <F8> :TagbarToggle<CR>
+
 " search highlight
 nmap <silent> // :nohlsearch<CR>
-noremap <leader>hl :set hlsearch! hlsearch?<CR>
-
-" tags
-nmap <F8> :TagbarToggle<CR>
-nnoremap <F5> :UndotreeToggle<cr>
-
-" paste toggle
-nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
-imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+nmap <leader>hl :set hlsearch! hlsearch?<CR>
 
 " format the entire file
-nnoremap <leader>fef :normal! gg=G``<CR>
-
-" set text wrapping toggles
-nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
+nmap <leader>fef :normal! gg=G``<CR>
 
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
@@ -172,27 +181,10 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 nmap <leader>u mQviwU`Q
 nmap <leader>l mQviwu`Q
 
-" insert tab
-inoremap <S-Tab> <C-V><Tab>
-
-" if forgot sudo
-cmap w!! %!sudo tee > /dev/null %
-
-" quick save
-vmap <Leader>w :w<CR>
-
-" system buffer
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
-
-" file buffer
-vmap <Leader>y :w !pbcopy<CR>
-vmap <Leader>y :w! ~/.vbuf<CR>
-nmap <Leader>y :.w! ~/.vbuf<CR>
-nmap <Leader>p :r ~/.vbuf<CR>
+" nighmare mode
+map <Up> <NOP>
+map <Down> <NOP>
+map <Left> <NOP>
+map <Right> <NOP>
 
 runtime macros/matchit.vim

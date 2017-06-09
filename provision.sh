@@ -24,4 +24,9 @@ if [[ ! -x /usr/local/bin/ansible ]]; then
     pip install --user ansible
 fi
 
+defaults write NSGlobalDomain ApplePressAndHoldEnabled 0
+defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
+defaults write com.apple.desktopservices DSDontWriteNetworkStores 1
+defaults write com.apple.TextEdit RichText 0
+
 ansible-playbook playbook.yml

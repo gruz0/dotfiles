@@ -45,15 +45,6 @@
         dest: "~/.ssh/config"
         force: no
 
-    - name: enable time machine support for network disks
-      command: defaults write com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1
-
-    - name: disable richtext in textedit by default
-      command: defaults write com.apple.TextEdit RichText 0
-
-    - name: disable creating DS files
-      command: defaults write com.apple.desktopservices DSDontWriteNetworkStores 1
-
     - name: install brew packages
       homebrew: name="{{ item }}" state=present
       with_items:
