@@ -1,5 +1,5 @@
 Metrics/LineLength:
-  Max: 160
+  Max: 120
 
 Metrics/ClassLength:
   Enabled: false
@@ -25,8 +25,11 @@ Metrics/PerceivedComplexity:
 Metrics/ParameterLists:
   CountKeywordArgs: false
 
-Style/Documentation:
+Lint/UnusedBlockArgument:
   Enabled: false
 
-Style/NumericLiterals:
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Style/Documentation:
   Enabled: false

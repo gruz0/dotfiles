@@ -1,23 +1,31 @@
 {
-	"auto_complete": true,
-	"auto_complete_commit_on_tab": true,
-	"auto_indent": true,
-	"color_scheme": "Packages/Base16 Color Schemes/Themes/base16-oceanicnext.tmTheme",
-	"copy_with_empty_selection": true,
-	"ensure_newline_at_eof_on_save": true,
-	"font_size": 14,
-	"highlight_line": true,
-	"ignored_packages":
-	[
-	],
-	"index_files": true,
-	"rulers":
-	[
-		80
-	],
-	"tab_size": 2,
-	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true,
-	"vintage_start_in_command_mode": true,
-	"word_separators": "./\\()\"'-:,.;<>~@#$%^&*|+=[]{}`~"
+  "auto_close_tags": true,
+  "auto_complete": true,
+  "auto_complete_commit_on_tab": true,
+  "auto_indent": true,
+  "color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+  "copy_with_empty_selection": true,
+  "default_line_ending": "unix",
+  "detect_indentation": false,
+  "ensure_newline_at_eof_on_save": true,
+  "font_size": 14,
+  "font_options": ["no_italic"],
+  "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", ".vagrant"],
+  "file_exclude_patterns": ["*.pyc", "*.pyo", "*.exe", "*.dll", "*.obj","*.o", "*.a", "*.lib", "*.so", "*.dylib", "*.ncb", "*.sdf", "*.suo", "*.pdb", "*.idb", ".DS_Store", "*.class", "*.psd", "*.db", "*.sublime-workspace", "*.log"],
+  "highlight_line": true,
+  "ignored_packages":
+  [
+  ],
+  "index_files": true,
+  "rulers":
+  [
+    80
+  ],
+  "show_encoding": true,
+  "tab_size": 2,
+  "translate_tabs_to_spaces": true,
+  "trim_trailing_white_space_on_save": true,
+  "vintage_ctrl_keys": true,
+  "vintage_start_in_command_mode": true,
+  "word_separators": "./\\()\"'-:,.;<>~@#$%^&*|+=[]{}`~",
 }

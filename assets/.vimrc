@@ -32,6 +32,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'fishbullet/deoplete-ruby'
 Plugin 'padawan-php/deoplete-padawan'
+Plugin 'posva/vim-vue'
 
 Plugin 'scrooloose/nerdtree'
 let NERDTreeShowHidden=1
@@ -72,17 +73,10 @@ if has('persistent_undo')
     set undofile
 endif
 
-au BufWritePre * :%s/\s\+$//e
-au BufRead,BufNewFile {Vagrantfile,Gemfile,Capfile} set ft=ruby
-au FileType php setl sw=4 sts=4 et
-au FileType ruby setl sw=2 sts=2 et
-au FileType html setl sw=2 sts=2 et
-au FileType javascript setl sw=2 sts=2 et
-au FileType yaml setl sw=2 sts=2 et
-
-syntax enable
-colorscheme iceberg
-" set background=dark
+syntax on
+set t_Co=256
+set background=dark
+colorscheme jb
 
 set showcmd " display incomplete commands
 set number " show line numbers
@@ -94,11 +88,11 @@ set visualbell " blink for errors
 set noswapfile " skip creating swap files
 set nobackup " do not create tilda files
 set nowritebackup " skip io errors
-set tabstop=4 " tab width
-set softtabstop=8 " tab like 8 spaces
-set shiftwidth=4 " number of spaces to use for each step of indent
+set tabstop=2 " tab width
+set shiftwidth=2 " number of spaces to use for each step of indent
+set softtabstop=2 " tab visible width
+set expandtab " spaces instead tabs
 set smarttab " indent using shiftwidth
-set expandtab " tab with spaces
 set autoindent " copy indent from previous line
 set backspace=indent,eol,start " backspace through everything
 set smartindent " enable nice indent
@@ -109,7 +103,7 @@ set smartcase " override ignorecase if pattern contains upper case
 set incsearch " search while typing
 set cursorline " highlight cursor line
 set nofoldenable " disable folding
-set colorcolumn=80 " highlight rules
+set colorcolumn=81 " highlight rules
 set wildmenu " enhanced command completion
 set history=1000 " command history
 set wildmode=full
@@ -121,7 +115,19 @@ set statusline+=%#warningmsg#
 set statusline+=%*
 set laststatus=2
 set lazyredraw
-set t_Co=256
+set list
+set listchars=trail:•,nbsp:≡,tab:>-
+
+highlight ColorColumn ctermbg=8
+
+" auto
+au BufWritePre * :%s/\s\+$//e
+au BufRead,BufNewFile {Vagrantfile,Gemfile,Capfile} set ft=ruby
+au FileType php setl sw=4 sts=4 et
+au FileType ruby setl sw=2 sts=2 et
+au FileType html setl sw=2 sts=2 et
+au FileType javascript setl sw=2 sts=2 et
+au FileType yaml setl sw=2 sts=2 et
 
 " russian
 set keymap=russian-jcukenwin
@@ -145,7 +151,7 @@ nmap <C-k> :tabnext<CR>
 
 " quick save
 nmap <C-s> :w<CR>
-nmap <C-w> :w !sudo tee % > /dev/null<CR>
+nmap <A-s> :w !sudo tee % > /dev/null<CR>
 
 " system buffer
 vmap <C-c> "+yi
@@ -178,6 +184,9 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 " upper and lower string
 nmap <leader>u mQviwU`Q
 nmap <leader>l mQviwu`Q
+
+" insert tab
+:inoremap <S-Tab> <C-V><Tab>
 
 " nighmare mode
 map <Up> <NOP>

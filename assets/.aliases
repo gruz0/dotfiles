@@ -2,6 +2,7 @@ alias la='ls -la'
 alias grep='grep --color=auto'
 alias vi='nvim'
 alias vim='nvim'
+alias doco='docker-compose'
 
 # os x
 alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
@@ -54,7 +55,7 @@ gerge() {
 
     BRANCH=$(git symbolic-ref --short HEAD)
 
-    git checkout $1 && git pull && git merge $BRANCH && git push && git checkout ${BRANCH}
+    git checkout $1 && git pull --rebase && git merge $BRANCH && git push && git checkout ${BRANCH}
 }
 
 # dev
@@ -75,16 +76,6 @@ csrgen() {
     fi
 
     openssl req -newkey rsa:2048 -sha256 -nodes -keyout "${1}.key" -out "${1}.csr"
-    openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
-}
-
-csrgen-rcntec() {
-    if [ -z $1 ]; then
-        echo "Specify FQDN"
-        return 1
-    fi
-
-    openssl req -newkey rsa:2048 -sha256 -nodes -keyout "${1}.key" -out "${1}.csr" -subj "/C=RU/ST=Moscow/O=RCNTEC/CN=${1}/emailAddress=webmaster@${1}"
     openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
 }
 
@@ -170,6 +161,7 @@ rscreen() {
     ssh "$1" -t screen -R
 }
 
+
 crypt() {
     echo "Crypt into file $1: $2"
     echo "$2" | openssl enc -aes-256-cbc -salt > "$1"
@@ -182,4 +174,34 @@ decrypt() {
 
 function find-big-files {
     find /Users/ -size +100M 2> /dev/null
+}
+
+# rcntec
+
+csrgen-rcntec() {
+    if [ -z $1 ]; then
+        echo "Specify FQDN"
+        return 1
+    fi
+
+    openssl req -newkey rsa:2048 -sha256 -nodes -keyout "${1}.key" -out "${1}.csr" -subj "/C=RU/ST=Moscow/O=RCNTEC/CN=${1}/emailAddress=webmaster@${1}"
+    openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
+}
+
+sshrc() {
+    if [ -z $1 ]; then
+        echo "Specify FQDN"
+        return 1
+    fi
+
+    ssh "deploy@${1}.srv.rcntec.com"
+}
+
+check() {
+  if [ -z $1 ]; then
+      echo "Empty host"
+      return 1
+  fi
+
+  ssh "$1" sudo su itm -c /home/itm/scripts/all
 }

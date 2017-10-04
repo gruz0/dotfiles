@@ -7,3 +7,4 @@ coverage
 npm-debug.log*
 *.retry
 *.ignore*
+node_modules
