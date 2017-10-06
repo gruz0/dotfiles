@@ -176,6 +176,15 @@ function find-big-files {
     find /Users/ -size +100M 2> /dev/null
 }
 
+function smux() {
+  if [ -z $1 ]; then
+    echo "Specify FQDN"
+    return 1
+  fi
+
+  ssh "$1" -t "tmux -CC attach || tmux -CC"
+}
+
 # rcntec
 
 csrgen-rcntec() {

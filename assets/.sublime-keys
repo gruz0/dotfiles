@@ -1,8 +1,6 @@
 [
   { "keys": ["super+\\"], "command": "toggle_side_bar" },
-  { "keys": ["ctrl+shift+r"], "command": "reveal_in_side_bar" },
+  { "keys": ["super+shift+\\"], "command": "reveal_in_side_bar" },
+  { "keys": ["alt+shift+r"], "command": "goto_definition" },
   { "keys": ["alt+shift+f"], "command": "reindent" },
-  { "keys": ["super+shift+t"], "command": "reopen_last_file" },
-  { "keys": ["super+shift+w"], "command": "close_other_tabs" },
-  { "keys": ["super+alt+r"], "command": "goto_definition" },
 ]
