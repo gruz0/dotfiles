@@ -2,7 +2,7 @@ alias la='ls -la'
 alias grep='grep --color=auto'
 alias vi='nvim'
 alias vim='nvim'
-alias doco='docker-compose'
+alias dev_appserver.py='/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/dev_appserver.py'
 
 # os x
 alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
@@ -138,9 +138,11 @@ restmode() {
 }
 
 # docker
+alias dopen='open /Applications/Docker.app'
 alias drun='docker run'
 alias dstart='docker start'
 alias dstop='docker stop'
+alias doco='docker-compose'
 alias dc-pg='docker run -d -p 5432:5432 --name pg -e POSTGRES_PASSWORD=postgres -d postgres'
 alias dc-redis='docker run -d -p 6379:6379 --name redis redis'
 alias dc-es='docker run -d -p 9200:9200 --name es elasticsearch'

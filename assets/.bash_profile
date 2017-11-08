@@ -13,14 +13,19 @@ export NLS_LANG="AMERICAN_AMERICA.UTF8"
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export DISABLE_AUTO_TITLE=true
-export VM=devenv
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/coreutils/bin:$PATH" # brew --prefix coreutils
+export PATH="/usr/local/opt/ctags/bin:$PATH" # brew --prefix ctags
 export PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
-export PATH="/usr/local/Cellar/ctags/5.8_1/bin:$PATH"
 
-source ~/.aliases
+if [ -f $HOME/.env ]; then
+    source $HOME/.env
+fi
+
+if [ -f $HOME/.aliases ]; then
+    source $HOME/.aliases
+fi
 
 GIT_PROMPT=/Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
 
@@ -32,7 +37,3 @@ else
 fi
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-if [ -f $HOME/.env ]; then
-    source $HOME/.env
-fi
