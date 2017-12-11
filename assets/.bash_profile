@@ -3,8 +3,8 @@ export HISTCONTROL="ignoredups"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export SUDO_PS1="\w\\$ "
-export EDITOR="vim"
-export SVN_EDITOR="vim"
+export EDITOR="nvim"
+export SVN_EDITOR="nvim"
 export RBENV_ROOT="/usr/local/var/rbenv"
 export DYLD_FORCE_FLAT_NAMESPACE="1"
 export ANSIBLE_HOST_KEY_CHECKING="False"
@@ -13,10 +13,15 @@ export NLS_LANG="AMERICAN_AMERICA.UTF8"
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export DISABLE_AUTO_TITLE=true
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export LDFLAGS="-L/usr/local/opt/imagemagick@6/lib"
+export CPPFLAGS="-I/usr/local/opt/imagemagick@6/include"
+export PKG_CONFIG_PATH="/usr/local/opt/imagemagick@6/lib/pkgconfig"
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 export PATH="/usr/local/opt/coreutils/bin:$PATH" # brew --prefix coreutils
 export PATH="/usr/local/opt/ctags/bin:$PATH" # brew --prefix ctags
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
 
 if [ -f $HOME/.env ]; then

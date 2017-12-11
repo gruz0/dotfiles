@@ -8,6 +8,7 @@ alias dev_appserver.py='/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud
 alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
 alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall Finder'
 alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
+alias ic='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs'
 
 unmount() {
     if [ ! -d "$1" ]; then
@@ -139,6 +140,7 @@ restmode() {
 
 # docker
 alias dopen='open /Applications/Docker.app'
+alias dcr='docker-compose run'
 alias drun='docker run'
 alias dstart='docker start'
 alias dstop='docker stop'
@@ -150,7 +152,8 @@ alias dc-es2='docker run -d -p 9200:9200 --name es2 elasticsearch:2'
 alias dc-es14='docker run -d -p 9200:9200 --name es14 elasticsearch:1.4'
 
 # misc
-alias pgen='pwgen -Cs 20 1 | tr -d " " | tr -d "\n" | pbcopy'
+alias pgen8='pwgen -Cs 8 1 | tr -d " " | tr -d "\n" | pbcopy'
+alias pgen15='pwgen -Cs 15 1 | tr -d " " | tr -d "\n" | pbcopy'
 alias workhard='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^#//g" | sudo tee /etc/hosts'
 alias procrastinate='cat /etc/hosts | sed "/127.0.0.1 vk.com/s/^/#/g" | sudo tee /etc/hosts'
 
@@ -175,7 +178,7 @@ decrypt() {
 }
 
 function find-big-files {
-    find /Users/ -size +100M 2> /dev/null
+    find / -size +100M 2> /dev/null
 }
 
 function smux() {

@@ -21,8 +21,8 @@
           - .sublime-settings
           - .sublime-keys
           - .tmux.conf
+          - .config/nvim/init.vim
           - .vimrc
-          - .tmuxinator
 
     - name: create config dirs
       file: path="~/{{ item | dirname }}" state=directory
@@ -65,9 +65,9 @@
         - icu4c
         - reattach-to-user-namespace
         - imagemagick
-        - homebrew/versions/libpqxx3
-        - homebrew/versions/v8-315
-        - homebrew/dupes/apple-gcc42
+        # - homebrew/versions/libpqxx3
+        # - homebrew/versions/v8-315
+        # - homebrew/dupes/apple-gcc42
         - sqlite
         - nmap
         - yarn
@@ -75,6 +75,7 @@
         - elixir
         - neovim/neovim/neovim
         - python3
+        - kubernetes-cli
 
     - name: gems are installed
       gem: name="{{ item }}" state=present
@@ -87,23 +88,10 @@
     - name: node packages are installed
       npm: name=eslint state=present global=yes
 
-    - name: neovim with python is intalled
-      pip:
-        name: neovim
-        state: present
-        executable: pip3
-
-    - name: vim and nvim dirs are created
-      file: path="~/{{ item }}" state=directory
+    - name: pip3 packages are installed
+      pip: name="{{ item }}" state=present executable=pip3
       with_items:
-        - .vim
-        - .config
-
-    - name: create nvim data symlink
-      file: src="~/.vim" dest="~/.config/nvim" state=link
-
-    - name: create nvim config symlink
-      file: src="~/.vimrc" dest="~/.config/nvim/init.vim" state=link
+        - neovim
 
     - name: create sublime symlink
       file:

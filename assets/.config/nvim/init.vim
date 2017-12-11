@@ -1,63 +1,74 @@
-if !filereadable(expand($HOME.'/.vim/bundle/Vundle.vim/README.md'))
-    echo 'Installing Vundle...'
-    silent !mkdir -p $HOME/.vim/bundle
-    silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if !filereadable(expand($HOME.'/.local/share/nvim/site/autoload/plug.vim'))
+    echo 'Installing package manager...'
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.local/share/nvim/plugged')
 
 " colors
-Plugin 'cocopon/iceberg.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'tyrannicaltoucan/vim-deep-space'
+Plug 'cocopon/iceberg.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'nanotech/jellybeans.vim'
+Plug 'tyrannicaltoucan/vim-deep-space'
 
 " plugins
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-rails'
-Plugin 'mileszs/ack.vim'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'othree/html5.vim'
-Plugin 'szw/vim-tags'
-Plugin 'majutsushi/tagbar'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'tpope/vim-abolish'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'chase/vim-ansible-yaml'
-Plugin 'posva/vim-vue'
+Plug 'VundleVim/Vundle.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rails'
+Plug 'mileszs/ack.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'othree/html5.vim'
+Plug 'szw/vim-tags'
+Plug 'majutsushi/tagbar'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'tpope/vim-abolish'
+Plug 'kchmck/vim-coffee-script'
+Plug 'chase/vim-ansible-yaml'
+Plug 'posva/vim-vue'
 
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeIgnore = ['^\.DS_Store$', '^\.keep$', '\.retry$', '\.pyc$']
 
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-Plugin 'jlanzarotta/bufexplorer'
+Plug 'Shougo/deoplete.nvim'
+Plug 'fishbullet/deoplete-ruby'
+Plug 'padawan-php/deoplete-padawan'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+let g:deoplete#enable_at_startup = 1
+
+Plug 'jlanzarotta/bufexplorer'
 let g:bufExplorerDisableDefaultKeyMapping=1
 let g:bufExplorerShowRelativePath=1
 
-Plugin 'mxw/vim-jsx'
+Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 
-Plugin 'reedes/vim-lexical'
+Plug 'reedes/vim-lexical'
 let g:lexical#spelllang = ['en_us', 'ru_ru']
 
-Plugin 'neomake/neomake'
+Plug 'neomake/neomake'
 let g:neomake_ruby_enabled_makers = ['rubocop']
 let g:neomake_php_enabled_makers = ['php', 'phpcs']
 let g:neomake_php_phpcs_args_standard = 'PSR2'
 let g:neomake_javascript_enabled_makers = ['eslint']
 " autocmd! BufWritePost * Neomake
 
-call vundle#end()
+call plug#end()
+
 filetype plugin indent on
 
 let mapleader=','
