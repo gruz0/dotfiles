@@ -4,4 +4,10 @@ See my homepage http://lysenkooo.ru
 
 ## Install
 
-Use `./provision.sh` to set up environment.
+```
+$ cd /Users/dlysenko/Library/Mobile Documents/com~apple~CloudDocs
+$ git clone git@github.com:lysenkooo/dotfiles.git dotfiles
+$ cd dotfiles
+$ chmod +x provision.sh
+$ ./provision.sh
+```

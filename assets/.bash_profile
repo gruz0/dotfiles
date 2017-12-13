@@ -14,9 +14,6 @@ export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export DISABLE_AUTO_TITLE=true
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-export LDFLAGS="-L/usr/local/opt/imagemagick@6/lib"
-export CPPFLAGS="-I/usr/local/opt/imagemagick@6/include"
-export PKG_CONFIG_PATH="/usr/local/opt/imagemagick@6/lib/pkgconfig"
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 export PATH="/usr/local/opt/coreutils/bin:$PATH" # brew --prefix coreutils

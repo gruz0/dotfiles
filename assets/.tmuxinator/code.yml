@@ -1,0 +1,9 @@
+name: code
+
+windows:
+  - vim:
+      layout: main-vertical
+      panes:
+        - tmux resize-pane -x 125 -t 0.0 && vim
+        - #
+        - #

@@ -23,10 +23,17 @@ if [[ ! -x /usr/local/bin/brew ]]; then
     sudo chown -R $(whoami) /usr/local/share/man
 fi
 
-brew install ansible
+brew install python3
 brew cask install tunnelblick google-cloud-sdk minikube
+
+if [[ ! -x /usr/local/bin/ansible ]]; then
+    echo "Installing ansible..."
+    pip3 install --user ansible
+fi
 
 ansible-playbook playbook.yml
 
 sudo mkdir -p /etc/resolver
-echo -e "domain rcntec.com\nnameserver 10.210.146.241\nnameserver 10.210.146.242\nnameserver 10.210.146.243\nnameserver 10.210.146.244" | sudo tee /etc/resolver/rcntec.com
+echo -e "domain rcntec.com\nnameserver 10.210.146.241\nnameserver 10.210.146.242\nnameserver 10.210.146.243\nnameserver 10.210.146.244\n" | sudo tee /etc/resolver/rcntec.com
+echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4\n" | sudo tee /etc/resolver/go.rcntec.com
+echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4\n" | sudo tee /etc/resolver/vpn.rcntec.com

@@ -64,7 +64,7 @@
         - youtube-dl
         - icu4c
         - reattach-to-user-namespace
-        - imagemagick
+        - imagemagick@6
         # - homebrew/versions/libpqxx3
         # - homebrew/versions/v8-315
         # - homebrew/dupes/apple-gcc42
@@ -81,9 +81,12 @@
       gem: name="{{ item }}" state=present
       with_items:
         - bundler
+        - bundle-audit
         - rubocop
         - neovim
         - tmuxinator
+        - foreman
+        - brakeman
 
     - name: node packages are installed
       npm: name=eslint state=present global=yes
