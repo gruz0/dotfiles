@@ -1,0 +1,24 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AdvancedNewFile",
+		"Alignment",
+		"AutoFileName",
+		"Base16 Color Schemes",
+		"BracketHighlighter",
+		"Color Highlighter",
+		"EditorConfig",
+		"GitGutter",
+		"Package Control",
+		"Sublime Tutor",
+		"SublimeLinter",
+		"SublimeLinter-eslint",
+		"SublimeLinter-json",
+		"SublimeLinter-rubocop",
+		"SublimeLinter-ruby"
+	]
+}

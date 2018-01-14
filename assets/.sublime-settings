@@ -3,7 +3,7 @@
 	"auto_complete": true,
 	"auto_complete_commit_on_tab": true,
 	"auto_indent": true,
-	"color_scheme": "Packages/Base16 Color Schemes/Themes/base16-classic-dark.tmTheme",
+	"color_scheme": "Packages/User/SublimeLinter/base16-classic-dark (SL).tmTheme",
 	"copy_with_empty_selection": true,
 	"default_line_ending": "unix",
 	"detect_indentation": false,

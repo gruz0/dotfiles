@@ -20,6 +20,7 @@
           - .rubocop.yml
           - .sublime-settings
           - .sublime-keys
+          - .sublime-packages
           - .tmux.conf
           - .config/nvim/init.vim
           - .vimrc
@@ -64,10 +65,6 @@
         - youtube-dl
         - icu4c
         - reattach-to-user-namespace
-        - imagemagick@6
-        # - homebrew/versions/libpqxx3
-        # - homebrew/versions/v8-315
-        # - homebrew/dupes/apple-gcc42
         - sqlite
         - nmap
         - yarn
@@ -76,6 +73,14 @@
         - neovim/neovim/neovim
         - python3
         - kubernetes-cli
+        - hiredis
+        - p7zip
+        - poppler
+        - libxml2
+        - ffmpeg
+        - imagemagick@6
+        - v8@3.15
+        - libpqxx@3
 
     - name: gems are installed
       gem: name="{{ item }}" state=present
@@ -115,6 +120,14 @@
       file:
         src: "~/.sublime-keys"
         dest: "~/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap"
+        state: link
+        force: yes
+      ignore_errors: yes
+
+    - name: install sublime packages
+      file:
+        src: "~/.sublime-packages"
+        dest: "~/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings"
         state: link
         force: yes
       ignore_errors: yes

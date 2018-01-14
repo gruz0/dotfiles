@@ -24,7 +24,7 @@ if [[ ! -x /usr/local/bin/brew ]]; then
 fi
 
 brew install python3
-brew cask install tunnelblick google-cloud-sdk minikube
+brew cask install tunnelblick google-cloud-sdk minikube wkhtmltopdf virtualbox docker kitematic caskroom/versions/java8
 
 if [[ ! -x /usr/local/bin/ansible ]]; then
     echo "Installing ansible..."
