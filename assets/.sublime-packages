@@ -9,16 +9,24 @@
 		"Alignment",
 		"AutoFileName",
 		"Base16 Color Schemes",
-		"BracketHighlighter",
-		"Color Highlighter",
+		"ColorPicker",
+		"CSScomb",
+		"DocBlockr",
 		"EditorConfig",
+		"Emmet",
+		"Git",
 		"GitGutter",
+		"Markdown Preview",
 		"Package Control",
+		"Sass",
+		"SideBarEnhancements",
 		"Sublime Tutor",
+		"SublimeCodeIntel",
 		"SublimeLinter",
 		"SublimeLinter-eslint",
 		"SublimeLinter-json",
 		"SublimeLinter-rubocop",
-		"SublimeLinter-ruby"
+		"SublimeLinter-ruby",
+		"Terminal"
 	]
 }
