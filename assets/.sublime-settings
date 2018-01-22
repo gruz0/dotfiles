@@ -7,6 +7,7 @@
 	"copy_with_empty_selection": true,
 	"default_line_ending": "unix",
 	"detect_indentation": false,
+	"dictionary": "Packages/russian_english.dic",
 	"ensure_newline_at_eof_on_save": true,
 	"file_exclude_patterns":
 	[
@@ -37,8 +38,8 @@
 		".svn",
 		".git",
 		".hg",
-		"CVS",
-		".vagrant"
+		".vagrant",
+		"coverage"
 	],
 	"font_options":
 	[
@@ -55,6 +56,7 @@
 		80
 	],
 	"show_encoding": true,
+	"spell_check": true,
 	"tab_size": 2,
 	"theme": "Default.sublime-theme",
 	"translate_tabs_to_spaces": true,

@@ -9,6 +9,7 @@
 		"Alignment",
 		"AutoFileName",
 		"Base16 Color Schemes",
+		"BracketHighlighter",
 		"ColorPicker",
 		"CSScomb",
 		"DocBlockr",
@@ -27,6 +28,7 @@
 		"SublimeLinter-json",
 		"SublimeLinter-rubocop",
 		"SublimeLinter-ruby",
-		"Terminal"
+		"Terminal",
+		"Vintage Surround"
 	]
 }
