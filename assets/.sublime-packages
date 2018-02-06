@@ -12,6 +12,7 @@
 		"BracketHighlighter",
 		"ColorPicker",
 		"CSScomb",
+		"DashDoc",
 		"DocBlockr",
 		"EditorConfig",
 		"Emmet",
