@@ -2,9 +2,11 @@
 .idea
 .vagrant
 .tags
+.ruby-version
 xcuserdata
 coverage
+node_modules
 npm-debug.log*
+*.log
 *.retry
 *.ignore*
-node_modules

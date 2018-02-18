@@ -96,6 +96,12 @@
     - name: node packages are installed
       npm: name=eslint state=present global=yes
 
+    - name: pip packages are installed
+      pip: name="{{ item }}" state=present executable=pip
+      with_items:
+        - six
+        - autosub
+
     - name: pip3 packages are installed
       pip: name="{{ item }}" state=present executable=pip3
       with_items:

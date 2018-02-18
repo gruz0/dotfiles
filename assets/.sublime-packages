@@ -20,6 +20,8 @@
 		"GitGutter",
 		"Markdown Preview",
 		"Package Control",
+		"RuboCop",
+		"Ruby Slim",
 		"Sass",
 		"SideBarEnhancements",
 		"Sublime Tutor",
@@ -30,6 +32,7 @@
 		"SublimeLinter-rubocop",
 		"SublimeLinter-ruby",
 		"Terminal",
-		"Vintage Surround"
+		"Vintage Surround",
+		"Visual Studio Dark"
 	]
 }

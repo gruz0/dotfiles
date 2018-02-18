@@ -3,6 +3,7 @@ alias grep='grep --color=auto'
 alias vi='nvim'
 alias vim='nvim'
 alias dev_appserver.py='/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/dev_appserver.py'
+alias myip='curl ifconfig.co/json'
 
 # os x
 alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Finder'
@@ -80,6 +81,10 @@ csrgen() {
     openssl x509 -req -days 365 -in "${1}.csr" -signkey "${1}.key" -out "${1}.crt"
 }
 
+lvhgen() {
+    openssl req -newkey rsa:2048 -x509 -nodes -keyout lvh.me.key -sha256 -days 3650 -new -out lvh.me.crt -subj '/CN=*.lvh.me' -reqexts SAN -extensions SAN -config <(cat /System/Library/OpenSSL/openssl.cnf <(printf '[SAN]\nsubjectAltName=DNS:lvh.me,DNS:*.lvh.me'))
+}
+
 pg-recreate() {
     if [ -z $1 ]; then
         echo "Missing database name"
@@ -139,12 +144,8 @@ restmode() {
 }
 
 # docker
-alias dopen='open /Applications/Docker.app'
-alias dcr='docker-compose run'
-alias drun='docker run'
-alias dstart='docker start'
-alias dstop='docker stop'
-alias doco='docker-compose'
+alias docker='pgrep com.docker.hyperkit &> /dev/null || (open /Applications/Docker.app && until docker info &> /dev/null ; do sleep 1; done) && docker'
+alias docker-compose='pgrep com.docker.hyperkit &> /dev/null || (open /Applications/Docker.app && until docker info &> /dev/null ; do sleep 1; done) && docker-compose'
 alias dc-pg='docker run -d -p 5432:5432 --name pg -e POSTGRES_PASSWORD=postgres -d postgres'
 alias dc-redis='docker run -d -p 6379:6379 --name redis redis'
 alias dc-es='docker run -d -p 9200:9200 --name es elasticsearch'
