@@ -29,6 +29,10 @@ if [ -f $HOME/.aliases ]; then
     source $HOME/.aliases
 fi
 
+if [ -f $HOME/.private ]; then
+    source $HOME/.private
+fi
+
 GIT_PROMPT=/Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
 
 if [ -f $GIT_PROMPT ]; then

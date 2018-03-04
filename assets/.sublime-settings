@@ -39,6 +39,8 @@
 		".git",
 		".hg",
 		".vagrant",
+		"tmp",
+		"log",
 		"coverage"
 	],
 	"font_options":

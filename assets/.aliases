@@ -47,6 +47,7 @@ alias gs='git status'
 alias gd='git diff'
 alias gl='git log'
 alias gull='git pull'
+alias gullr='git pull --rebase'
 alias gush='git push'
 
 gerge() {
