@@ -40,17 +40,34 @@
         - libpqxx@3
 
     - name: cask packages are installed
-      command: brew cask install tunnelblick wkhtmltopdf virtualbox docker kitematic gpg-suite google-cloud-sdk minikube caskroom/versions/java8
+      homebrew_cask: name="{{ item }}" state=present
+      items:
+        - tunnelblick
+        - wkhtmltopdf
+        - virtualbox
+        - docker
+        - kitematic
+        - gpg-suite
+        - google-cloud-sdk
+        - minikube
+        - java8
 
     - name: pip packages are installed
-      pip: name="{{ item }}" state=present executable=pip3
+      pip:
+        name: "{{ item }}"
+        state: present
+        executable: pip3
+        extra_args: --user
       with_items:
         - neovim
+        - awscli
 
     - name: node packages are installed
       npm: name="{{ item }}" state=present global=yes
       with_items:
         - eslint
+        - eslint-plugin-react
+        - babel-eslint
 
     - name: gems are installed
       gem: name="{{ item }}" state=present
