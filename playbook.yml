@@ -39,6 +39,7 @@
         - imagemagick@6
         - v8@3.15
         - libpqxx@3
+        - https://raw.githubusercontent.com/turforlag/homebrew-cervezas/master/pdftk.rb
 
     - name: cask packages are installed
       homebrew_cask: name="{{ item }}" state=present
@@ -52,6 +53,7 @@
         - google-cloud-sdk
         - minikube
         - java8
+        - flash-npapi
 
     - name: pip packages are installed
       pip:

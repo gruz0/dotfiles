@@ -31,5 +31,11 @@ Lint/UnusedBlockArgument:
 Lint/UnusedMethodArgument:
   Enabled: false
 
+Lint/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
 Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
   Enabled: false

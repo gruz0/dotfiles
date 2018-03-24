@@ -147,6 +147,7 @@ restmode() {
 # docker
 alias docker='pgrep com.docker.hyperkit &> /dev/null || (open /Applications/Docker.app && until docker info &> /dev/null ; do sleep 1; done) && docker'
 alias docker-compose='pgrep com.docker.hyperkit &> /dev/null || (open /Applications/Docker.app && until docker info &> /dev/null ; do sleep 1; done) && docker-compose'
+alias docker-sen='docker run -v /var/run/docker.sock:/run/docker.sock -ti --rm -e TERM tomastomecek/sen'
 alias dc-pg='docker run -d -p 5432:5432 --name pg -e POSTGRES_PASSWORD=postgres -d postgres'
 alias dc-redis='docker run -d -p 6379:6379 --name redis redis'
 alias dc-es='docker run -d -p 9200:9200 --name es elasticsearch'

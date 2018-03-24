@@ -22,16 +22,12 @@ export PATH="/usr/local/opt/ctags/bin:$PATH" # brew --prefix ctags
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
 
-if [ -f $HOME/.env ]; then
-    source $HOME/.env
-fi
-
 if [ -f $HOME/.aliases ]; then
     source $HOME/.aliases
 fi
 
-if [ -f $HOME/.private ]; then
-    source $HOME/.private
+if [ -f $HOME/.custom ]; then
+    source $HOME/.custom
 fi
 
 GIT_PROMPT=/Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
