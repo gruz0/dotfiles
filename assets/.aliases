@@ -10,6 +10,8 @@ alias show='defaults write com.apple.finder AppleShowAllFiles true && killall Fi
 alias hide='defaults write com.apple.finder AppleShowAllFiles false && killall Finder'
 alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
 alias ic='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs'
+alias wallup='sudo pfctl -f /etc/pf.conf -e'
+alias walldown='sudo pfctl -d'
 
 unmount() {
     if [ ! -d "$1" ]; then

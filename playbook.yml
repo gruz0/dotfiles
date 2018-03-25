@@ -4,7 +4,7 @@
   connection: local
   tasks:
     - name: install brew packages
-      homebrew: name="{{ item }}" state=present
+      homebrew: name='{{ item }}' state=present
       with_items:
         - coreutils
         - git
@@ -42,7 +42,7 @@
         - https://raw.githubusercontent.com/turforlag/homebrew-cervezas/master/pdftk.rb
 
     - name: cask packages are installed
-      homebrew_cask: name="{{ item }}" state=present
+      homebrew_cask: name='{{ item }}' state=present
       items:
         - tunnelblick
         - wkhtmltopdf
@@ -57,7 +57,7 @@
 
     - name: pip packages are installed
       pip:
-        name: "{{ item }}"
+        name: '{{ item }}'
         state: present
         executable: pip3
         extra_args: --user
@@ -66,14 +66,14 @@
         - awscli
 
     - name: node packages are installed
-      npm: name="{{ item }}" state=present global=yes
+      npm: name='{{ item }}' state=present global=yes
       with_items:
         - eslint
         - eslint-plugin-react
         - babel-eslint
 
     - name: gems are installed
-      gem: name="{{ item }}" state=present
+      gem: name='{{ item }}' state=present
       with_items:
         - bundler
         - bundle-audit
@@ -84,6 +84,15 @@
         - brakeman
 
     # configs
+
+    - name: mac settings are changed
+      command: 'defaults write {{ item }}'
+      with_items:
+        - 'NSGlobalDomain ApplePressAndHoldEnabled 0'
+        - 'com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1'
+        - 'com.apple.desktopservices DSDontWriteNetworkStores 1'
+        - 'com.apple.TextEdit RichText 0'
+      changed_when: false
 
     - name: set config list
       set_fact:
@@ -106,69 +115,50 @@
           - .tmux.conf
           - .config/nvim/init.vim
           - .vimrc
+          - .ssh
           - .private
 
-    - name: mac settings are changed
-      command: "defaults write {{ item }}"
-      with_items:
-        - "NSGlobalDomain ApplePressAndHoldEnabled 0"
-        - "com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1"
-        - "com.apple.desktopservices DSDontWriteNetworkStores 1"
-        - "com.apple.TextEdit RichText 0"
-
     - name: create config dirs
-      file: path="~/{{ item | dirname }}" state=directory
-      with_items: "{{ list }}"
+      file: path='~/{{ item | dirname }}' state=directory
+      with_items: '{{ list }}'
 
     - name: create config links
       file:
-        src: "{{ playbook_dir }}/assets/{{ item }}"
-        dest: "~/{{ item }}"
+        src: '{{ playbook_dir }}/assets/{{ item }}'
+        dest: '~/{{ item }}'
         state: link
         force: yes
-      with_items: "{{ list }}"
-
-    # ssh
-
-    - name: ssh dir is created
-      file: path="~/.ssh" state=directory
-
-    - name: ssh config link is created
-      file:
-        src: "~/.private/ssh_config"
-        dest: "~/.ssh/config"
-        state: link
-        force: yes
+      with_items: '{{ list }}'
 
     # sublime
 
     - name: create sublime symlink
       file:
-        src: "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
-        dest: "/usr/local/bin/sublime"
+        src: '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+        dest: '/usr/local/bin/sublime'
         state: link
       ignore_errors: yes
 
     - name: install sublime config
       file:
-        src: "~/.sublime-settings"
-        dest: "~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+        src: '~/.sublime-settings'
+        dest: '~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings'
         state: link
         force: yes
       ignore_errors: yes
 
     - name: install sublime keys
       file:
-        src: "~/.sublime-keys"
-        dest: "~/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap"
+        src: '~/.sublime-keys'
+        dest: '~/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap'
         state: link
         force: yes
       ignore_errors: yes
 
     - name: install sublime packages
       file:
-        src: "~/.sublime-packages"
-        dest: "~/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings"
+        src: '~/.sublime-packages'
+        dest: '~/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings'
         state: link
         force: yes
       ignore_errors: yes
