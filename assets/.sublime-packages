@@ -35,6 +35,8 @@
 		"SublimeLinter-json",
 		"SublimeLinter-rubocop",
 		"SublimeLinter-ruby",
-		"Terminal"
+		"Surround",
+		"Terminal",
+		"Vintage Surround"
 	]
 }

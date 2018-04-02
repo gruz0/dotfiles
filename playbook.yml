@@ -36,6 +36,7 @@
         - libxml2
         - ffmpeg
         - telnet
+        - jmeter
         - imagemagick@6
         - v8@3.15
         - libpqxx@3
@@ -70,18 +71,22 @@
       with_items:
         - eslint
         - eslint-plugin-react
+        - eslint-plugin-node
         - babel-eslint
 
     - name: gems are installed
-      gem: name='{{ item }}' state=present
+      gem:
+        name: '{{ item }}'
+        state: present
+        executable: /usr/local/var/rbenv/shims/gem
       with_items:
         - bundler
-        - bundle-audit
-        - rubocop
-        - neovim
-        - tmuxinator
         - foreman
+        - rubocop
         - brakeman
+        - bundle-audit
+        - tmuxinator
+        - neovim
 
     # configs
 

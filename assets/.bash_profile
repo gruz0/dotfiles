@@ -1,4 +1,5 @@
-export HISTSIZE="100500"
+export HISTSIZE="9999"
+export HISTFILESIZE="9999"
 export HISTCONTROL="ignoredups"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
