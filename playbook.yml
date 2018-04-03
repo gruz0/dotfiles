@@ -66,14 +66,6 @@
         - neovim
         - awscli
 
-    - name: node packages are installed
-      npm: name='{{ item }}' state=present global=yes
-      with_items:
-        - eslint
-        - eslint-plugin-react
-        - eslint-plugin-node
-        - babel-eslint
-
     - name: gems are installed
       gem:
         name: '{{ item }}'
@@ -87,6 +79,14 @@
         - bundle-audit
         - tmuxinator
         - neovim
+
+    - name: node packages are installed
+      npm: name='{{ item }}' state=present global=yes
+      with_items:
+        - eslint
+        - eslint-plugin-react
+        - eslint-plugin-node
+        - babel-eslint
 
     # configs
 
@@ -102,11 +102,15 @@
     - name: set config list
       set_fact:
         list:
-          - .aliases
+          - .bundle/config
+          - .config/nvim/init.vim
+          - .private
+          - .ssh
+          - .tmuxinator/code.yml
           - .ackrc
+          - .aliases
           - .ansible.cfg
           - .bash_profile
-          - .bundle/config
           - .ctags
           - .editorconfig
           - .eslintrc
@@ -114,14 +118,11 @@
           - .gitconfig
           - .gitignore_global
           - .rubocop.yml
-          - .sublime-settings
           - .sublime-keys
           - .sublime-packages
+          - .sublime-settings
           - .tmux.conf
-          - .config/nvim/init.vim
           - .vimrc
-          - .ssh
-          - .private
 
     - name: create config dirs
       file: path='~/{{ item | dirname }}' state=directory

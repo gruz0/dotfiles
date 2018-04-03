@@ -69,10 +69,11 @@ alias be='bundle exec'
 alias rake='bundle exec rake'
 alias rails='bundle exec rails'
 alias rspec='bundle exec rspec'
-alias guard='bundle exec guard'
+alias cap='bundle exec cap'
 alias rackup='bundle exec rackup'
+alias guard='bundle exec guard'
 alias shotgun='bundle exec shotgun'
-alias resque-work='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
+alias resque-start='bundle exec rake resque:work QUEUES=* TERM_CHILD=1'
 
 csrgen() {
     if [ -z $1 ]; then

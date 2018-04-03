@@ -12,11 +12,12 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'tyrannicaltoucan/vim-deep-space'
 
 " plugins
-Plug 'VundleVim/Vundle.vim'
+Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-endwise'
 Plug 'mileszs/ack.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'othree/html5.vim'
@@ -27,6 +28,11 @@ Plug 'tpope/vim-abolish'
 Plug 'kchmck/vim-coffee-script'
 Plug 'chase/vim-ansible-yaml'
 Plug 'posva/vim-vue'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme='deep_space'
+let g:airline#extensions#tabline#enabled = 1
 
 Plug 'scrooloose/nerdtree'
 let NERDTreeShowHidden=1
