@@ -55,6 +55,8 @@
         - minikube
         - java8
         - flash-npapi
+        - mysql-shell
+        - wireshark
 
     - name: pip packages are installed
       pip:
@@ -65,8 +67,9 @@
       with_items:
         - neovim
         - awscli
+        - ansible-vault
 
-    - name: gems are installed
+    - name: rbenv gems are installed
       gem:
         name: '{{ item }}'
         state: present
@@ -75,6 +78,7 @@
         - bundler
         - foreman
         - rubocop
+        - rubycritic
         - brakeman
         - bundle-audit
         - tmuxinator

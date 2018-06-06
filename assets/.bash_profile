@@ -16,6 +16,7 @@ export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export DISABLE_AUTO_TITLE=true
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.private/gcloud.json
+export SSLKEYLOGFILE=~/.ssl.log
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 export PATH="/usr/local/opt/coreutils/bin:$PATH" # brew --prefix coreutils

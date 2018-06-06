@@ -1,8 +1,9 @@
 {
-	"auto_close_tags": true,
+	"auto_close_tags": false,
 	"auto_complete": true,
 	"auto_complete_commit_on_tab": true,
 	"auto_indent": true,
+	"auto_match_enabled": false,
 	"color_scheme": "Packages/Base16 Color Schemes/Themes/base16-default-dark.tmTheme",
 	"copy_with_empty_selection": true,
 	"default_line_ending": "unix",
@@ -50,10 +51,13 @@
 	],
 	"font_size": 13,
 	"highlight_line": true,
+	"hot_exit": false,
 	"ignored_packages":
 	[
 	],
 	"index_files": true,
+	"open_files_in_new_window": false,
+	"remember_open_files": false,
 	"rulers":
 	[
 		80
@@ -66,5 +70,7 @@
 	"trim_trailing_white_space_on_save": true,
 	"vintage_ctrl_keys": true,
 	"vintage_start_in_command_mode": true,
-	"word_separators": "./\\()\"'-:,.;<>~@#$%^&*|+=[]{}`~"
+	"word_separators": "./\\()\"'-:,.;<>~@#$%^&*|+=[]{}`~",
+	"word_wrap": false,
+	"wrap_width": 0
 }
