@@ -1,8 +1,0 @@
-[
-  { "keys": ["super+\\"], "command": "toggle_side_bar" },
-  { "keys": ["super+shift+\\"], "command": "reveal_in_side_bar" },
-  { "keys": ["alt+shift+r"], "command": "goto_definition" },
-  { "keys": ["alt+shift+f"], "command": "reindent" },
-  { "keys": ["alt+shift+p"], "command": "pretty_ruby_format" },
-  { "keys": ["alt+shift+d"], "command": "dash_doc"}
-]
