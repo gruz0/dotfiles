@@ -1,12 +1,9 @@
-# Hello
+# How to use this playbook
 
-See my homepage http://lysenkooo.ru
-
-## Install
-
-```
-$ cd /Users/dlysenko/Library/Mobile Documents/com~apple~CloudDocs
-$ git clone git@github.com:lysenkooo/dotfiles.git dotfiles
+```bash
+$ mkdir -p ~/Projects
+$ cd ~/Projects
+$ git clone git@github.com:gruz0/dotfiles.git dotfiles
 $ cd dotfiles
 $ chmod +x provision.sh
 $ ./provision.sh

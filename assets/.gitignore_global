@@ -1,3 +1,4 @@
+*~
 .DS_Store
 .idea
 .vagrant
@@ -7,6 +8,8 @@ xcuserdata
 coverage
 node_modules
 npm-debug.log*
+Desktop.ini
+Thumbs.db
 *.log
 *.retry
 *.ignore*

@@ -13,11 +13,9 @@ if [[ ! -x /usr/local/bin/brew ]]; then
     brew update
 fi
 
-brew ls --versions python3 || brew install python3
-
 if [[ ! -x /usr/local/bin/ansible ]]; then
     echo "Installing ansible..."
-    pip3 install --user ansible
+    brew install ansible
 fi
 
 ansible-playbook playbook.yml

@@ -13,49 +13,49 @@
         - tmux
         - mc
         - ssh-copy-id
-        - ctags
-        - rbenv
-        - ack
-        - node
-        - pwgen
-        - pdf2htmlex
-        - youtube-dl
         - icu4c
         - reattach-to-user-namespace
         - sqlite
-        - nmap
-        - yarn
-        - erlang
-        - elixir
         - neovim/neovim/neovim
         - python3
         - kubernetes-cli
-        - hiredis
-        - p7zip
-        - poppler
         - libxml2
-        - ffmpeg
         - telnet
-        - jmeter
         - imagemagick@6
         - v8@3.15
-        - libpqxx@3
-        - https://raw.githubusercontent.com/turforlag/homebrew-cervezas/master/pdftk.rb
+        - zsh
+        - tree
+
+    - name: install oh-my-zsh
+      git:
+        repo: https://github.com/robbyrussell/oh-my-zsh.git
+        dest: ~/.oh-my-zsh
+        update: no
+
+    - name: add HomeBrew custom repos
+      homebrew_tap:
+        name: homebrew/cask-versions
 
     - name: cask packages are installed
       homebrew_cask: name='{{ item }}' state=present
-      items:
+      with_items:
+        - iterm2
+        - font-fira-code
+        - google-chrome
+        - opera
+        - slack
+        - skype
+        - discord-ptb
         - tunnelblick
-        - wkhtmltopdf
         - virtualbox
-        - docker
+        - vagrant
+        - docker-edge
         - kitematic
-        - gpg-suite
         - google-cloud-sdk
+        - kubernetes-helm
         - minikube
         - java8
         - flash-npapi
-        - mysql-shell
         - wireshark
 
     - name: pip packages are installed
@@ -68,29 +68,6 @@
         - neovim
         - awscli
         - ansible-vault
-
-    - name: rbenv gems are installed
-      gem:
-        name: '{{ item }}'
-        state: present
-        executable: /usr/local/var/rbenv/shims/gem
-      with_items:
-        - bundler
-        - foreman
-        - rubocop
-        - rubycritic
-        - brakeman
-        - bundle-audit
-        - tmuxinator
-        - neovim
-
-    - name: node packages are installed
-      npm: name='{{ item }}' state=present global=yes
-      with_items:
-        - eslint
-        - eslint-plugin-react
-        - eslint-plugin-node
-        - babel-eslint
 
     # configs
 
@@ -107,26 +84,19 @@
       set_fact:
         list:
           - .bundle/config
-          - .config/nvim/init.vim
-          - .private
+          - .oh-my-zsh/themes/gruz0.zsh-theme
+          - .config/nvim/.keep
           - .ssh
-          - .tmuxinator/code.yml
-          - .ackrc
-          - .aliases
           - .ansible.cfg
           - .bash_profile
           - .ctags
           - .editorconfig
-          - .eslintrc
           - .gemrc
           - .gitconfig
           - .gitignore_global
-          - .rubocop.yml
-          - .sublime-keys
-          - .sublime-packages
-          - .sublime-settings
           - .tmux.conf
           - .vimrc
+          - .zshrc
 
     - name: create config dirs
       file: path='~/{{ item | dirname }}' state=directory
@@ -140,35 +110,8 @@
         force: yes
       with_items: '{{ list }}'
 
-    # sublime
-
-    - name: create sublime symlink
+    - name: create NeoVim config symlink to Vim config
       file:
-        src: '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
-        dest: '/usr/local/bin/sublime'
+        src: '~/.vimrc'
+        dest: '~/.config/nvim/init.vim'
         state: link
-      ignore_errors: yes
-
-    - name: install sublime config
-      file:
-        src: '~/.sublime-settings'
-        dest: '~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings'
-        state: link
-        force: yes
-      ignore_errors: yes
-
-    - name: install sublime keys
-      file:
-        src: '~/.sublime-keys'
-        dest: '~/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap'
-        state: link
-        force: yes
-      ignore_errors: yes
-
-    - name: install sublime packages
-      file:
-        src: '~/.sublime-packages'
-        dest: '~/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings'
-        state: link
-        force: yes
-      ignore_errors: yes

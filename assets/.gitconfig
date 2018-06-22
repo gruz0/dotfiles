@@ -1,21 +1,24 @@
 [user]
-    email = crashcube@gmail.com
-    name = Denis Lysenko
-
+    name = Alexander Kadyrov
+    email = gruz0.mail@gmail.com
 [core]
-    autocrlf = input
-    editor = vim
-    excludesfile = /Users/dlysenko/.gitignore_global
-
-[color]
-    ui = auto
+    editor = nvim
+    excludesfile = ~/.gitignore_global
+[github]
+    user = gruz0
+[push]
+    default = simple
+[status]
+    showUntrackedFiles = all
+[transfer]
+    fsckobjects = true
 
 [alias]
-    co = checkout
-    ci = commit
-    st = status
-    br = branch
-    h = log --pretty=format:\"%h | %ad | %s%d [%an]\" --graph --date=short
+    glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    d = difftool
+    g = log --all --decorate --oneline --graph
 
-[merge]
-    ff = false
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false

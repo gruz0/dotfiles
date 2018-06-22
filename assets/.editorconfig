@@ -1,4 +1,4 @@
-# http://editorconfig.org
+root = true
 
 [*]
 charset = utf-8
@@ -13,4 +13,11 @@ trim_trailing_whitespace = true
 indent_style = tab
 
 [*.{sh,py}]
+indent_style = tab
 indent_size = 4
+
+[{Gemfile,Rakefile}]
+indent_size = 2
+
+[*.{yml,json,js,ejs,jsx,coffee,rb,css,scss,html,ru,erb,haml,slim}]
+indent_size = 2
