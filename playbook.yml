@@ -78,6 +78,21 @@
         - 'com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1'
         - 'com.apple.desktopservices DSDontWriteNetworkStores 1'
         - 'com.apple.TextEdit RichText 0'
+        - 'com.apple.dock autohide -bool true'
+        - 'com.apple.finder AppleShowAllFiles true'
+        - 'com.apple.finder QuitMenuItem -bool true'
+        # Use list view in all Finder windows by default
+        - 'com.apple.finder FXPreferredViewStyle -string "Nlsv"'
+        # Bottom right screen corner → Start screen saver
+        - 'com.apple.dock wvous-br-corner -int 5'
+        - 'com.apple.dock wvous-br-modifier -int 0'
+        # Safari
+        - 'com.apple.Safari AutoOpenSafeDownloads -bool false'
+        - 'com.apple.Safari IncludeInternalDebugMenu -bool true'
+        # Enable the Develop menu and the Web Inspector in Safari
+        - 'com.apple.Safari IncludeDevelopMenu -bool true'
+        - 'com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true'
+        - 'com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true'
       changed_when: false
 
     - name: set config list
