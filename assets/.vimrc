@@ -28,6 +28,9 @@ Plugin 'jlanzarotta/bufexplorer'
 
 " Поддержка RuboCop
 Plugin 'ngmy/vim-rubocop'
+let g:vimrubocop_config = '.rubocop.yml'
+let g:vimrubocop_keymap = 0
+nmap <C-R> :RuboCop<CR>
 
 " Поддержка Git
 Plugin 'tpope/vim-fugitive'
@@ -450,14 +453,6 @@ nmap <silent> <F6> :set number!<CR>
 
 map <F8> :set list<CR>
 map <F9> :set nolist<CR>
-
-" Rubycop gem for Ruby
-let g:vimrubocop_config = '/Users/gruz0/rubocop.yml'
-let g:vimrubocop_keymap = 0
-nmap <C-R> :RuboCop<CR>
-
-" Настройки табов и вызов RuboCop для Ruby-файлов
-autocmd FileType ruby setlocal ts=2 sw=2 expandtab cinoptions=:0,p0,t0 cinwords=if,else,while,do,for,switch,case
 
 " Открывать сплиты окон справа и снизу
 set splitright
