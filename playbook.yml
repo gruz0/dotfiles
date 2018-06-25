@@ -27,6 +27,7 @@
         - zsh
         - tree
         - the_silver_searcher
+        - mariadb@10.3
 
     - name: install oh-my-zsh
       git:
