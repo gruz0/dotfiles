@@ -37,7 +37,10 @@
 
     - name: add HomeBrew custom repos
       homebrew_tap:
-        name: homebrew/cask-versions
+        name: "{{ item }}"
+      with_items:
+        - homebrew/cask-versions
+        - homebrew/cask-fonts
 
     - name: cask packages are installed
       homebrew_cask: name='{{ item }}' state=present
