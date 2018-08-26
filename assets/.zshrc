@@ -21,3 +21,6 @@ fi
 alias docker-clean-unused='docker system prune --all --force --volumes'
 alias docker-clean-all='docker container stop $(docker container ls -a -q) && docker system prune -a -f --volumes'
 alias docker-clean-none-containers='docker rmi -f $(docker images | grep none | awk "{ print $3 }")'
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
