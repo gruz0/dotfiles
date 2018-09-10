@@ -1,5 +1,7 @@
 # How to use this playbook
 
+Install the Xcode first from the AppStore and then install Developer Tools for it.
+
 ```bash
 $ mkdir -p ~/Projects
 $ cd ~/Projects
