@@ -29,6 +29,7 @@
         - the_silver_searcher
         - mariadb@10.3
         - yarn
+        - watchman
 
     - name: install oh-my-zsh
       git:
