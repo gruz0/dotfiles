@@ -2,10 +2,12 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="gruz0"
 DISABLE_AUTO_UPDATE="true"
+NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 plugins=(git bundler osx rake ruby)
 
 source $ZSH/oh-my-zsh.sh
+source ~/.rvm/scripts/rvm
 
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
