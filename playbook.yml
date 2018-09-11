@@ -78,6 +78,15 @@
         - ansible-vault
         - docker-compose
 
+    # NOTE: Ensure NodeJS 8 already installed from the official website before run this playbook
+    - name: npm packages are installed
+      npm:
+        name: '{{ item }}'
+        state: present
+        global: yes
+      with_items:
+        - eslint
+
     - name: gpg key for rvm is installed
       shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
       args:
@@ -125,6 +134,7 @@
           - .bash_profile
           - .ctags
           - .editorconfig
+          - .eslintrc
           - .gemrc
           - .gitconfig
           - .gitignore_global
