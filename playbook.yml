@@ -121,6 +121,9 @@
         - 'com.apple.Safari IncludeDevelopMenu -bool true'
         - 'com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true'
         - 'com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true'
+        # Get Dark Menu bar, Dock and Spotlight for macOS Mojave
+        - '-g NSRequiresAquaSystemAppearance -bool Yes'
+        - 'com.apple.Spotlight NSRequiresAquaSystemAppearance -bool No'
       changed_when: false
 
     - name: set config list
