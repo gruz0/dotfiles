@@ -30,6 +30,7 @@
         - mariadb@10.3
         - yarn
         - watchman
+        - libiconv
 
     - name: install oh-my-zsh
       git:
