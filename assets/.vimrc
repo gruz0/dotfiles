@@ -193,6 +193,8 @@ let g:jsx_ext_required = 0
 
 Plugin 'ekalinin/Dockerfile.vim'
 
+Plugin 'fatih/vim-go'
+
 call vundle#end()
 
 "-------------------------------------------------------
