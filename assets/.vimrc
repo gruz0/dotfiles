@@ -114,6 +114,13 @@ let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'npm run lint --'
 
+" Go Syntastic rules
+let g:godef_split = 0
+let g:go_fmt_fail_silently = 1
+let g:go_list_type = 'quickfix'
+let g:syntastic_go_checkers = ['golint', 'govet', 'gometalinter', 'gofmt']
+let g:syntastic_go_gometalinter_args = ['--disable-all', '--enable=errcheck']
+
 " vim-scripts repos
 
 " Комментирование по //
