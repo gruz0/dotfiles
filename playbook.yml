@@ -32,6 +32,8 @@
         - watchman
         - libiconv
         - go
+        - php71
+        - php-code-sniffer
 
     - name: install oh-my-zsh
       git:
