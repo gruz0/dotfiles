@@ -108,7 +108,7 @@
       with_items:
         - 'NSGlobalDomain ApplePressAndHoldEnabled 0'
         - 'com.apple.systempreferences TMShowUnsupportedNetworkVolumes 1'
-        - 'com.apple.desktopservices DSDontWriteNetworkStores 1'
+        - 'com.apple.desktopservices DSDontWriteNetworkStores true'
         - 'com.apple.TextEdit RichText 0'
         - 'com.apple.dock autohide -bool true'
         - 'com.apple.finder AppleShowAllFiles true'
