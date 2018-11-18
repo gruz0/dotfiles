@@ -34,6 +34,7 @@
         - go
         - php71
         - php-code-sniffer
+        - ctags
 
     - name: install oh-my-zsh
       git:
