@@ -1,3 +1,10 @@
 --recurse=yes
 --tag-relative=yes
 --exclude=.git
+--exclude=tags
+--exclude=node_modules
+--exclude=\*.min.\*
+--exclude=\*.map
+--exclude=\*.swp
+--exclude=\*.bak
+--exclude=*.bundle.*
