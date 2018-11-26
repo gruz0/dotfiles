@@ -4,7 +4,16 @@ ZSH_THEME="gruz0"
 DISABLE_AUTO_UPDATE="true"
 NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-plugins=(git bundler osx rake ruby)
+plugins=(
+  git
+  bundler
+  osx
+  rake
+  ruby
+  docker
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.rvm/scripts/rvm
