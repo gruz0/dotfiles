@@ -11,7 +11,6 @@ plugins=(
   rake
   ruby
   docker
-  zsh-syntax-highlighting
   zsh-autosuggestions
 )
 

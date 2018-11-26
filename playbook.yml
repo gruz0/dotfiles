@@ -48,6 +48,12 @@
         dest: ~/.oh-my-zsh/plugins/zsh-docker
         update: no
 
+    - name: install oh-my-zsh autosuggestions plugin
+      git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions.git
+        dest: ~/.oh-my-zsh/plugins/zsh-autosuggestions
+        update: no
+
     - name: add HomeBrew custom repos
       homebrew_tap:
         name: "{{ item }}"
