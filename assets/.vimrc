@@ -174,14 +174,6 @@ let g:rubycomplete_rails = 1
 Bundle 'tpope/vim-rails.git'
 map <leader>s :A<CR> " Switch between code and the test file
 
-" Dependencies of snipmate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "honza/vim-snippets"
-
-" Snippets for our use :)
-Bundle 'garbas/vim-snipmate'
-
 " Every one should have a pair (Autogenerate pairs for "{[( )
 Bundle 'jiangmiao/auto-pairs'
 
