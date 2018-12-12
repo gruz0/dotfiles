@@ -43,6 +43,12 @@
         dest: ~/.oh-my-zsh
         update: no
 
+    - name: add zsh to /etc/shells
+      lineinfile:
+        dest: /etc/shells
+        line: "/usr/local/bin/zsh"
+      become: yes
+
     - name: install oh-my-zsh Docker plugin
       git:
         repo: https://github.com/zsh-users/zsh-docker.git
