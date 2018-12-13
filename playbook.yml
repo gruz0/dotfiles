@@ -138,6 +138,9 @@
         # Bottom right screen corner → Start screen saver
         - 'com.apple.dock wvous-br-corner -int 5'
         - 'com.apple.dock wvous-br-modifier -int 0'
+        # Set Dock behaviour
+        - 'com.apple.dock orientation -string left'
+        - 'com.apple.dock autohide-delay -float 0'
         # Safari
         - 'com.apple.Safari AutoOpenSafeDownloads -bool false'
         - 'com.apple.Safari IncludeInternalDebugMenu -bool true'
@@ -148,6 +151,8 @@
         # Get Dark Menu bar, Dock and Spotlight for macOS Mojave
         - '-g NSRequiresAquaSystemAppearance -bool Yes'
         - 'com.apple.Spotlight NSRequiresAquaSystemAppearance -bool No'
+        # Menubar
+        - 'com.apple.menuextra.battery ShowPercent -string "YES"'
       changed_when: false
 
     - name: set config list
