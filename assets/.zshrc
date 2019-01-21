@@ -43,3 +43,9 @@ test -d "${GOPATH}" || mkdir "${GOPATH}"
 test -d "${GOPATH}/src/github.com" || mkdir -p "${GOPATH}/src/github.com"
 
 alias ctags="`brew --prefix`/bin/ctags"
+
+alias csv='column -s, -t'
+
+function grep-before() { grep -rnI -A 5 "$@" * ;}
+function grep-after() { grep -rnI -B 5 "$@" * ;}
+function grep-around() { grep -rnI -C 5 "$@" * ;}
