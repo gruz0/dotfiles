@@ -102,6 +102,14 @@
         - ansible-vault
         - docker-compose
 
+    - name: pip packages (global) are installed
+      pip:
+        name: '{{ item }}'
+        state: present
+        executable: pip
+      with_items:
+        - docker-pretty-ps
+
     # NOTE: Ensure NodeJS 8 already installed from the official website before run this playbook
     - name: npm packages are installed
       npm:
