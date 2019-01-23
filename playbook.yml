@@ -36,6 +36,7 @@
         - php-code-sniffer
         - ctags
         - httpie
+        - nmap
 
     - name: install oh-my-zsh
       git:
