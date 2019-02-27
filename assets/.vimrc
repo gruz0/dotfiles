@@ -500,3 +500,5 @@ endfunction
 if &diff
   set diffopt+=iwhite
 endif
+
+au! BufRead,BufNewFile *.md setlocal textwidth=80 | let &colorcolumn=join(range(81,999),",")
