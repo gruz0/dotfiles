@@ -194,6 +194,9 @@ Plugin 'ekalinin/Dockerfile.vim'
 
 Plugin 'fatih/vim-go'
 
+Plugin 'zivyangll/git-blame.vim'
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+
 call vundle#end()
 
 "-------------------------------------------------------
