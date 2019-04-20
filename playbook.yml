@@ -90,6 +90,7 @@
         - java8
         - flash-npapi
         - wireshark
+        - atom
 
     - name: pip packages are installed
       pip:
