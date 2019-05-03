@@ -49,3 +49,5 @@ alias csv='column -s, -t'
 function grep-before() { grep -rnI -A 5 "$@" * ;}
 function grep-after() { grep -rnI -B 5 "$@" * ;}
 function grep-around() { grep -rnI -C 5 "$@" * ;}
+
+alias nmap-vulners="cd ~/Soft/nmap; nmap --script vulscan,nmap-vulners -sV"

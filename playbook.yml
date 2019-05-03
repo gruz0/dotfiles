@@ -214,3 +214,17 @@
         dest: /etc/ssh/ssh_config
         line: "\tCiphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc"
       become: yes
+
+    - name: create nmap vulners directory
+      file:
+        path: ~/Soft/nmap
+        state: directory
+
+    - name: install nmap vulners
+      git:
+        repo: "{{ item['repo'] }}"
+        dest: "~/Soft/nmap/{{ item['name'] }}"
+        update: yes
+      with_items:
+        - { name: 'vulscan', repo: 'git@github.com:scipag/vulscan.git' }
+        - { name: 'nmap-vulners', repo: 'git@github.com:vulnersCom/nmap-vulners.git' }
