@@ -38,6 +38,7 @@
         - httpie
         - nmap
         - postgresql
+        - redis
 
     - name: install oh-my-zsh
       git:
