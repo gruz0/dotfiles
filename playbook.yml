@@ -37,6 +37,7 @@
         - ctags
         - httpie
         - nmap
+        - postgresql
 
     - name: install oh-my-zsh
       git:
@@ -228,3 +229,11 @@
       with_items:
         - { name: 'vulscan', repo: 'git@github.com:scipag/vulscan.git' }
         - { name: 'nmap-vulners', repo: 'git@github.com:vulnersCom/nmap-vulners.git' }
+
+    # NOTE: https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3
+    - name: prepare PostgreSQL
+      shell: |
+        pg_ctl -D /usr/local/var/postgres start;
+        createdb `whoami`;
+        createuser -s postgres;
+        pg_ctl -D /usr/local/var/postgres stop

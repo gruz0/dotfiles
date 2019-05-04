@@ -51,3 +51,6 @@ function grep-after() { grep -rnI -B 5 "$@" * ;}
 function grep-around() { grep -rnI -C 5 "$@" * ;}
 
 alias nmap-vulners="cd ~/Soft/nmap; nmap --script vulscan,nmap-vulners -sV"
+
+alias pg_start="pg_ctl -D /usr/local/var/postgres start"
+alias pg_stop="pg_ctl -D /usr/local/var/postgres stop"
