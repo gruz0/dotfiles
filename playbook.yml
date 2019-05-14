@@ -3,6 +3,14 @@
 - hosts: localhost
   connection: local
   tasks:
+    - name: add HomeBrew custom repos
+      homebrew_tap:
+        name: "{{ item }}"
+      with_items:
+        - homebrew/cask-versions
+        - homebrew/cask-fonts
+        - codeclimate/formulae
+
     - name: install brew packages
       homebrew: name='{{ item }}' state=present
       with_items:
@@ -39,6 +47,7 @@
         - nmap
         - postgresql
         - redis
+        - codeclimate
 
     - name: install oh-my-zsh
       git:
@@ -63,13 +72,6 @@
         repo: https://github.com/zsh-users/zsh-autosuggestions.git
         dest: ~/.oh-my-zsh/plugins/zsh-autosuggestions
         update: no
-
-    - name: add HomeBrew custom repos
-      homebrew_tap:
-        name: "{{ item }}"
-      with_items:
-        - homebrew/cask-versions
-        - homebrew/cask-fonts
 
     - name: cask packages are installed
       homebrew_cask: name='{{ item }}' state=present
