@@ -9,7 +9,6 @@
       with_items:
         - homebrew/cask-versions
         - homebrew/cask-fonts
-        - codeclimate/formulae
 
     - name: install brew packages
       homebrew: name='{{ item }}' state=present
@@ -47,7 +46,6 @@
         - nmap
         - postgresql
         - redis
-        - codeclimate
 
     - name: install oh-my-zsh
       git:
@@ -84,15 +82,11 @@
         - skype
         - discord-ptb
         - tunnelblick
-        - virtualbox
         - vagrant
         - docker-edge
         - kitematic
         - google-cloud-sdk
-        - kubernetes-helm
         - minikube
-        - java8
-        - flash-npapi
         - wireshark
         - atom
 
@@ -107,13 +101,6 @@
         - awscli
         - ansible-vault
         - docker-compose
-
-    - name: pip packages (global) are installed
-      pip:
-        name: '{{ item }}'
-        state: present
-        executable: pip
-      with_items:
         - docker-pretty-ps
 
     # NOTE: Ensure NodeJS 8 already installed from the official website before run this playbook
