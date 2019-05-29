@@ -5,47 +5,47 @@
   tasks:
     - name: add HomeBrew custom repos
       homebrew_tap:
-        name: "{{ item }}"
-      with_items:
-        - homebrew/cask-versions
-        - homebrew/cask-fonts
+        name:
+          - homebrew/cask-versions
+          - homebrew/cask-fonts
 
     - name: install brew packages
-      homebrew: name='{{ item }}' state=present
-      with_items:
-        - coreutils
-        - git
-        - curl
-        - wget
-        - gpg2
-        - tmux
-        - mc
-        - ssh-copy-id
-        - icu4c
-        - reattach-to-user-namespace
-        - sqlite
-        - neovim/neovim/neovim
-        - python3
-        - kubernetes-cli
-        - libxml2
-        - telnet
-        - imagemagick@6
-        - v8@3.15
-        - zsh
-        - tree
-        - the_silver_searcher
-        - mariadb@10.3
-        - yarn
-        - watchman
-        - libiconv
-        - go
-        - php71
-        - php-code-sniffer
-        - ctags
-        - httpie
-        - nmap
-        - postgresql
-        - redis
+      homebrew:
+        name:
+          - coreutils
+          - git
+          - curl
+          - wget
+          - gpg2
+          - tmux
+          - mc
+          - ssh-copy-id
+          - icu4c
+          - reattach-to-user-namespace
+          - sqlite
+          - neovim/neovim/neovim
+          - python3
+          - kubernetes-cli
+          - libxml2
+          - telnet
+          - imagemagick@6
+          - v8@3.15
+          - zsh
+          - tree
+          - the_silver_searcher
+          - mariadb@10.3
+          - yarn
+          - watchman
+          - libiconv
+          - go
+          - php71
+          - php-code-sniffer
+          - ctags
+          - httpie
+          - nmap
+          - postgresql
+          - redis
+        state: present
 
     - name: install oh-my-zsh
       git:
@@ -72,23 +72,24 @@
         update: no
 
     - name: cask packages are installed
-      homebrew_cask: name='{{ item }}' state=present
-      with_items:
-        - iterm2
-        - font-fira-code
-        - google-chrome
-        - opera
-        - slack
-        - skype
-        - discord-ptb
-        - tunnelblick
-        - vagrant
-        - docker-edge
-        - kitematic
-        - google-cloud-sdk
-        - minikube
-        - wireshark
-        - atom
+      homebrew_cask:
+        name:
+          - iterm2
+          - font-fira-code
+          - google-chrome
+          - opera
+          - slack
+          - skype
+          - discord-ptb
+          - tunnelblick
+          - vagrant
+          - docker-edge
+          - kitematic
+          - google-cloud-sdk
+          - minikube
+          - wireshark
+          - atom
+        state: present
 
     - name: pip packages are installed
       pip:
