@@ -45,6 +45,7 @@
           - nmap
           - postgresql
           - redis
+          - exa
         state: present
 
     - name: install oh-my-zsh
