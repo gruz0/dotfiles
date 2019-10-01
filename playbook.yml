@@ -46,6 +46,7 @@
           - postgresql
           - redis
           - exa
+          - sleepwatcher
         state: present
 
     - name: install oh-my-zsh
@@ -229,3 +230,15 @@
         createdb `whoami`;
         createuser -s postgres;
         pg_ctl -D /usr/local/var/postgres stop
+
+    - name: install sleepwatcher-resume.sh
+      template:
+        src: '{{ playbook_dir }}/assets/sleepwatcher/sleepwatcher-resume.sh.j2'
+        dest: /usr/local/bin/sleepwatcher-resume.sh
+        mode: 0755
+        force: yes
+
+    - name: start sleepwatcher
+      shell: |
+        launchctl unload -w {{ playbook_dir }}/assets/sleepwatcher/de.bernhard-baehr.sleepwatcher.plist;
+        launchctl load -w {{ playbook_dir }}/assets/sleepwatcher/de.bernhard-baehr.sleepwatcher.plist
