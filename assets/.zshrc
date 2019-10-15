@@ -56,3 +56,7 @@ alias pg_start="pg_ctl -D /usr/local/var/postgres start"
 alias pg_stop="pg_ctl -D /usr/local/var/postgres stop"
 
 alias redis_start="redis-server /usr/local/etc/redis.conf"
+
+alias ls='exa'
+alias la='exa --git --header --long --all'
+alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say cache flushed'
