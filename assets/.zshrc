@@ -60,3 +60,6 @@ alias redis_start="redis-server /usr/local/etc/redis.conf"
 alias ls='exa'
 alias la='exa --git --header --long --all'
 alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say cache flushed'
+
+# Use it as `swaggerize path/to/directory/contains/swagger.json`
+alias swaggerize='swaggerize() { docker run -p 80:8080 -e SWAGGER_JSON=/foo/swagger.json -v $(pwd)/$1:/foo swaggerapi/swagger-ui };swaggerize'
