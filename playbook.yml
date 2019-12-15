@@ -47,6 +47,7 @@
           - redis
           - exa
           - sleepwatcher
+          - diff-so-fancy
         state: present
 
     - name: install oh-my-zsh
