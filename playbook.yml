@@ -38,7 +38,7 @@
           - watchman
           - libiconv
           - go
-          - php71
+          - php@7.3
           - php-code-sniffer
           - ctags
           - httpie
