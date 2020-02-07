@@ -92,6 +92,7 @@
           - minikube
           - wireshark
           - atom
+          - calibre
         state: present
 
     - name: pip packages are installed
