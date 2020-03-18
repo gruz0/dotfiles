@@ -47,6 +47,7 @@
           - exa
           - sleepwatcher
           - diff-so-fancy
+          - pre-commit
         state: present
 
     - name: install oh-my-zsh
