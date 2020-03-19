@@ -121,7 +121,7 @@ let g:go_list_type = 'quickfix'
 let g:go_auto_type_info = 1
 set updatetime=100
 let g:go_fmt_command = "goimports"
-let g:syntastic_go_checkers = ['golint', 'govet', 'gometalinter', 'gofmt']
+let g:syntastic_go_checkers = ['golint', 'govet', 'gometalinter', 'gofmt', 'golangci_lint']
 let g:syntastic_go_gometalinter_args = ['--disable-all', '--enable=errcheck']
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
