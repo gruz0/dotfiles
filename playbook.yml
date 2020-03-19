@@ -38,6 +38,7 @@
           - watchman
           - libiconv
           - go
+          - golangci/tap/golangci-lint
           - php@7.3
           - php-code-sniffer
           - ctags
@@ -236,3 +237,12 @@
       shell: |
         launchctl unload -w {{ playbook_dir }}/assets/sleepwatcher/de.bernhard-baehr.sleepwatcher.plist;
         launchctl load -w {{ playbook_dir }}/assets/sleepwatcher/de.bernhard-baehr.sleepwatcher.plist
+
+    - name: install go dependencies
+      shell: go get {{ item }}
+      with_items:
+        - github.com/fzipp/gocyclo
+        - github.com/golang/lint/golint
+        - github.com/jingyugao/rowserrcheck
+        - github.com/uudashr/gocognit/cmd/gocognit
+        - github.com/client9/misspell/cmd/misspell
