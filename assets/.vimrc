@@ -37,10 +37,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'gregsexton/gitv'
 let g:Gitv_OpenHorizontal = 0
 
-" Неплохая реализация Git Diff, запуск по ,gd
-Plugin 'int3/vim-extradite'
-nmap <Leader>gd :Extradite<CR>
-
 " Добавляет в левый сайдбар маркеры +/-/~ для вывода статуса строк из git diff
 Plugin 'airblade/vim-gitgutter'
 let g:gitgutter_max_signs=9999
@@ -204,9 +200,6 @@ Plugin 'ekalinin/Dockerfile.vim'
 
 Plugin 'fatih/vim-go'
 
-Plugin 'zivyangll/git-blame.vim'
-nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
-
 call vundle#end()
 
 "-------------------------------------------------------
@@ -367,69 +360,11 @@ if has("linebreak")
     let &sbr = nr2char(8618).' ' " Show ↪ at the beginning of wrapped lines
 endif
 
-" Set up the GVim window colors and size
-if has("gui_running")
-	set guifont=Monaco:h14
-	if !exists("g:vimrcloaded")
-		winpos 0 0
-		winsize 270 90
-		let g:vimrcloaded = 1
-	endif
-
-	" Set up the gui cursor to look nice
-	set guicursor=n-v-c:block-Cursor-blinkon0
-	set guicursor+=ve:ver35-Cursor
-	set guicursor+=o:hor50-Cursor
-	set guicursor+=i-ci:ver25-Cursor
-	set guicursor+=r-cr:hor20-Cursor
-	set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
-
-	" set the gui options
-	set guioptions-=m  "remove menu bar
-	set guioptions-=T  "remove toolbar
-	set guioptions-=r  "remove right-hand scroll bar"
-endif
-
-" Creates a session
-function! MakeSession()
-	let b:sessionfile = 'project.vim'
-	exe "mksession! " . b:sessionfile
-endfunction
-
-" Updates a session, BUT ONLY IF IT ALREADY EXISTS
-function! UpdateSession()
-	if argc()==0
-		let b:sessionfile = "project.vim"
-		if (filereadable(b:sessionfile))
-			exe "mksession! " . b:sessionfile
-			echo "updating session"
-		endif
-	endif
-endfunction
-
-" Loads a session if it exists
-function! LoadSession()
-	if argc() == 0
-		let b:sessionfile = "project.vim"
-		if (filereadable(b:sessionfile))
-			exe 'source ' b:sessionfile
-		else
-			echo "No session loaded."
-		endif
-	else
-		let b:sessionfile = ""
-		let b:sessiondir = ""
-	endif
-endfunction
-
-au VimEnter * nested :call LoadSession()
-au VimLeave * :call UpdateSession()
-
 " Save cursor position when changing split
-if v:version >= 700"{{{
+if v:version >= 700
 	au BufLeave * let b:winview = winsaveview()
 	au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
-endif"}}}
+endif
 
 " Remove whitespaces from all file
 function! TrimWhitespace()
@@ -476,9 +411,6 @@ set splitbelow
 
 autocmd FileType gitcommit setlocal spell textwidth=72
 
-" Snippets
-"iabbrev ddate <C-r>=strftime("%F")<CR>
-
 " Nightmare mode
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -491,8 +423,6 @@ set timeout           " for mappings
 set timeoutlen=1000   " default value
 set ttimeout          " for key codes
 set ttimeoutlen=10    " unnoticeable small value
-
-map <F2> :set softtabstop=2 tabstop=4 shiftwidth=2<CR> :retab<CR>
 
 runtime macros/matchit.vim
 
