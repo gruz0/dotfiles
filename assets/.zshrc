@@ -52,8 +52,6 @@ function grep-around() { grep -rnI -C 5 "$@" * ;}
 
 alias nmap-vulners="cd ~/Soft/nmap; nmap --script vulscan,nmap-vulners -sV"
 
-alias redis_start="redis-server /usr/local/etc/redis.conf"
-
 alias ls='exa'
 alias la='exa --git --header --long --all'
 alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say cache flushed'

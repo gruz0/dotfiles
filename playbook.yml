@@ -25,7 +25,6 @@
           - sqlite
           - neovim/neovim/neovim
           - python3
-          - kubernetes-cli
           - libxml2
           - telnet
           - imagemagick@6
@@ -33,7 +32,6 @@
           - zsh
           - tree
           - the_silver_searcher
-          - mariadb@10.3
           - yarn
           - watchman
           - libiconv
@@ -44,7 +42,6 @@
           - ctags
           - httpie
           - nmap
-          - redis
           - exa
           - sleepwatcher
           - diff-so-fancy
@@ -89,9 +86,6 @@
           - vagrant
           - docker-edge
           - kitematic
-          - google-cloud-sdk
-          - minikube
-          - wireshark
           - atom
           - calibre
         state: present
@@ -104,7 +98,6 @@
         extra_args: --user
       with_items:
         - neovim
-        - awscli
         - ansible-vault
         - docker-compose
         - docker-pretty-ps
