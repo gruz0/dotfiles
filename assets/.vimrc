@@ -117,8 +117,8 @@ let g:go_list_type = 'quickfix'
 let g:go_auto_type_info = 1
 set updatetime=100
 let g:go_fmt_command = "goimports"
-let g:syntastic_go_checkers = ['golint', 'govet', 'gometalinter', 'gofmt', 'golangci_lint']
-let g:syntastic_go_gometalinter_args = ['--disable-all', '--enable=errcheck']
+let g:syntastic_go_checkers = ['golangci_lint']
+let g:syntastic_go_golangci_lint_args = ['--no-config', '--verbose', '--print-resources-usage', '--disable-all', '--enable=govet', '--enable=errcheck', '--enable=staticcheck', '--enable=unused', '--enable=gosimple', '--enable=structcheck', '--enable=varcheck', '--enable=ineffassign', '--enable=deadcode', '--enable=bodyclose', '--enable=golint', '--enable=stylecheck', '--enable=gosec', '--enable=interfacer', '--enable=unconvert', '--enable=dupl', '--enable=goconst', '--enable=gocognit', '--enable=rowserrcheck', '--enable=gofmt', '--enable=goimports', '--enable=maligned', '--enable=depguard', '--enable=misspell', '--enable=lll', '--enable=unparam', '--enable=dogsled', '--enable=nakedret', '--enable=prealloc', '--enable=scopelint', '--enable=gocritic', '--enable=gochecknoinits', '--enable=gochecknoglobals', '--enable=godox', '--enable=funlen', '--enable=wsl', '--enable=goprintffuncname']
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
