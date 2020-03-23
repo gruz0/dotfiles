@@ -193,6 +193,9 @@
         dest: '~/.config/nvim/init.vim'
         state: link
 
+    - name: install vim-plug for NeoVim
+      shell: curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
     - name: Enable `Host` group in SSH config
       lineinfile:
         dest: /etc/ssh/ssh_config

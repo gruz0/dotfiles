@@ -1,89 +1,71 @@
-if !filereadable(expand($HOME.'/.vim/bundle/Vundle.vim/README.md'))
-    echo 'Installing Vundle...'
-    silent !mkdir -p $HOME/.vim/bundle
-    silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Необходимо для корректной работы в El Capitan с zsh
-set shell=bash
+call plug#begin('~/.vim/plugged')
+Plug 'vim-scripts/TaskList.vim'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'ngmy/vim-rubocop'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
+Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
+Plug 'kchmck/vim-coffee-script'
+Plug 'godlygeek/tabular'
+Plug 'ap/vim-css-color'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-syntastic/syntastic'
+Plug 'tomtom/tcomment_vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'majutsushi/tagbar'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'slim-template/vim-slim'
+Plug 'vim-ctrlspace/vim-ctrlspace'
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-endwise'
+Plug 'vim-ruby/vim-ruby'
+Plug 'jiangmiao/auto-pairs'
+Plug 'ervandew/supertab'
+Plug 'tomasr/molokai'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'pangloss/vim-javascript'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+call plug#end()
 
 set nocompatible
-filetype off
 
-" Автоматическое считывание конфига Vim после его перезаписи
-" au BufWritePost .vimrc so $MYVIMRC
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" Сканирует файл на наличие todo, fixme-директив, включается через <Leader>t
 let mapleader=','
-Plugin 'vim-scripts/TaskList.vim'
 
-" Buffer Explorer
-Plugin 'jlanzarotta/bufexplorer'
-
-" Поддержка RuboCop
-Plugin 'ngmy/vim-rubocop'
+" vim-rubocop
 let g:vimrubocop_config = '.rubocop.yml'
 let g:vimrubocop_keymap = 0
 nmap <C-R> :RuboCop<CR>
 
-" Поддержка Git
-Plugin 'tpope/vim-fugitive'
-Plugin 'gregsexton/gitv'
+" gitv
 let g:Gitv_OpenHorizontal = 0
 
-" Добавляет в левый сайдбар маркеры +/-/~ для вывода статуса строк из git diff
-Plugin 'airblade/vim-gitgutter'
+" vim-gitgutter
 let g:gitgutter_max_signs=9999
 
-" Изменяет строку статуса на более функциональную
-Plugin 'bling/vim-airline'
-
-" Enable the list of buffers
+" vim-airline
 let g:airline#extensions#tabline#enabled = 1
-
-" Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-" Поддержка CoffeeScript
-" В файле *.coffee запускать как :CoffeeCompile vert для тестовой компиляции в JS
-Plugin 'kchmck/vim-coffee-script'
+" tabular
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
 
-" Отправка существующего буфера или куска кода в gist.github.com
-Plugin 'mattn/webapi-vim'
-Plugin 'mattn/gist-vim'
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-
-" Позволяет выравнивать код по нужному знаку, например, все "=" отбить с единым отступом в коде
-" Пример: http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
-" Использовать в VisualMode:
-" :Tab /=
-" :Tab /:\zs
-Plugin 'godlygeek/tabular'
-if exists(":Tabularize")
-	nmap <Leader>a= :Tabularize /=<CR>
-	vmap <Leader>a= :Tabularize /=<CR>
-	nmap <Leader>a: :Tabularize /:\zs<CR>
-	vmap <Leader>a: :Tabularize /:\zs<CR>
-endif
-
-" Подсвечивает HEX-значения в CSS/HTML
-Plugin 'ap/vim-css-color'
-
-" Дерево файлов и директорий, включается по Ctrl+N
-Plugin 'scrooloose/nerdtree'
+" nerdtree
 let g:NERDTreeWinPos = "right"
 map <C-N> :NERDTreeToggle<CR>
 nmap <C-J> :tabprevious<CR>
 nmap <C-K> :tabnext<CR>
 
-" I close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 let NERDTreeShowBookmarks=1
@@ -93,12 +75,11 @@ let NERDTreeShowHidden=1
 let NERDTreeBookmarksFile= $HOME . '/.vim/.NERDTreeBookmarks'
 let NERDTreeWinSize=35
 
-" Подсветка синтаксиса
-Plugin 'vim-syntastic/syntastic'
-
+" syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set updatetime=100
 
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
@@ -109,16 +90,22 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'npm run lint --'
-
-" Go Syntastic rules
 let g:godef_split = 0
 let g:go_fmt_fail_silently = 0
 let g:go_list_type = 'quickfix'
 let g:go_auto_type_info = 1
-set updatetime=100
 let g:go_fmt_command = "goimports"
 let g:syntastic_go_checkers = ['golangci_lint']
-let g:syntastic_go_golangci_lint_args = ['--no-config', '--verbose', '--print-resources-usage', '--disable-all', '--enable=govet', '--enable=errcheck', '--enable=staticcheck', '--enable=unused', '--enable=gosimple', '--enable=structcheck', '--enable=varcheck', '--enable=ineffassign', '--enable=deadcode', '--enable=bodyclose', '--enable=golint', '--enable=stylecheck', '--enable=gosec', '--enable=interfacer', '--enable=unconvert', '--enable=dupl', '--enable=goconst', '--enable=gocognit', '--enable=rowserrcheck', '--enable=gofmt', '--enable=goimports', '--enable=maligned', '--enable=depguard', '--enable=misspell', '--enable=lll', '--enable=unparam', '--enable=dogsled', '--enable=nakedret', '--enable=prealloc', '--enable=scopelint', '--enable=gocritic', '--enable=gochecknoinits', '--enable=gochecknoglobals', '--enable=godox', '--enable=funlen', '--enable=wsl', '--enable=goprintffuncname']
+let g:syntastic_go_golangci_lint_args = [
+      \ '--no-config', '--disable-all',
+      \ '--enable=govet', '--enable=errcheck', '--enable=staticcheck', '--enable=unused', '--enable=gosimple',
+      \ '--enable=structcheck', '--enable=varcheck', '--enable=ineffassign', '--enable=deadcode', '--enable=bodyclose',
+      \ '--enable=golint', '--enable=stylecheck', '--enable=gosec', '--enable=interfacer', '--enable=unconvert',
+      \ '--enable=dupl', '--enable=goconst', '--enable=gocognit', '--enable=rowserrcheck', '--enable=gofmt',
+      \ '--enable=goimports', '--enable=maligned', '--enable=depguard', '--enable=misspell', '--enable=lll',
+      \ '--enable=unparam', '--enable=dogsled', '--enable=nakedret', '--enable=prealloc', '--enable=scopelint',
+      \ '--enable=gocritic', '--enable=gochecknoinits', '--enable=gochecknoglobals', '--enable=godox',
+      \ '--enable=funlen', '--enable=wsl', '--enable=goprintffuncname']
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
@@ -127,96 +114,42 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
-" vim-scripts repos
-
-" Комментирование по //
-Plugin 'tComment'
+" tcomment_vim
 nnoremap <silent> // :TComment<CR>
 vnoremap <silent> // :TComment<CR>
 
-" Поддержка EditorConfig (единый конфиг для всех редакторов и IDE)
-Plugin 'editorconfig/editorconfig-vim'
-
-" TagBar для отображения структуры файлов
-Plugin 'majutsushi/tagbar'
+" tagbar
 let g:tagbar_left = 1
 let g:tagbar_width = 35
 nmap <F7> :TagbarToggle<CR>
 
-" Multiple Cursors
-Plugin 'terryma/vim-multiple-cursors.git'
+" vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-g>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
-Plugin 'slim-template/vim-slim.git'
+" vim-slim
 autocmd BufNewFile,BufRead *.slimbars setlocal filetype=slim
 
-Plugin 'vim-ctrlspace/vim-ctrlspace'
+" vim-ctrlspace
 nnoremap <silent><C-p> :CtrlSpace O<CR>
 nnoremap <silent><C-l> :CtrlSpace l<CR>
 
-" File searcher
-Plugin 'rking/ag.vim'
-
-if executable("ag")
-  let g:CtrlSpaceGlobCommand = 'ag . -l --nocolor -g ""'
-endif
-
-" Always start searching from your project root instead of the cwd
+" ag
+let g:CtrlSpaceGlobCommand = 'ag . -l --nocolor -g ""'
 let g:ag_working_path_mode="r"
 
-" Wisely add "end" in ruby, endfunction/endif/more
-Plugin 'tpope/vim-endwise'
-
-" Vim/Ruby Configuration Files
-Plugin 'vim-ruby/vim-ruby'
+" vim-ruby
 let ruby_operators = 1
 let ruby_space_errors = 1
 let g:rubycomplete_rails = 1
-
-" Rails :/
-Bundle 'tpope/vim-rails.git'
-map <leader>s :A<CR> " Switch between code and the test file
-
-" Every one should have a pair (Autogenerate pairs for "{[( )
-Bundle 'jiangmiao/auto-pairs'
-
-" Tab completions
-Bundle 'ervandew/supertab'
-
-" Molokai theme
-Bundle 'tomasr/molokai'
-
-Plugin 'leafgarland/typescript-vim'
-Plugin 'peitalin/vim-jsx-typescript'
-Plugin 'pangloss/vim-javascript'
-
-Plugin 'mxw/vim-jsx'
-let g:jsx_ext_required = 0
-
-Plugin 'ekalinin/Dockerfile.vim'
-
-Plugin 'fatih/vim-go'
-
-call vundle#end()
-
-"-------------------------------------------------------
-" После этой строки не вставлять никаких Bundle/Plugin!
-"-------------------------------------------------------
-
-" Other plugins
-
-filetype plugin indent on
 
 " -------------------
 " Vim settings
 " -------------------
 
-syntax on
-
-" Configs to make Molokai look great
+" make Molokai looks great
 set background=dark
 let g:molokai_original=1
 let g:rehash256=1
@@ -237,9 +170,6 @@ set wrapscan
 
 " Makes command line two lines high
 set ch=2
-
-" Make the 'cw' and like commands put a $ at the end instead of just deleting the text and replacing it
-" set cpoptions=cesB$
 
 " Show invisibles
 set list
@@ -265,9 +195,6 @@ set hidden
 
 " Показывает текущий режим в последней строке
 set showmode
-
-" Позволяет выделять квадратные области в визуальном режиме
-" set virtualedit=all
 
 " Make the command-line completion better
 set wildmenu
