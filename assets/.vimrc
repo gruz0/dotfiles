@@ -6,33 +6,33 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/TaskList.vim'
 Plug 'jlanzarotta/bufexplorer'
-Plug 'ngmy/vim-rubocop'
+Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-Plug 'kchmck/vim-coffee-script'
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'godlygeek/tabular'
 Plug 'ap/vim-css-color'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-syntastic/syntastic'
 Plug 'tomtom/tcomment_vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'majutsushi/tagbar'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'slim-template/vim-slim'
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-endwise'
-Plug 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'jiangmiao/auto-pairs'
-Plug 'ervandew/supertab'
 Plug 'tomasr/molokai'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'pangloss/vim-javascript'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'leafgarland/typescript-vim', { 'for': 'javascript' }
+Plug 'peitalin/vim-jsx-typescript', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 set nocompatible
@@ -120,8 +120,37 @@ vnoremap <silent> // :TComment<CR>
 
 " tagbar
 let g:tagbar_left = 1
-let g:tagbar_width = 35
+let g:tagbar_width = 40
 nmap <F7> :TagbarToggle<CR>
+
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
+
 
 " vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
@@ -136,6 +165,9 @@ autocmd BufNewFile,BufRead *.slimbars setlocal filetype=slim
 nnoremap <silent><C-p> :CtrlSpace O<CR>
 nnoremap <silent><C-l> :CtrlSpace l<CR>
 
+" vim-endwise
+let g:endwise_no_mappings=1
+
 " ag
 let g:CtrlSpaceGlobCommand = 'ag . -l --nocolor -g ""'
 let g:ag_working_path_mode="r"
@@ -144,6 +176,27 @@ let g:ag_working_path_mode="r"
 let ruby_operators = 1
 let ruby_space_errors = 1
 let g:rubycomplete_rails = 1
+
+" vim.coc
+set cmdheight=2
+set shortmess+=c
+set signcolumn=yes
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " -------------------
 " Vim settings
@@ -198,15 +251,6 @@ set showmode
 
 " Make the command-line completion better
 set wildmenu
-
-" Set command-line completion mode:
-"   - on first <Tab>, when more than one match, list all matches and complete
-"     the longest common  string
-"   - on second <Tab>, complete the next full match and show menu
-set wildmode=list:longest,list:full
-
-" When completing by tag, show the whole tag, not just the function name
-set showfulltag
 
 " set the search scan so that it ignores case when the search is all lower
 " case but recognizes uppercase if it's specified
