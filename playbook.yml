@@ -174,7 +174,7 @@
         list:
           - .bundle/config
           - .oh-my-zsh/themes/gruz0.zsh-theme
-          - .config/nvim/.keep
+          - .config/nvim/coc-settings.json
           - .ssh
           - .ansible.cfg
           - .bash_profile
