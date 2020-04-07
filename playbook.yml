@@ -37,6 +37,7 @@
           - libiconv
           - go
           - golangci/tap/golangci-lint
+          - gotags
           - php@7.3
           - php-code-sniffer
           - ctags
