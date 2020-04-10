@@ -71,12 +71,12 @@ nmap <C-K> :tabnext<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-let NERDTreeShowBookmarks=1
+let NERDTreeShowBookmarks=0
 let NERDTreeChDirMode=2
 let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
 let NERDTreeBookmarksFile= $HOME . '/.vim/.NERDTreeBookmarks'
-let NERDTreeWinSize=35
+let NERDTreeWinSize=50
 
 " syntastic
 set statusline+=%#warningmsg#
