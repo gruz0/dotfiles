@@ -351,11 +351,7 @@ if has('multi_byte')
 	highlight NonText guifg=#4a4a59
 	highlight SpecialKey guifg=#4a4a59
 
-	if version >= 700
-		set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮,nbsp:×
-	else
-		set listchars=tab:»\ ,trail:·,extends:>,precedes:<,nbsp:_
-	endif
+	set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮,nbsp:×
 endif
 
 " Symbol before wrapped line
