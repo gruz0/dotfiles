@@ -254,7 +254,7 @@
       shell: go get {{ item }}
       with_items:
         - github.com/fzipp/gocyclo
-        - github.com/golang/lint/golint
+        - golang.org/x/lint/golint
         - github.com/jingyugao/rowserrcheck
         - github.com/uudashr/gocognit/cmd/gocognit
         - github.com/client9/misspell/cmd/misspell
