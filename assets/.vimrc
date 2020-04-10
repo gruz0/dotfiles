@@ -27,9 +27,11 @@ Plug 'tpope/vim-endwise'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomasr/molokai'
-Plug 'leafgarland/typescript-vim', { 'for': 'javascript' }
-Plug 'peitalin/vim-jsx-typescript', { 'for': 'javascript' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'pangloss/vim-javascript'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -187,6 +189,10 @@ let g:ag_working_path_mode="r"
 let ruby_operators = 1
 let ruby_space_errors = 1
 let g:rubycomplete_rails = 1
+
+" vim-jsx-pretty
+let g:vim_jsx_pretty_colorful_config = 1
+let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'js']
 
 " vim.coc
 set cmdheight=2
