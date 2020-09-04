@@ -10,7 +10,7 @@ Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'godlygeek/tabular'
 Plug 'ap/vim-css-color'
@@ -35,6 +35,9 @@ Plug 'pangloss/vim-javascript'
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'pearofducks/ansible-vim'
+Plug 'zivyangll/git-blame.vim'
+Plug 'rhysd/git-messenger.vim'
 call plug#end()
 
 set nocompatible
@@ -82,7 +85,7 @@ let NERDTreeWinSize=50
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-set updatetime=100
+set updatetime=300
 
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
@@ -117,6 +120,8 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
+let g:syntastic_cs_checkers = ['code_checker']
 
 let g:syntastic_error_symbol = '❌'
 let g:syntastic_style_error_symbol = '⁉️'
@@ -194,6 +199,11 @@ let g:rubycomplete_rails = 1
 let g:vim_jsx_pretty_colorful_config = 1
 let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'js']
 
+" vim-go
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+" let g:go_def_mapping_enabled = 0
+
 " vim.coc
 set cmdheight=2
 set shortmess+=c
@@ -230,12 +240,22 @@ function! s:show_documentation()
   endif
 endfunction
 
+" ansible-vim
+let g:ansible_attribute_highlight = 'a'
+let g:ansible_extra_keywords_highlight = 1
+
+au BufRead,BufNewFile playbook*.yml set filetype=yaml.ansible
+
+" gitblame
+nnoremap <Leader>b :<C-u>call gitblame#echo()<CR>
+
 " -------------------
 " Vim settings
 " -------------------
 
 " make Molokai looks great
 set background=dark
+set termguicolors
 let g:molokai_original=1
 let g:rehash256=1
 set t_Co=256
@@ -283,6 +303,9 @@ set showmode
 
 " Make the command-line completion better
 set wildmenu
+
+" Autocompletion
+set wildmode=longest,list,full
 
 " set the search scan so that it ignores case when the search is all lower
 " case but recognizes uppercase if it's specified
@@ -365,11 +388,8 @@ if v:version >= 700
 	au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
 endif
 
-" Remove whitespaces from all file
-function! TrimWhitespace()
-	%s/\s\+$//e
-endfunction
-command! TrimWhitespace call TrimWhitespace()
+" Remove trailing whitespace on save
+autocmd BufWritePre * %s/\s\+$//e
 
 " Go back to the position the cursor was on the last time this file was edited
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")|execute("normal `\"")|endif

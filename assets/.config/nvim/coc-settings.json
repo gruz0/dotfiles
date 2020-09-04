@@ -3,7 +3,7 @@
     "golang": {
       "command": "gopls",
       "args": ["serve", "-debug", "0.0.0.0:8484", "-rpc.trace"],
-      "rootPatterns": ["go.mod"],
+      "rootPatterns": ["go.mod", ".vim/", ".git/"],
       "disableWorkspaceFolders": true,
       "filetypes": ["go"]
     },
@@ -15,6 +15,14 @@
       "requireRootPattern": true,
       "settings": {},
       "rootPatterns": [".flowconfig"]
+    },
+    "intelephense": {
+      "command": "intelephense",
+      "args": ["--stdio"],
+      "filetypes": ["php"],
+      "initializationOptions": {
+        "storagePath": "/tmp/intelephense"
+      }
     }
   },
   "cSpell.enabled": true,
@@ -58,9 +66,15 @@
     { "languageId": "scss",                                "dictionaries": ["fonts", "css"] }
   ],
   "cSpell.ignoreWords": [
+    "gochecknoglobals",
+    "gruz",
     "madi",
-    "pgxpool",
     "nolint",
-    "gochecknoglobals"
+    "pgxpool",
+    "stretchr"
+  ],
+  "cSpell.userWords": [
+    "gommon",
+    "kadyrov"
   ]
 }
