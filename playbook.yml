@@ -38,7 +38,7 @@
           - go
           - golangci/tap/golangci-lint
           - gotags
-          - php@7.3
+          - php@7.4
           - php-code-sniffer
           - composer
           - ctags
@@ -124,6 +124,14 @@
         - eslint-plugin-flowtype@latest
         - eslint-plugin-react-hooks@latest
         - gitbook-cli
+        - intelephense # PHP Language Server for Vim's COC: https://github.com/bmewburn/intelephense-docs
+
+    - name: pecl packages are installed
+      pear:
+        name: 'pecl/{{ item }}'
+        state: present
+      with_items:
+        - xdebug
 
     - name: gpg key for rvm is installed
       shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
