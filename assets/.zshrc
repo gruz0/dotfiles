@@ -59,3 +59,9 @@ alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say
 
 # Use it as `swaggerize path/to/directory/contains/swagger.json`
 alias swaggerize='swaggerize() { docker run -p 80:8080 -e SWAGGER_JSON=/foo/swagger.json -v $(pwd)/$1:/foo swaggerapi/swagger-ui };swaggerize'
+
+cover () {
+    go test -v -coverprofile /tmp/cover.out ./...
+    go tool cover -html=/tmp/cover.out -o /tmp/cover.html
+    open /tmp/cover.html
+}
