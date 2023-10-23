@@ -21,3 +21,6 @@ indent_size = 2
 
 [*.{yml,json,js,ejs,jsx,coffee,rb,css,scss,html,ru,erb,haml,slim}]
 indent_size = 2
+
+[*.{sol,yul}]
+indent_size = 4

@@ -1,0 +1,23 @@
+- name: install oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: ~/.oh-my-zsh
+    update: yes
+
+- name: add zsh to /etc/shells
+  lineinfile:
+    dest: /etc/shells
+    line: "/usr/local/bin/zsh"
+  become: yes
+
+- name: install oh-my-zsh Docker plugin
+  git:
+    repo: https://github.com/zsh-users/zsh-docker.git
+    dest: ~/.oh-my-zsh/plugins/zsh-docker
+    update: yes
+
+- name: install oh-my-zsh autosuggestions plugin
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: ~/.oh-my-zsh/plugins/zsh-autosuggestions
+    update: yes

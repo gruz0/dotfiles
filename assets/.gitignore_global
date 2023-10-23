@@ -3,7 +3,6 @@
 .idea
 .vagrant
 .tags
-.ruby-version
 xcuserdata
 coverage
 node_modules
@@ -12,5 +11,6 @@ Desktop.ini
 Thumbs.db
 *.log
 *.retry
-*.ignore*
 NOTES*
+.vs/
+TODO

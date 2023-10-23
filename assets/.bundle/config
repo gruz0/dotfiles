@@ -10,3 +10,4 @@ BUNDLE_BUILD__PUMA: "--with-cppflags=-I/usr/local/opt/openssl/include --with-ldf
 BUNDLE_BUILD__NOKOGIRI: "--use-system-libraries --with-xml2-include=/usr/local/opt/libxml2/include/libxml2 --with-xml2-lib=/usr/local/opt/libxml2/lib"
 BUNDLE_BUILD__SQLITE3: "--with-sqlite3-include=/usr/local/opt/sqlite/include --with-sqlite3-lib=/usr/local/opt/sqlite/lib"
 BUNDLE_BUILD__CHARLOCK_HOLMES: "--with-icu-dir=/usr/local/opt/icu4c --with-cxxflags=-std=c++11"
+BUNDLE_BUILD__MYSQL2: "--with-ldflags=-L/usr/local/opt/openssl/lib --with-cppflags=-I/usr/local/opt/openssl/include"

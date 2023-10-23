@@ -1,0 +1,11 @@
+- name: Enable `Host` group in SSH config
+  lineinfile:
+    dest: /etc/ssh/ssh_config
+    line: "Host *"
+  become: yes
+
+- name: activate `Ciphers` in SSH config
+  lineinfile:
+    dest: /etc/ssh/ssh_config
+    line: "\tCiphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc"
+  become: yes
