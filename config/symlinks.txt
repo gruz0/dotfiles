@@ -16,18 +16,12 @@
 
 # Git configurations
 .gitconfig
-.gitignore_global
 
 # Development tools
 .editorconfig
-.ctags
 
 # Ruby/Gem configurations
-.bundle/config
 .gemrc
-
-# Language server configurations
-.config/solargraph/config.yml
 
 # Ansible configuration
 .ansible.cfg

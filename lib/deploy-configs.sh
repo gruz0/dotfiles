@@ -47,9 +47,9 @@ while IFS= read -r rel_path; do
         continue
     fi
 
-    # Backup existing file/directory
+    # Check if destination already exists as a non-symlink file/directory
     if [[ -e "$dest" && ! -L "$dest" ]]; then
-        backup_file "$dest"
+        die "Destination already exists and is not a symlink: $dest\nPlease manually manage this file first (move it to the repository or remove it), then run the deployment again."
     elif [[ -L "$dest" ]]; then
         log_info "Removing existing symlink: $dest"
         rm "$dest"

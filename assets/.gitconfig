@@ -3,6 +3,7 @@
     email = gruz0.mail@gmail.com
 [core]
     editor = nvim
+    autocrlf = false
     excludesfile = ~/.gitignore_global
     pager = diff-so-fancy | less --tabs=4 -RFX
 [github]
@@ -11,12 +12,10 @@
     default = simple
 [status]
     showUntrackedFiles = all
-
 [alias]
     glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
     d = difftool
     g = log --all --decorate --oneline --graph
-
 [diff]
     tool = vimdiff
 [difftool]
@@ -37,3 +36,9 @@
     whitespace = red reverse
 [init]
     defaultBranch = master
+[url "git@gitlab.com:"]
+    insteadOf = https://gitlab.com/
+[url "git@gitlab.com:"]
+    insteadOf = gitlab.com
+[credential]
+    helper = store
