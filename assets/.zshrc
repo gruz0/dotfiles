@@ -4,15 +4,27 @@ ZSH_THEME="gruz0"
 # DISABLE_AUTO_UPDATE="true"
 NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-plugins=(
-  git
-  bundler
-  macos
-  rake
-  ruby
-  docker
-  zsh-autosuggestions
-)
+# OS-aware plugins
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  plugins=(
+    git
+    bundler
+    macos
+    rake
+    ruby
+    docker
+    zsh-autosuggestions
+  )
+else
+  plugins=(
+    git
+    bundler
+    rake
+    ruby
+    docker
+    zsh-autosuggestions
+  )
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -39,12 +51,21 @@ export PATH="$HOME/.npm-packages/bin:$PATH"
 
 # Go development
 export GOPATH="${HOME}/.go"
-export GOROOT="$(brew --prefix golang)/libexec"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS with Homebrew
+  export GOROOT="$(brew --prefix golang)/libexec"
+else
+  # Linux
+  export GOROOT="/usr/lib/go"
+fi
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 test -d "${GOPATH}" || mkdir "${GOPATH}"
 test -d "${GOPATH}/src/github.com" || mkdir -p "${GOPATH}/src/github.com"
 
-alias ctags="`brew --prefix`/bin/ctags"
+# macOS uses Homebrew's ctags
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  alias ctags="`brew --prefix`/bin/ctags"
+fi
 
 alias csv='column -s, -t'
 
@@ -52,7 +73,10 @@ function grep-before() { grep -rnI -B 5 "$@" * ;}
 function grep-after() { grep -rnI -A 5 "$@" * ;}
 function grep-around() { grep -rnI -C 5 "$@" * ;}
 
-alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say cache flushed'
+# macOS-only: Flush DNS cache
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say cache flushed'
+fi
 
 # Use it as `swaggerize path/to/directory/contains/swagger.json`
 alias swaggerize='swaggerize() { docker run -p 80:8080 -e SWAGGER_JSON=/foo/swagger.json -v $(pwd)/$1:/foo swaggerapi/swagger-ui };swaggerize'
@@ -60,7 +84,12 @@ alias swaggerize='swaggerize() { docker run -p 80:8080 -e SWAGGER_JSON=/foo/swag
 cover () {
     go test -v -coverprofile /tmp/cover.out ./...
     go tool cover -html=/tmp/cover.out -o /tmp/cover.html
-    open /tmp/cover.html
+    # OS-aware open command
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        open /tmp/cover.html
+    else
+        xdg-open /tmp/cover.html 2>/dev/null || echo "Open /tmp/cover.html in your browser"
+    fi
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

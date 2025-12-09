@@ -1,0 +1,48 @@
+# Debian 12 APT Packages
+# These packages will be installed via 'sudo apt install'
+# Note: GUI applications are intentionally omitted for headless/WSL2 environments
+
+# Build tools
+automake
+build-essential
+cmake
+pkg-config
+
+# Development languages
+golang-go
+nodejs
+npm
+python3
+python3-pip
+
+# Version control
+git
+subversion
+
+# CLI utilities
+bat
+curl
+diff-so-fancy
+gnupg
+jq
+neovim
+shellcheck
+silversearcher-ag
+tmux
+tree
+wget
+zsh
+
+# Development tools
+composer
+
+# System libraries
+coreutils
+zlib1g
+
+# Note: The following packages may need special handling:
+# - ansible: Install via pip3 if needed
+# - hadolint: Not in Debian repos, install via GitHub releases or skip
+# - deno: Available in Debian 12
+# - v8: Available as libv8-dev
+# - ssh-copy-id: Usually included in openssh-client (pre-installed)
