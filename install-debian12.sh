@@ -34,6 +34,14 @@ while IFS= read -r package; do
     fi
 done < "${SCRIPT_DIR}/packages/debian-apt.txt"
 
+# 2.5. Install special packages that require custom installation methods
+# These packages cannot be installed via apt and need special handling
+log_info "Installing Ansible (via Ubuntu PPA)..."
+bash "${SCRIPT_DIR}/lib/install-ansible.sh"
+
+log_info "Installing diff-so-fancy (via npm)..."
+bash "${SCRIPT_DIR}/lib/install-diff-so-fancy.sh"
+
 # 3. Run shared installation scripts
 log_info "Installing zsh and oh-my-zsh..."
 bash "${SCRIPT_DIR}/lib/install-zsh.sh"
@@ -46,9 +54,6 @@ bash "${SCRIPT_DIR}/lib/install-neovim.sh"
 
 log_info "Setting up tmux..."
 bash "${SCRIPT_DIR}/lib/install-tmux.sh"
-
-log_info "Installing Python tools..."
-bash "${SCRIPT_DIR}/lib/install-python-tools.sh"
 
 # 4. WSL-specific configurations
 if is_wsl; then
