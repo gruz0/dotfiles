@@ -1,26 +1,36 @@
 {
-  "solargraph.useBundler": false,
-  "solargraph.formatting": true,
   "codeLens.enable": true,
+
+  "suggest.noselect": false,
+  "diagnostic.virtualText": true,
+
+  "coc.preferences.formatOnSave": true,
+
+  "tsserver.enable": true,
+
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  "prettier.enable": true,
+  "prettier.requireConfig": false,
+
   "languageserver": {
     "golang": {
       "command": "gopls",
-      "args": ["serve", "-debug", "0.0.0.0:8484", "-rpc.trace"],
+      "args": ["serve"],
       "rootPatterns": ["go.mod", ".vim/", ".git/"],
-      "filetypes": ["go"]
-    },
-    "flow": {
-      "command": "flow",
-      "args": ["lsp"],
-      "filetypes": ["javascript", "javascriptreact"],
-      "initializationOptions": {},
-      "requireRootPattern": true,
-      "settings": {},
-      "rootPatterns": [".git", "package.json"]
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
     },
     "solidity": {
       "command": "/usr/local/bin/solc",
-      "args": [ "--lsp" ],
+      "args": ["--lsp"],
       "rootPatterns": [".git/"],
       "filetypes": ["solidity"]
     }
