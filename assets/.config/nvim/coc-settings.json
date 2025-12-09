@@ -29,7 +29,7 @@
       }
     },
     "solidity": {
-      "command": "/usr/local/bin/solc",
+      "command": "solc",
       "args": ["--lsp"],
       "rootPatterns": [".git/"],
       "filetypes": ["solidity"]

@@ -4,7 +4,6 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="$(dirname "$SCRIPT_DIR")"
-ASSETS_DIR="${DOTFILES_DIR}/assets"
 
 # Source utilities
 # shellcheck source=lib/utils.sh
@@ -77,8 +76,18 @@ done
 
 # Check SSH permissions
 log_info "Checking SSH permissions..."
-if [[ -d "${HOME}/.ssh" ]]; then
-    SSH_PERMS=$(stat -f "%Lp" "${HOME}/.ssh" 2>/dev/null || stat -c "%a" "${HOME}/.ssh" 2>/dev/null || echo "unknown")
+if [[ -e "${HOME}/.ssh" ]]; then
+    # Resolve symlink to actual target directory if it's a symlink
+    SSH_TARGET="${HOME}/.ssh"
+    if [[ -L "${HOME}/.ssh" ]]; then
+        # Resolve symlink to actual target directory
+        SSH_TARGET=$(cd -P "${HOME}/.ssh" 2>/dev/null && pwd) || SSH_TARGET="${HOME}/.ssh"
+    fi
+
+    # Check permissions on the actual directory (not the symlink)
+    # Use -L flag with stat to follow symlinks, or check the resolved path
+    # Try Linux format first, then macOS format
+    SSH_PERMS=$(stat -L -c "%a" "$SSH_TARGET" 2>/dev/null || stat -c "%a" "$SSH_TARGET" 2>/dev/null || stat -L -f "%Lp" "$SSH_TARGET" 2>/dev/null || stat -f "%Lp" "$SSH_TARGET" 2>/dev/null || echo "unknown")
     if [[ "$SSH_PERMS" == "700" ]]; then
         log_success "✓ SSH directory permissions correct (700)"
     else

@@ -1,8 +1,6 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="gruz0"
-# DISABLE_AUTO_UPDATE="true"
-NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 # OS-aware plugins
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -28,8 +26,15 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
+# NVM (Node Version Manager)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Local user binaries (e.g., neovim)
+export PATH="$HOME/.local/bin:$PATH"
+
+# Locale settings
 export LC_ALL=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
@@ -40,14 +45,17 @@ else
 fi
 
 alias docker-clean-unused='docker system prune --all --force --volumes'
-alias docker-clean-all='docker container stop $(docker container ls -a -q) && docker system prune -a -f --volumes'
+alias docker-clean-all='containers=$(docker container ls -a -q); [ -n "$containers" ] && docker container stop $containers; docker system prune -a -f --volumes'
 alias docker-clean-none-containers='docker rmi -f $(docker images | grep none | awk "{ print $3 }")'
 alias docker-stop-all='docker stop $(docker ps -q)'
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin:/usr/local/sbin"
+# RVM (Ruby Version Manager)
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export PATH="$PATH:/usr/local/sbin"
 
-export PATH="$HOME/.npm-packages/bin:$PATH"
+# Optional PATH additions (only if directories exist)
+[ -d "$HOME/.npm-packages/bin" ] && export PATH="$HOME/.npm-packages/bin:$PATH"
+[ -d "$HOME/.foundry/bin" ] && export PATH="$PATH:$HOME/.foundry/bin"
 
 # Go development
 export GOPATH="${HOME}/.go"
@@ -59,8 +67,6 @@ else
   export GOROOT="/usr/lib/go"
 fi
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
-test -d "${GOPATH}" || mkdir "${GOPATH}"
-test -d "${GOPATH}/src/github.com" || mkdir -p "${GOPATH}/src/github.com"
 
 # macOS uses Homebrew's ctags
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -77,19 +83,5 @@ function grep-around() { grep -rnI -C 5 "$@" * ;}
 if [[ "$OSTYPE" == "darwin"* ]]; then
   alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say cache flushed'
 fi
-
-# Use it as `swaggerize path/to/directory/contains/swagger.json`
-alias swaggerize='swaggerize() { docker run -p 80:8080 -e SWAGGER_JSON=/foo/swagger.json -v $(pwd)/$1:/foo swaggerapi/swagger-ui };swaggerize'
-
-cover () {
-    go test -v -coverprofile /tmp/cover.out ./...
-    go tool cover -html=/tmp/cover.out -o /tmp/cover.html
-    # OS-aware open command
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        open /tmp/cover.html
-    else
-        xdg-open /tmp/cover.html 2>/dev/null || echo "Open /tmp/cover.html in your browser"
-    fi
-}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

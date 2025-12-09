@@ -416,11 +416,22 @@ runtime macros/matchit.vim
 
 let g:markdown_fenced_languages = ['html', 'ruby', 'sh', 'bash', 'dockerfile', 'go', 'git', 'json=javascript', 'make', 'sql', 'yaml', 'zsh']
 
-let g:python3_host_prog="/usr/local/bin/python3"
+" Python host program (OS-aware)
+if has('macunix')
+  let g:python3_host_prog="/usr/local/bin/python3"
+else
+  " Linux - use system python3 or let neovim find it
+  if executable('/usr/bin/python3')
+    let g:python3_host_prog="/usr/bin/python3"
+  endif
+endif
 
-set rtp+=/usr/local/opt/fzf
-
-au BufRead,BufNewFile .env.* set filetype=sh
+" fzf runtime path (OS-aware)
+if has('macunix') && isdirectory('/usr/local/opt/fzf')
+  set rtp+=/usr/local/opt/fzf
+elseif isdirectory($HOME . '/.fzf')
+  set rtp+=$HOME/.fzf
+endif
 
 let g:loaded_perl_provider = 0
 
