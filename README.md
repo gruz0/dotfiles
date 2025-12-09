@@ -8,8 +8,8 @@ Personal dotfiles for macOS and Debian 12 (WSL2) development environments.
 - **Editor:** NeoVim with vim-plug and CoC LSP
 - **Terminal Multiplexer:** tmux with TPM
 - **Version Managers:** RVM (Ruby)
-- **Languages:** Ruby, Go, Node.js, Python, Deno
-- **Development Tools:** Git, Docker, various CLI utilities
+- **Languages:** Ruby (via RVM), Python 3
+- **Development Tools:** Git, Ansible, various CLI utilities (bat, jq, shellcheck, etc.)
 
 ## Supported Platforms
 
@@ -54,8 +54,10 @@ cd dotfiles
 
 The script will:
 - Update apt repositories
-- Install all CLI development tools
+- Install all CLI development tools via apt
+- Install Ansible (via Ubuntu PPA) and diff-so-fancy (via npm)
 - Set up oh-my-zsh, RVM, NeoVim, and tmux
+- Configure SSH settings (optional)
 - Symlink configuration files
 
 ## What Gets Installed
@@ -108,20 +110,34 @@ The script will:
 
 #### Packages (via apt)
 
+**Build Tools:**
+- build-essential, pkg-config
+
 **Languages:**
-- Go, Node.js, Python, Deno
+- Python 3, python3-pip
 
 **Version Control:**
-- Git, Subversion
+- Git
 
 **Editors & Tools:**
-- NeoVim, tmux, zsh
+- NeoVim (installed from GitHub release), tmux, zsh
 
 **Development:**
-- cmake, automake, pkg-config, shellcheck, build-essential, composer
+- shellcheck
 
 **Utilities:**
-- bat, jq, tree, wget, curl, diff-so-fancy, silversearcher-ag
+- bat, curl, gnupg, jq, tree, wget
+
+**System Libraries:**
+- coreutils, zlib1g
+
+#### Special Installations
+
+**Via Ubuntu PPA:**
+- Ansible (installed via Ubuntu PPA for Debian 12 compatibility)
+
+**Via npm:**
+- diff-so-fancy (requires npm/nodejs to be installed first - install manually if needed: `sudo apt install nodejs npm`)
 
 Note: GUI applications are not installed on Debian as it's designed for headless/WSL2 environments.
 
@@ -131,7 +147,15 @@ Note: GUI applications are not installed on Debian as it's designed for headless
 - **RVM** (Ruby Version Manager)
 - **vim-plug** and NeoVim plugins
 - **TPM** (tmux plugin manager)
+
+### Platform-Specific Installations
+
+**macOS:**
 - **Python packages:** neovim, ansible-vault (via pip)
+
+**Debian:**
+- **Ansible** (installed via Ubuntu PPA - see `lib/install-ansible.sh`)
+- **diff-so-fancy** (installed via npm - see `lib/install-diff-so-fancy.sh`)
 
 ## Configuration Files
 
@@ -172,7 +196,9 @@ All installation logic is in modular scripts under `lib/`:
 - `lib/install-ruby.sh` - RVM and Ruby
 - `lib/install-neovim.sh` - NeoVim and plugins
 - `lib/install-tmux.sh` - tmux and TPM
-- `lib/install-python-tools.sh` - Python packages
+- `lib/install-python-tools.sh` - Python packages (neovim, ansible-vault)
+- `lib/install-ansible.sh` - Ansible via Ubuntu PPA (Debian only)
+- `lib/install-diff-so-fancy.sh` - diff-so-fancy via npm (Debian only)
 - `lib/deploy-configs.sh` - Symlink configurations
 
 ## Testing
