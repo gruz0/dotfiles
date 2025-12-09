@@ -52,8 +52,6 @@ function grep-before() { grep -rnI -B 5 "$@" * ;}
 function grep-after() { grep -rnI -A 5 "$@" * ;}
 function grep-around() { grep -rnI -C 5 "$@" * ;}
 
-alias ls='exa --icons --oneline --binary'
-alias la='ls -l -g --icons --git --header'
 alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say cache flushed'
 
 # Use it as `swaggerize path/to/directory/contains/swagger.json`
@@ -65,9 +63,4 @@ cover () {
     open /tmp/cover.html
 }
 
-# Add PostgreSQL
-export PATH="/usr/local/opt/postgresql@11/bin:$PATH"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH"
