@@ -1,0 +1,36 @@
+# macOS Homebrew Casks (GUI Applications)
+# These packages will be installed via 'brew install --cask'
+
+# Browsers
+brave-browser
+firefox
+google-chrome
+microsoft-edge
+opera
+
+# Development tools
+dbeaver-community
+docker-edge
+iterm2
+
+# Productivity & Communication
+1password
+telegram
+zoom
+teamviewer
+
+# Media & Recording
+camtasia
+obs
+
+# Utilities
+cleanmymac
+libreoffice
+responsively
+the-unarchiver
+
+# Fonts
+font-fira-code
+
+# Keyboard layouts
+ilya-birman-typography-layout

@@ -1,0 +1,39 @@
+# Dotfiles Symlink Configuration
+# Each line represents a file or directory to symlink from assets/ to $HOME
+# Lines starting with # are comments and will be ignored
+# Empty lines are also ignored
+
+# Shell configurations
+.bash_profile
+.zshrc
+
+# Terminal multiplexer
+.tmux.conf
+
+# Editor configurations
+.config/nvim/init.vim
+.config/nvim/coc-settings.json
+
+# Git configurations
+.gitconfig
+.gitignore_global
+
+# Development tools
+.editorconfig
+.ctags
+
+# Ruby/Gem configurations
+.bundle/config
+.gemrc
+
+# Language server configurations
+.config/solargraph/config.yml
+
+# Ansible configuration
+.ansible.cfg
+
+# oh-my-zsh custom theme
+.oh-my-zsh/themes/gruz0.zsh-theme
+
+# SSH configuration and keys
+.ssh

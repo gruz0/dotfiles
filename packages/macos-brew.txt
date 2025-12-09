@@ -1,0 +1,48 @@
+# macOS Homebrew Packages (CLI Tools)
+# These packages will be installed via 'brew install'
+
+# Build tools
+automake
+cmake
+pkg-config
+
+# Development languages
+go
+node
+python
+deno
+
+# Version control
+git
+subversion
+
+# CLI utilities
+bat
+curl
+diff-so-fancy
+gnupg
+jq
+neovim
+shellcheck
+ssh-copy-id
+the_silver_searcher
+tmux
+tree
+watch
+wget
+zsh
+
+# Development tools
+ansible
+composer
+hadolint
+
+# macOS-specific
+reattach-to-user-namespace
+
+# System libraries
+coreutils
+pango
+shared-mime-info
+v8
+zlib
