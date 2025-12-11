@@ -83,6 +83,9 @@ let g:gitgutter_max_signs = 9999
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tabs = 0
 let g:airline_powerline_fonts = 1
 
 " nerdtree
@@ -381,9 +384,9 @@ augroup END
 " Mappings
 " ------------------------------------------------------------
 
-" Tab navigation
-nmap <C-J> :tabprevious<CR>
-nmap <C-K> :tabnext<CR>
+" Buffer navigation
+nmap <C-J> :bprevious<CR>
+nmap <C-K> :bnext<CR>
 
 " pressing ; will go into command mode
 nnoremap ; :
