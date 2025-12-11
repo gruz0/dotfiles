@@ -1,0 +1,173 @@
+# .claudeignore - Prevent Claude Code from reading sensitive files
+# This protects secrets from being sent to Anthropic's API servers
+
+# ============================================
+# Environment Variables & Configuration
+# ============================================
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.test
+*.env
+.envrc
+
+# ============================================
+# Secrets & Credentials
+# ============================================
+# Vault files (encrypted or unencrypted)
+vault/*
+vault/**/*
+**/vault/*
+*_unencrypted.yaml
+*_unencrypted.yml
+
+# Credentials & secrets
+credentials.json
+secrets.json
+secrets.yaml
+secrets.yml
+service-account*.json
+*-credentials.json
+*-secrets.*
+
+# ============================================
+# Keys & Certificates
+# ============================================
+# Private keys
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa
+id_dsa
+id_ed25519
+id_ecdsa
+*.priv
+
+# SSH keys
+.ssh/*
+**/.ssh/*
+
+# SSL/TLS certificates (private)
+*.crt
+*.cer
+*.cert
+*.ca-bundle
+
+# ============================================
+# Authentication Tokens
+# ============================================
+.npmrc
+.yarnrc
+.pypirc
+*.token
+*_token
+*-token.txt
+auth_token*
+bearer_token*
+
+# ============================================
+# Database Files
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+*dump.sql
+*.backup
+
+# Database credentials
+database.yml
+database.yaml
+db-config.*
+
+# ============================================
+# Cloud Provider Credentials
+# ============================================
+# AWS
+.aws/*
+**/credentials
+**/config
+
+# Google Cloud
+**/gcloud/*
+**/.config/gcloud/*
+application_default_credentials.json
+
+# Azure
+.azure/*
+
+# ============================================
+# API Keys & Tokens
+# ============================================
+*apikey*
+*api-key*
+*api_key*
+*secret-key*
+*secret_key*
+*access-token*
+*access_token*
+
+# ============================================
+# Logs (may contain sensitive data)
+# ============================================
+*.log
+logs/*
+**/*.log
+
+# ============================================
+# Backups (may contain sensitive data)
+# ============================================
+*.bak
+*.backup
+*.old
+backup/*
+backups/*
+
+# ============================================
+# Docker secrets
+# ============================================
+docker-compose.override.yml
+.docker/config.json
+
+# ============================================
+# Git (may contain sensitive history)
+# ============================================
+.git/*
+.git/**/*
+
+# ============================================
+# Large files / Dependencies
+# ============================================
+# (Optional: prevents sending large amounts of data)
+node_modules/*
+.next/*
+build/*
+dist/*
+coverage/*
+
+# ============================================
+# IDE settings (may contain paths/tokens)
+# ============================================
+.idea/*
+.vscode/settings.json
+*.code-workspace
+
+# ============================================
+# Additional Security Files
+# ============================================
+# SOPS encrypted files
+*.enc.*
+*.encrypted.*
+
+# Kubernetes secrets
+*secret*.yaml
+*secret*.yml
+
+# Terraform state (contains sensitive values)
+*.tfstate
+*.tfstate.*
+terraform.tfvars
