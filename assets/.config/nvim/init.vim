@@ -49,6 +49,7 @@ Plug 'plasticboy/vim-markdown'
 " markdown / writing mode
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 
 " --- LSP / completion ---
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -447,6 +448,14 @@ let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1  " for YAML format
 let g:vim_markdown_toml_frontmatter = 1  " for TOML format
 let g:vim_markdown_json_frontmatter = 1  " for JSON format
+
+" markdown-preview.nvim
+let g:mkdp_auto_close = 0
+let g:mkdp_refresh_slow = 0
+let g:mkdp_browser = ''  " use default browser
+
+" Toggle preview with ,p
+nnoremap <leader>p :MarkdownPreviewToggle<CR>
 
 " Highlight TODO, FIXME, NOTE, etc.
 if has('autocmd') && v:version > 701
