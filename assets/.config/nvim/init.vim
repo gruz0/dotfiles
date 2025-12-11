@@ -117,6 +117,7 @@ nnoremap <leader>f :Files<CR>
 nnoremap <C-p> :Files<CR>
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>b :Buffers<CR>
+nnoremap <C-l> :Buffers<CR>
 nnoremap <leader>h :Helptags<CR>
 
 " Use ripgrep for fzf file list and ignore noisy dirs
