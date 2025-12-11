@@ -1,7 +1,6 @@
 {
   "codeLens.enable": true,
 
-  "suggest.noselect": false,
   "diagnostic.virtualText": true,
 
   "coc.preferences.formatOnSave": true,
@@ -20,7 +19,7 @@
 
   "languageserver": {
     "golang": {
-      "command": "gopls",
+      "command": "$HOME/.go/bin/gopls",
       "args": ["serve"],
       "rootPatterns": ["go.mod", ".vim/", ".git/"],
       "filetypes": ["go"],
