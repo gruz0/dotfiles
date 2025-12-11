@@ -64,7 +64,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export GOROOT="$(brew --prefix golang)/libexec"
 else
   # Linux
-  export GOROOT="/usr/lib/go"
+  export GOROOT="/usr/local/go"
 fi
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
