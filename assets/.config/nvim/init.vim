@@ -22,7 +22,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'godlygeek/tabular'
 Plug 'ap/vim-css-color'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
+Plug 'nvim-tree/nvim-tree.lua'
 Plug 'tomtom/tcomment_vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -89,19 +90,118 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 0
 let g:airline_powerline_fonts = 1
 
-" nerdtree
-let g:NERDTreeIgnore = ['^node_modules$']
-let g:NERDTreeWinPos = "right"
-map <C-N> :NERDTreeToggle<CR>
+" nvim-tree
+lua << EOF
+-- disable netrw at the very start (required by nvim-tree)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
 
-let NERDTreeShowBookmarks=0
-let NERDTreeChDirMode=2
-let NERDTreeQuitOnOpen=1
-let NERDTreeShowHidden=1
-let NERDTreeBookmarksFile= $HOME . '/.vim/.NERDTreeBookmarks'
-let NERDTreeWinSize=50
+local api = require("nvim-tree.api")
+
+-- https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#center-a-floating-nvim-tree-window
+vim.api.nvim_create_augroup("NvimTreeResize", {
+  clear = true,
+})
+
+vim.api.nvim_create_autocmd({ "VimResized", "WinResized" }, {
+  group = "NvimTreeResize",
+  callback = function()
+    -- Get the nvim-tree window ID
+    local winid = api.tree.winid()
+    if (winid) then
+      api.tree.reload()
+    end
+  end
+})
+
+-- For nvim-tree to be a centered floating window:
+local HEIGHT_RATIO = 0.8  -- You can change this
+local WIDTH_RATIO = 0.5   -- You can change this too
+
+-- Custom keybindings for nvim-tree
+local function on_attach(bufnr)
+  local api = require('nvim-tree.api')
+
+  local function opts(desc)
+    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- Use default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- Custom mappings: use 't' to open in new tab instead of Ctrl-T
+  vim.keymap.set('n', 't', api.node.open.tab, opts('Open: New Tab'))
+end
+
+require("nvim-tree").setup({
+  on_attach = on_attach,
+  -- open tree on the right side
+  view = {
+    -- side = "right",
+    -- width = 50,
+    float = {
+      enable = true,
+      open_win_config = function()
+        local screen_w = vim.opt.columns:get()
+        local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+        local window_w = screen_w * WIDTH_RATIO
+        local window_h = screen_h * HEIGHT_RATIO
+        local window_w_int = math.floor(window_w)
+        local window_h_int = math.floor(window_h)
+        local center_x = (screen_w - window_w) / 2
+        local center_y = ((vim.opt.lines:get() - window_h) / 2)
+                         - vim.opt.cmdheight:get()
+        return {
+          border = 'rounded',
+          relative = 'editor',
+          row = center_y,
+          col = center_x,
+          width = window_w_int,
+          height = window_h_int,
+        }
+        end,
+    },
+    width = function()
+      return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+    end,
+  },
+  -- show hidden files by default
+  filters = {
+    dotfiles = false,
+    custom = { "^.git$", "^node_modules$", "^.next" },
+  },
+  -- don't sync root with cwd changes
+  sync_root_with_cwd = true,
+  -- update focused file in tree
+  update_focused_file = {
+    enable = false,  -- don't auto-sync on buffer change
+  },
+  -- close nvim if tree is the last window
+  actions = {
+    open_file = {
+      quit_on_open = false,  -- keep tree open when opening files
+    },
+  },
+  -- rendering options
+  renderer = {
+    icons = {
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = true,
+        git = false,
+      },
+    },
+  },
+})
+EOF
+
+" nvim-tree keybindings (similar to NERDTree)
+nnoremap <C-N> :NvimTreeToggle<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
 
 " vim-multiple-cursors
 let g:multi_cursor_use_default_mapping = 0
