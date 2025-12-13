@@ -31,6 +31,7 @@ the-unarchiver
 
 # Fonts
 font-fira-code
+font-fira-code-nerd-font
 
 # Keyboard layouts
 ilya-birman-typography-layout
