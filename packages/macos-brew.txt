@@ -14,35 +14,27 @@ deno
 
 # Version control
 git
-subversion
 
 # CLI utilities
 bat
 curl
-diff-so-fancy
+git-delta
 gnupg
 jq
 neovim
 shellcheck
 ssh-copy-id
-the_silver_searcher
 tmux
 tree
 watch
+witr
 wget
 zsh
 
 # Development tools
 ansible
-composer
 hadolint
-
-# macOS-specific
-reattach-to-user-namespace
 
 # System libraries
 coreutils
-pango
-shared-mime-info
-v8
 zlib

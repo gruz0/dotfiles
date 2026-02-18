@@ -3,30 +3,19 @@
 
 # Browsers
 brave-browser
-firefox
 google-chrome
-microsoft-edge
-opera
 
 # Development tools
+claude-code
 dbeaver-community
-docker-edge
 iterm2
 
 # Productivity & Communication
 1password
 telegram
 zoom
-teamviewer
-
-# Media & Recording
-camtasia
-obs
 
 # Utilities
-cleanmymac
-libreoffice
-responsively
 the-unarchiver
 
 # Fonts
