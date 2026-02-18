@@ -5,7 +5,9 @@
     editor = nvim
     autocrlf = false
     excludesfile = ~/.gitignore_global
-    pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
 [github]
     user = gruz0
 [push]
@@ -17,23 +19,11 @@
     d = difftool
     g = log --all --decorate --oneline --graph
 [diff]
-    tool = vimdiff
+    tool = nvimdiff
 [difftool]
     prompt = false
 [color]
     ui = true
-[color "diff-highlight"]
-    oldNormal = red bold
-    oldHighlight = red bold 52
-    newNormal = green bold
-    newHighlight = green bold 22
-[color "diff"]
-    meta = 11
-    frag = magenta bold
-    commit = yellow bold
-    old = red bold
-    new = green bold
-    whitespace = red reverse
 [init]
     defaultBranch = master
 [url "git@gitlab.com:"]
@@ -42,3 +32,9 @@
     insteadOf = gitlab.com
 [credential]
     helper = store
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    line-numbers = true
+[merge]
+    conflictStyle = zdiff3

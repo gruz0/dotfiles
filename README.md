@@ -32,6 +32,7 @@ cd dotfiles
 ```
 
 The script will:
+
 - Install Command Line Tools (if needed)
 - Install/update Homebrew
 - Install all packages and GUI applications
@@ -53,9 +54,10 @@ cd dotfiles
 ```
 
 The script will:
+
 - Update apt repositories
 - Install all CLI development tools via apt
-- Install Ansible (via Ubuntu PPA) and diff-so-fancy (via npm)
+- Install Ansible (via Ubuntu PPA)
 - Set up oh-my-zsh, RVM, NeoVim, and tmux
 - Configure SSH settings (optional)
 - Symlink configuration files
@@ -67,36 +69,42 @@ The script will:
 #### CLI Tools (via Homebrew)
 
 **Languages:**
+
 - Go, Node.js, Python, Deno
 
 **Version Control:**
+
 - Git, Subversion
 
 **Editors & Tools:**
+
 - NeoVim, tmux, zsh
 
 **Development:**
-- cmake, automake, pkg-config, shellcheck, hadolint, composer
+
+- cmake, automake, pkg-config, shellcheck, hadolint
 
 **Utilities:**
-- bat, jq, tree, wget, curl, diff-so-fancy, the_silver_searcher
+
+- bat, jq, tree, wget, curl
 
 #### GUI Applications (via Homebrew Casks)
 
 **Browsers:**
-- Chrome, Firefox, Brave, Edge, Opera
+
+- Chrome, Brave
 
 **Development:**
+
 - Docker, iTerm2, DBeaver
 
 **Productivity:**
-- 1Password, Telegram, Zoom, TeamViewer
 
-**Media:**
-- OBS, Camtasia
+- 1Password, Telegram, Zoom
 
 **Utilities:**
-- CleanMyMac, LibreOffice, The Unarchiver, Fira Code font
+
+- The Unarchiver, Fira Code font
 
 #### System Settings
 
@@ -111,33 +119,38 @@ The script will:
 #### Packages (via apt)
 
 **Build Tools:**
+
 - build-essential, pkg-config
 
 **Languages:**
+
 - Python 3, python3-pip
 
 **Version Control:**
+
 - Git
 
 **Editors & Tools:**
+
 - NeoVim (installed from GitHub release), tmux, zsh
 
 **Development:**
+
 - shellcheck
 
 **Utilities:**
+
 - bat, curl, gnupg, jq, tree, wget
 
 **System Libraries:**
+
 - coreutils, zlib1g
 
 #### Special Installations
 
 **Via Ubuntu PPA:**
-- Ansible (installed via Ubuntu PPA for Debian 12 compatibility)
 
-**Via npm:**
-- diff-so-fancy (requires npm/nodejs to be installed first - install manually if needed: `sudo apt install nodejs npm`)
+- Ansible (installed via Ubuntu PPA for Debian 12 compatibility)
 
 Note: GUI applications are not installed on Debian as it's designed for headless/WSL2 environments.
 
@@ -151,11 +164,12 @@ Note: GUI applications are not installed on Debian as it's designed for headless
 ### Platform-Specific Installations
 
 **macOS:**
+
 - **Python packages:** neovim, ansible-vault (via pip)
 
 **Debian:**
+
 - **Ansible** (installed via Ubuntu PPA - see `lib/install-ansible.sh`)
-- **diff-so-fancy** (installed via npm - see `lib/install-diff-so-fancy.sh`)
 
 ## Configuration Files
 
@@ -175,10 +189,12 @@ All configuration files are symlinked from the `assets/` directory:
 ### Adding Packages
 
 **macOS:**
+
 - Edit `packages/macos-brew.txt` for CLI tools
 - Edit `packages/macos-casks.txt` for GUI applications
 
 **Debian:**
+
 - Edit `packages/debian-apt.txt`
 
 Then re-run the installation script.
@@ -192,13 +208,13 @@ Then re-run the installation script.
 ### Modifying Installation
 
 All installation logic is in modular scripts under `lib/`:
+
 - `lib/install-zsh.sh` - zsh and oh-my-zsh setup
 - `lib/install-ruby.sh` - RVM and Ruby
 - `lib/install-neovim.sh` - NeoVim and plugins
 - `lib/install-tmux.sh` - tmux and TPM
 - `lib/install-python-tools.sh` - Python packages (neovim, ansible-vault)
 - `lib/install-ansible.sh` - Ansible via Ubuntu PPA (Debian only)
-- `lib/install-diff-so-fancy.sh` - diff-so-fancy via npm (Debian only)
 - `lib/deploy-configs.sh` - Symlink configurations
 
 ## Testing
@@ -220,6 +236,7 @@ These tests verify that all required files exist and scripts have valid syntax.
 ### macOS: Command Line Tools Not Found
 
 If you see errors about missing compilers:
+
 ```bash
 xcode-select --install
 ```
@@ -227,6 +244,7 @@ xcode-select --install
 ### zsh: command not found after installation
 
 Restart your terminal or run:
+
 ```bash
 exec zsh
 ```
@@ -234,6 +252,7 @@ exec zsh
 ### NeoVim plugins not loading
 
 Run the plugin install manually:
+
 ```bash
 nvim +PlugInstall +qall
 ```
@@ -241,6 +260,7 @@ nvim +PlugInstall +qall
 ### Permission denied for SSH keys
 
 Fix SSH permissions:
+
 ```bash
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/id_*
@@ -251,6 +271,7 @@ chmod 600 ~/.ssh/config
 ### Homebrew not found (macOS)
 
 Ensure Homebrew is in your PATH. Add to your shell:
+
 ```bash
 eval "$(/opt/homebrew/bin/brew shellenv)"  # Apple Silicon
 # or
@@ -272,6 +293,7 @@ dotfiles/
 ```
 
 Each component is designed to be:
+
 - **Idempotent:** Safe to run multiple times
 - **Modular:** Independent scripts for each tool
 - **Cross-platform:** Shared code works on both macOS and Debian

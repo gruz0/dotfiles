@@ -521,15 +521,10 @@ runtime macros/matchit.vim
 
 let g:markdown_fenced_languages = ['html', 'ruby', 'sh', 'bash', 'dockerfile', 'go', 'git', 'json=javascript', 'make', 'sql', 'yaml', 'zsh']
 
-" Python host program (OS-aware)
-if has('macunix')
-  let g:python3_host_prog="/usr/local/bin/python3"
-else
-  " Linux - use system python3 or let neovim find it
-  if executable('/usr/bin/python3')
-    let g:python3_host_prog="/usr/bin/python3"
-  endif
-endif
+" Disable unused providers
+let g:loaded_perl_provider = 0
+let g:loaded_python3_provider = 0
+let g:loaded_ruby_provider = 0
 
 " fzf runtime path (OS-aware)
 if has('macunix') && isdirectory('/usr/local/opt/fzf')
@@ -537,8 +532,6 @@ if has('macunix') && isdirectory('/usr/local/opt/fzf')
 elseif isdirectory($HOME . '/.fzf')
   set rtp+=$HOME/.fzf
 endif
-
-let g:loaded_perl_provider = 0
 
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1

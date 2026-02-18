@@ -19,7 +19,7 @@
 
   "languageserver": {
     "golang": {
-      "command": "$HOME/.go/bin/gopls",
+      "command": "gopls",
       "args": ["serve"],
       "rootPatterns": ["go.mod", ".vim/", ".git/"],
       "filetypes": ["go"],

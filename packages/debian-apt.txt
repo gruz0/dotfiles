@@ -30,7 +30,6 @@ zlib1g
 
 # Note: The following packages may need special handling:
 # - ansible: Installed via Ubuntu PPA (see lib/install-ansible.sh)
-# - diff-so-fancy: Installed via npm (see lib/install-diff-so-fancy.sh)
 # - hadolint: Not in Debian repos, install via GitHub releases or skip
 # - deno: Available in Debian 12
 # - v8: Available as libv8-dev

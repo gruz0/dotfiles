@@ -39,9 +39,6 @@ done < "${SCRIPT_DIR}/packages/debian-apt.txt"
 log_info "Installing Ansible (via Ubuntu PPA)..."
 bash "${SCRIPT_DIR}/lib/install-ansible.sh"
 
-log_info "Installing diff-so-fancy (via npm)..."
-bash "${SCRIPT_DIR}/lib/install-diff-so-fancy.sh"
-
 # 3. Run shared installation scripts
 log_info "Installing zsh and oh-my-zsh..."
 bash "${SCRIPT_DIR}/lib/install-zsh.sh"
