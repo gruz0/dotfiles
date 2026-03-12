@@ -23,6 +23,7 @@ tmux
 tree
 wget
 zsh
+ripgrep
 
 # System libraries
 coreutils
