@@ -140,7 +140,7 @@ The script will:
 
 **Utilities:**
 
-- bat, curl, gnupg, jq, tree, wget
+- bat, curl, gnupg, jq, ripgrep, time, tree, unzip, wget
 
 **System Libraries:**
 

@@ -19,8 +19,10 @@ curl
 gnupg
 jq
 shellcheck
+time
 tmux
 tree
+unzip
 wget
 zsh
 ripgrep
