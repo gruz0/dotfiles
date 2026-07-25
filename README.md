@@ -191,6 +191,8 @@ All configuration files are symlinked from the `assets/` directory:
 - `.config/nvim/init.vim` - NeoVim configuration
 - `.config/nvim/coc-settings.json` - CoC LSP settings
 - `.gitconfig` - Git configuration
+- `.claude/settings.json` - Claude Code settings (model, theme, plugins, status line)
+- `.claude/statusline-command.sh` - Claude Code status line script
 - `.ssh/` - SSH configuration and keys
 - `.editorconfig` - Editor indentation rules
 - And more...
