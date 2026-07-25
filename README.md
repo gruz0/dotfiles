@@ -7,8 +7,9 @@ Personal dotfiles for macOS and Debian 12 (WSL2) development environments.
 - **Shell:** zsh with oh-my-zsh and plugins (autosuggestions, docker)
 - **Editor:** NeoVim with vim-plug and CoC LSP
 - **Terminal Multiplexer:** tmux with TPM
-- **Version Managers:** RVM (Ruby)
-- **Languages:** Ruby (via RVM), Python 3
+- **Version Managers:** RVM (Ruby), rustup (Rust)
+- **Languages:** Ruby (via RVM), Rust (via rustup), Python 3
+- **JavaScript Runtime:** Bun
 - **Development Tools:** Git, Ansible, various CLI utilities (bat, jq, shellcheck, etc.)
 
 ## Supported Platforms
@@ -36,7 +37,7 @@ The script will:
 - Install Command Line Tools (if needed)
 - Install/update Homebrew
 - Install all packages and GUI applications
-- Set up oh-my-zsh, RVM, NeoVim, and tmux
+- Set up oh-my-zsh, RVM, Rust, Bun, NeoVim, and tmux
 - Apply macOS system settings
 - Symlink configuration files
 
@@ -58,7 +59,7 @@ The script will:
 - Update apt repositories
 - Install all CLI development tools via apt
 - Install Ansible (via Ubuntu PPA)
-- Set up oh-my-zsh, RVM, NeoVim, and tmux
+- Set up oh-my-zsh, RVM, Rust, Bun, NeoVim, and tmux
 - Configure SSH settings (optional)
 - Symlink configuration files
 
@@ -140,7 +141,7 @@ The script will:
 
 **Utilities:**
 
-- bat, curl, gnupg, jq, tree, wget
+- bat, curl, gnupg, jq, ripgrep, time, tree, unzip, wget
 
 **System Libraries:**
 
@@ -158,8 +159,18 @@ Note: GUI applications are not installed on Debian as it's designed for headless
 
 - **oh-my-zsh** with custom gruz0 theme and plugins
 - **RVM** (Ruby Version Manager)
+- **rustup** (Rust toolchain manager, installs the stable toolchain)
+- **Bun** (JavaScript runtime and package manager)
 - **vim-plug** and NeoVim plugins
 - **TPM** (tmux plugin manager)
+
+Both rustup and Bun are installed from their official install scripts into
+`~/.cargo` and `~/.bun`. The upstream installers append PATH lines to shell rc
+files; that is suppressed (`--no-modify-path` for rustup, a hidden `$SHELL` for
+Bun) because `assets/.zshrc` and `assets/.bash_profile` already set up both.
+
+On Debian, do not install `rustc`/`cargo` from apt: rustup's `~/.cargo/bin`
+shadows `/usr/bin`, so you end up with two toolchains and a stale one in the way.
 
 ### Platform-Specific Installations
 
@@ -211,6 +222,8 @@ All installation logic is in modular scripts under `lib/`:
 
 - `lib/install-zsh.sh` - zsh and oh-my-zsh setup
 - `lib/install-ruby.sh` - RVM and Ruby
+- `lib/install-rust.sh` - Rust toolchain via rustup
+- `lib/install-bun.sh` - Bun runtime and zsh completions
 - `lib/install-neovim.sh` - NeoVim and plugins
 - `lib/install-tmux.sh` - tmux and TPM
 - `lib/install-python-tools.sh` - Python packages (neovim, ansible-vault)

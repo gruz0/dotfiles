@@ -46,6 +46,12 @@ bash "${SCRIPT_DIR}/lib/install-zsh.sh"
 log_info "Installing RVM and Ruby..."
 bash "${SCRIPT_DIR}/lib/install-ruby.sh"
 
+log_info "Installing Rust (via rustup)..."
+bash "${SCRIPT_DIR}/lib/install-rust.sh"
+
+log_info "Installing Bun..."
+bash "${SCRIPT_DIR}/lib/install-bun.sh"
+
 log_info "Setting up NeoVim..."
 bash "${SCRIPT_DIR}/lib/install-neovim.sh"
 
