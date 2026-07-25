@@ -108,3 +108,11 @@ if [[ "$OSTYPE" != "darwin"* ]]; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Rust (rustup) - see lib/install-rust.sh
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+# Bun (JavaScript runtime) - see lib/install-bun.sh
+export BUN_INSTALL="$HOME/.bun"
+[ -d "$BUN_INSTALL/bin" ] && export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
