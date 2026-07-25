@@ -17,6 +17,10 @@
 # Git configurations
 .gitconfig
 
+# Claude Code (only these two files; the rest of ~/.claude is local state)
+.claude/settings.json
+.claude/statusline-command.sh
+
 # Development tools
 .editorconfig
 

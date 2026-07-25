@@ -1,3 +1,9 @@
 /assets/.ssh
 /assets/.private
 /backups/
+
+# Claude Code: only settings.json and statusline-command.sh are tracked,
+# never credentials or local session state
+/assets/.claude/*
+!/assets/.claude/settings.json
+!/assets/.claude/statusline-command.sh
