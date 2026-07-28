@@ -2,13 +2,33 @@
 # Status line, two groups separated by a dim divider:
 #   LEFT  (location): repo-relative cwd (worktree-aware root) + worktree
 #                      badge (only shown inside a linked worktree)
-#   RIGHT (status):   model name + context-usage progress bar
+#   RIGHT (status):   model name + context-usage progress bar + 5h/7d
+#                      rate-limit bars with reset countdowns
 
 input=$(cat)
 
-cwd=$(echo "$input" | jq -r '.workspace.current_dir')
-model=$(echo "$input" | jq -r '.model.display_name')
-used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+# One jq pass for every field the line needs. This script re-runs on each
+# render, so a jq per field (seven of them now) is the difference between a
+# couple of forks and a visible stall. `// ""` collapses both null and a
+# missing key to an empty line; tostring keeps numbers from being emitted as
+# bare JSON. One `read` per line - NOT a multi-var `read a b c`, which only
+# fills the first var from one line (see prior BUG 1). Vars are pre-cleared
+# because command substitution strips ALL trailing newlines, so absent
+# trailing fields leave their `read` at EOF with the var untouched.
+fields=$(echo "$input" | jq -r '
+  [ .workspace.current_dir,
+    (.model.display_name // ""),
+    (.context_window.used_percentage // ""),
+    (.rate_limits.five_hour.used_percentage // ""),
+    (.rate_limits.five_hour.resets_at // ""),
+    (.rate_limits.seven_day.used_percentage // ""),
+    (.rate_limits.seven_day.resets_at // "")
+  ] | .[] | tostring')
+cwd=""; model=""; used_pct=""
+rl_5h_pct=""; rl_5h_at=""; rl_7d_pct=""; rl_7d_at=""
+{ read -r cwd; read -r model; read -r used_pct
+  read -r rl_5h_pct; read -r rl_5h_at
+  read -r rl_7d_pct; read -r rl_7d_at; } <<< "$fields"
 
 # Real ESC bytes via ANSI-C quoting. These variables hold actual control
 # characters (not the literal text "\033"), so printing them with printf's
@@ -19,7 +39,75 @@ esc=$'\033'
 reset="${esc}[00m"
 blue="${esc}[01;34m"
 yellow="${esc}[00;33m"
+red="${esc}[00;31m"
 dim="${esc}[02m"
+
+# Block bar of $1 cells for an integer percentage $2, clamped to the bar's
+# ends so a 0% or a >100% reading can't under/overflow it. bash 3.2 (macOS)
+# has no string repetition, hence the loops.
+make_bar() {
+  local width=$1 pct=$2 filled empty i out=""
+  filled=$(( pct * width / 100 ))
+  [ "$filled" -gt "$width" ] && filled=$width
+  [ "$filled" -lt 0 ] && filled=0
+  empty=$(( width - filled ))
+  i=0; while [ "$i" -lt "$filled" ]; do out="${out}█"; i=$(( i + 1 )); done
+  i=0; while [ "$i" -lt "$empty" ];  do out="${out}░"; i=$(( i + 1 )); done
+  printf '%s' "$out"
+}
+
+# Severity color for a usage percentage: quiet until half spent, yellow
+# through the second half, red once there's little headroom left.
+pct_color() {
+  if   [ "$1" -ge 80 ]; then printf '%s' "$red"
+  elif [ "$1" -ge 50 ]; then printf '%s' "$yellow"
+  else                       printf '%s' "$dim"
+  fi
+}
+
+# Compact countdown to a window reset: 3d4h / 2h13m / 13m. A window can roll
+# over between renders, so clamp negatives to 0 rather than printing `-1m`.
+fmt_eta() {
+  local secs=$1 d h m
+  [ "$secs" -lt 0 ] && secs=0
+  d=$(( secs / 86400 )); h=$(( secs % 86400 / 3600 )); m=$(( secs % 3600 / 60 ))
+  if   [ "$d" -gt 0 ]; then printf '%dd%dh' "$d" "$h"
+  elif [ "$h" -gt 0 ]; then printf '%dh%dm' "$h" "$m"
+  else                      printf '%dm' "$m"
+  fi
+}
+
+# RIGHT group accumulator: right_append <separator> <section>. The separator
+# is the glyph that PRECEDES this section, and it is emitted only when an
+# earlier section already rendered - each one drops out independently (no
+# model name, no context reading yet, either rate-limit window missing), and
+# an empty section must not leave a dangling separator behind. An empty
+# separator joins with a plain space; `|` fences off each gauge. Sections
+# carry no leading space of their own.
+right=""
+right_append() {
+  [ -z "$2" ] && return
+  if   [ -z "$right" ]; then right="$2"
+  elif [ -z "$1" ];     then right="${right} $2"
+  else                       right="${right} ${dim}${1}${reset} $2"
+  fi
+}
+
+# One rate-limit window: `5h [█░░░░]24% (2h13m)`, colored by severity. Prints
+# nothing when the window is absent, which is the normal case for API-key
+# users and for Pro/Max sessions before their first API response - the two
+# windows are also independently absent, so neither implies the other. The
+# countdown is parenthesized rather than separator-joined so it reads as an
+# annotation on its own window instead of as another fenced-off section -
+# same idiom as the `(#1321)` worktree badge.
+# The reset local is `at`, NOT `reset`, which is the ANSI reset sequence.
+rl_append() {
+  local label=$1 pct_raw=$2 at=$3 pct eta=""
+  [ -z "$pct_raw" ] && return
+  pct=$(printf '%.0f' "$pct_raw")
+  [ -n "$at" ] && eta=" ($(fmt_eta $(( at - now ))))"
+  right_append "|" "$(pct_color "$pct")${label} [$(make_bar 5 "$pct")]${pct}%${eta}${reset}"
+}
 
 # One rev-parse for everything: worktree root and both git-dir paths (to
 # detect a linked worktree - they differ from the main working tree's).
@@ -56,41 +144,45 @@ if [ -n "$worktree" ] && [ "$worktree" != "null" ]; then
   worktree_part=" ${yellow}(${worktree})${reset}"
 fi
 
-# No leading space here: the divider (below) already supplies the space
-# that separates it from whatever comes next, so a leading space here would
-# double up right after the divider.
-model_part=""
-if [ -n "$model" ] && [ "$model" != "null" ]; then
-  model_part="${dim}${model}${reset}"
-fi
+# display_name appends a parenthetical for model variants ("Opus 5 (1M
+# context)"); drop it. The suffix costs a dozen columns to say something the
+# bar beside it already accounts for - used_percentage is a fraction of
+# whichever window is actually in play. %% strips from the FIRST " (" so a
+# name with more than one parenthetical loses all of them.
+model="${model%% (*}"
+[ -n "$model" ] && right_append "" "${dim}${model}${reset}"
 
-bar_part=""
+# Context bar, same 5-cell width and tight `]NN%` spacing as the rate-limit
+# bars so all three read as one row of gauges.
 if [ -n "$used_pct" ]; then
   pct_int=$(printf '%.0f' "$used_pct")
-  filled=$(( pct_int / 10 ))
-  [ "$filled" -gt 10 ] && filled=10
-  [ "$filled" -lt 0 ] && filled=0
-  empty=$(( 10 - filled ))
-  bar_fill=""
-  bar_empty=""
-  i=0
-  while [ "$i" -lt "$filled" ]; do bar_fill="${bar_fill}█"; i=$(( i + 1 )); done
-  i=0
-  while [ "$i" -lt "$empty" ]; do bar_empty="${bar_empty}░"; i=$(( i + 1 )); done
-  bar_part=" ${dim}[${bar_fill}${bar_empty}] ${pct_int}%${reset}"
+  right_append "" "${dim}[$(make_bar 5 "$pct_int")]${pct_int}%${reset}"
+fi
+
+# Rate-limit sections: mini bars for the rolling 5-hour and 7-day windows,
+# each with a countdown to its reset. `date` is called once, and only when a
+# window is actually present, so non-subscriber sessions pay nothing for it.
+if [ -n "$rl_5h_pct" ] || [ -n "$rl_7d_pct" ]; then
+  now=$(date +%s)
+  rl_append "5h" "$rl_5h_pct" "$rl_5h_at"
+  rl_append "7d" "$rl_7d_pct" "$rl_7d_at"
 fi
 
 # Two-group layout: LEFT (path + worktree badge) | divider | RIGHT (model +
-# bar). True right-alignment isn't available to a piped statusline process
+# bars). True right-alignment isn't available to a piped statusline process
 # (/dev/tty, $COLUMNS, and `tput cols` are all unusable here), so instead
 # the left group is padded to a minimum VISIBLE width so the divider lines
 # up across renders when the location text is short. Width is computed from
 # the PLAIN text (no ANSI bytes), matching what worktree_part would render.
+# Tune the divider column here: raise it for steadier alignment across
+# longer paths, lower it for a tighter line. Anything wider just gets its
+# padding clamped to zero and pushes the divider right for that render.
+left_min_width=18
 plain_left="$path_part"
 [ -n "$worktree" ] && plain_left="$plain_left (${worktree})"
-pad=$(( 28 - ${#plain_left} ))
+pad=$(( left_min_width - ${#plain_left} ))
 [ "$pad" -lt 0 ] && pad=0
 printf -v spacer '%*s' "$pad" ''
 
-printf '%s%s%s%s%s %s│%s %s%s' \
-  "$blue" "$path_part" "$reset" "$worktree_part" "$spacer" "$dim" "$reset" "$model_part" "$bar_part"
+printf '%s%s%s%s%s %s│%s %s' \
+  "$blue" "$path_part" "$reset" "$worktree_part" "$spacer" "$dim" "$reset" "$right"
