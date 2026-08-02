@@ -8,13 +8,16 @@
 input=$(cat)
 
 # One jq pass for every field the line needs. This script re-runs on each
-# render, so a jq per field (seven of them now) is the difference between a
+# render, so a jq per field (eight of them now) is the difference between a
 # couple of forks and a visible stall. `// ""` collapses both null and a
 # missing key to an empty line; tostring keeps numbers from being emitted as
 # bare JSON. One `read` per line - NOT a multi-var `read a b c`, which only
 # fills the first var from one line (see prior BUG 1). Vars are pre-cleared
 # because command substitution strips ALL trailing newlines, so absent
-# trailing fields leave their `read` at EOF with the var untouched.
+# trailing fields leave their `read` at EOF with the var untouched - which is
+# exactly the normal case for .effort, the LAST field: it is absent for models
+# that have no effort control, so it must stay last (an absent field in the
+# MIDDLE would shift every later `read` onto the wrong line).
 fields=$(echo "$input" | jq -r '
   [ .workspace.current_dir,
     (.model.display_name // ""),
@@ -22,13 +25,15 @@ fields=$(echo "$input" | jq -r '
     (.rate_limits.five_hour.used_percentage // ""),
     (.rate_limits.five_hour.resets_at // ""),
     (.rate_limits.seven_day.used_percentage // ""),
-    (.rate_limits.seven_day.resets_at // "")
+    (.rate_limits.seven_day.resets_at // ""),
+    (.effort.level // "")
   ] | .[] | tostring')
 cwd=""; model=""; used_pct=""
-rl_5h_pct=""; rl_5h_at=""; rl_7d_pct=""; rl_7d_at=""
+rl_5h_pct=""; rl_5h_at=""; rl_7d_pct=""; rl_7d_at=""; effort=""
 { read -r cwd; read -r model; read -r used_pct
   read -r rl_5h_pct; read -r rl_5h_at
-  read -r rl_7d_pct; read -r rl_7d_at; } <<< "$fields"
+  read -r rl_7d_pct; read -r rl_7d_at
+  read -r effort; } <<< "$fields"
 
 # Real ESC bytes via ANSI-C quoting. These variables hold actual control
 # characters (not the literal text "\033"), so printing them with printf's
@@ -40,6 +45,7 @@ reset="${esc}[00m"
 blue="${esc}[01;34m"
 yellow="${esc}[00;33m"
 red="${esc}[00;31m"
+green="${esc}[00;32m"
 dim="${esc}[02m"
 
 # Block bar of $1 cells for an integer percentage $2, clamped to the bar's
@@ -63,6 +69,23 @@ pct_color() {
   elif [ "$1" -ge 50 ]; then printf '%s' "$yellow"
   else                       printf '%s' "$dim"
   fi
+}
+
+# Severity color for an effort level. Unlike pct_color's scale this one is
+# green-anchored: `high` is the intended default and says so positively,
+# because a dim `high` would be indistinguishable from an unrecognized level
+# and near-indistinguishable from effort being absent altogether. Red flags
+# the burn-rate levels above it, yellow the levels below it that are too weak
+# to be worth spending a turn on, and dim is left to mean exactly one thing -
+# a level this script has never heard of (a future addition), where guessing
+# a severity would be worse than staying quiet.
+effort_color() {
+  case "$1" in
+    high)       printf '%s' "$green" ;;
+    xhigh|max)  printf '%s' "$red" ;;
+    low|medium) printf '%s' "$yellow" ;;
+    *)          printf '%s' "$dim" ;;
+  esac
 }
 
 # Compact countdown to a window reset: 3d4h / 2h13m / 13m. A window can roll
@@ -150,7 +173,16 @@ fi
 # whichever window is actually in play. %% strips from the FIRST " (" so a
 # name with more than one parenthetical loses all of them.
 model="${model%% (*}"
-[ -n "$model" ] && right_append "" "${dim}${model}${reset}"
+# Effort braces after the name ("Opus 5 {high}"). The value is the effort
+# ACTUALLY in force for this turn, already downgraded to what the model
+# supports, so it can disagree with settings.json's effortLevel - that
+# disagreement is the point of showing it. Absent for models without effort
+# control, in which case the name renders alone.
+# Colored per effort_color, so the braces are their own ANSI run: the model
+# name closes with a reset before them, and they close with one of their own.
+effort_part=""
+[ -n "$effort" ] && effort_part=" $(effort_color "$effort"){${effort}}${reset}"
+[ -n "$model" ] && right_append "" "${dim}${model}${reset}${effort_part}"
 
 # Context bar, same 5-cell width and tight `]NN%` spacing as the rate-limit
 # bars so all three read as one row of gauges.
