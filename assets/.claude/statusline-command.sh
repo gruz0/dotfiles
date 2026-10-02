@@ -88,6 +88,19 @@ effort_color() {
   esac
 }
 
+# Color for the model name alone (not the whole line): green for the model
+# actually preferred, yellow for the acceptable cheaper one, red for anything
+# else, since switching to it was probably an accident. Matched on the
+# display name exactly (after the "(1M context)" suffix is stripped) so older
+# versions like "Sonnet 5" or "Opus 5" don't inherit the color of 5.5.
+model_color() {
+  case "$1" in
+    "Opus 5.5")   printf '%s' "$green" ;;
+    "Sonnet 5.5") printf '%s' "$yellow" ;;
+    *)            printf '%s' "$red" ;;
+  esac
+}
+
 # Compact countdown to a window reset: 3d4h / 2h13m / 13m. A window can roll
 # over between renders, so clamp negatives to 0 rather than printing `-1m`.
 fmt_eta() {
@@ -182,7 +195,7 @@ model="${model%% (*}"
 # name closes with a reset before them, and they close with one of their own.
 effort_part=""
 [ -n "$effort" ] && effort_part=" $(effort_color "$effort"){${effort}}${reset}"
-[ -n "$model" ] && right_append "" "${dim}${model}${reset}${effort_part}"
+[ -n "$model" ] && right_append "" "$(model_color "$model")${model}${reset}${effort_part}"
 
 # Context bar, same 5-cell width and tight `]NN%` spacing as the rate-limit
 # bars so all three read as one row of gauges.
