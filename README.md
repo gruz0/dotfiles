@@ -15,6 +15,8 @@ Personal dotfiles for macOS and Debian 12 (WSL2) development environments.
 ## Supported Platforms
 
 - **macOS** (tested on Monterey, Ventura, Sonoma)
+  - Apple Silicon: packages via Homebrew
+  - Intel: packages via MacPorts, since Homebrew [no longer supports Intel Macs](https://brew.sh/2025/11/12/homebrew-5.0.0)
 - **Debian 12** (WSL2 and native)
 
 ## Quick Start
@@ -35,8 +37,9 @@ cd dotfiles
 The script will:
 
 - Install Command Line Tools (if needed)
-- Install/update Homebrew
-- Install all packages and GUI applications
+- Install/update Homebrew (Apple Silicon) or MacPorts (Intel)
+- Install all CLI packages
+- Install GUI applications (Apple Silicon only; on Intel it prints a list to download manually)
 - Set up oh-my-zsh, RVM, Rust, Bun, NeoVim, and tmux
 - Apply macOS system settings
 - Symlink configuration files
@@ -67,7 +70,7 @@ The script will:
 
 ### macOS
 
-#### CLI Tools (via Homebrew)
+#### CLI Tools (via Homebrew or MacPorts)
 
 **Languages:**
 
@@ -89,7 +92,7 @@ The script will:
 
 - bat, jq, tree, wget, curl
 
-#### GUI Applications (via Homebrew Casks)
+#### GUI Applications (via Homebrew Casks, Apple Silicon only)
 
 **Browsers:**
 
@@ -203,7 +206,8 @@ All configuration files are symlinked from the `assets/` directory:
 
 **macOS:**
 
-- Edit `packages/macos-brew.txt` for CLI tools
+- Edit `packages/macos-brew.txt` for CLI tools (Apple Silicon)
+- Edit `packages/macos-ports.txt` for CLI tools (Intel). MacPorts names can differ from Homebrew's, search at <https://ports.macports.org>
 - Edit `packages/macos-casks.txt` for GUI applications
 
 **Debian:**
@@ -222,6 +226,8 @@ Then re-run the installation script.
 
 All installation logic is in modular scripts under `lib/`:
 
+- `lib/install-homebrew.sh` - Homebrew, CLI packages and GUI apps (Apple Silicon)
+- `lib/install-macports.sh` - MacPorts and CLI packages (Intel)
 - `lib/install-zsh.sh` - zsh and oh-my-zsh setup
 - `lib/install-ruby.sh` - RVM and Ruby
 - `lib/install-rust.sh` - Rust toolchain via rustup
@@ -283,14 +289,13 @@ chmod 644 ~/.ssh/*.pub
 chmod 600 ~/.ssh/config
 ```
 
-### Homebrew not found (macOS)
+### Homebrew or MacPorts not found (macOS)
 
-Ensure Homebrew is in your PATH. Add to your shell:
+`.zshrc` adds both to PATH when they are installed. In another shell, run:
 
 ```bash
-eval "$(/opt/homebrew/bin/brew shellenv)"  # Apple Silicon
-# or
-eval "$(/usr/local/bin/brew shellenv)"     # Intel
+eval "$(/opt/homebrew/bin/brew shellenv)"           # Apple Silicon (Homebrew)
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"  # Intel (MacPorts)
 ```
 
 ## Architecture

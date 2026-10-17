@@ -50,12 +50,29 @@ is_macos() {
     [[ "$OSTYPE" == "darwin"* ]]
 }
 
+# Apple Silicon check that also works when the shell runs under Rosetta
+is_apple_silicon() {
+    [[ "$(sysctl -n hw.optional.arm64 2>/dev/null)" == "1" ]]
+}
+
 is_debian() {
     [[ -f /etc/debian_version ]]
 }
 
 is_wsl() {
     [[ -f /proc/version ]] && grep -qi microsoft /proc/version
+}
+
+# Print package names from a list file, skipping comments and blank lines
+read_package_list() {
+    local line
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        line="${line%%#*}"
+        line="$(echo "$line" | xargs)"
+        if [[ -n "$line" ]]; then
+            echo "$line"
+        fi
+    done < "$1"
 }
 
 # File operations
