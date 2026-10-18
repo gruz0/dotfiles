@@ -24,6 +24,12 @@ else
   )
 fi
 
+# macOS package managers: Homebrew (Apple Silicon) or MacPorts (Intel)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+  [ -d /opt/local/bin ] && export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # NVM (Node Version Manager)
@@ -57,21 +63,10 @@ export PATH="$PATH:/usr/local/sbin"
 [ -d "$HOME/.npm-packages/bin" ] && export PATH="$HOME/.npm-packages/bin:$PATH"
 [ -d "$HOME/.foundry/bin" ] && export PATH="$PATH:$HOME/.foundry/bin"
 
-# Go development
+# Go development (Go finds its own GOROOT, no need to set it)
 export GOPATH="${HOME}/.go"
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  # macOS with Homebrew
-  export GOROOT="$(brew --prefix golang)/libexec"
-else
-  # Linux
-  export GOROOT="/usr/local/go"
-fi
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
-
-# macOS uses Homebrew's ctags
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  alias ctags="`brew --prefix`/bin/ctags"
-fi
+[ -d /usr/local/go/bin ] && export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:${GOPATH}/bin"
 
 alias csv='column -s, -t'
 

@@ -41,50 +41,17 @@ fi
 
 log_success "Time Machine exclusions configured"
 
-# 3. Install Homebrew
-if ! command_exists brew; then
-    log_info "Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# 3-4. Install packages: Homebrew on Apple Silicon, MacPorts on Intel
+# (Homebrew dropped Intel Macs, see https://brew.sh/2025/11/12/homebrew-5.0.0)
+if is_apple_silicon; then
+    log_info "Apple Silicon detected, using Homebrew..."
+    bash "${SCRIPT_DIR}/lib/install-homebrew.sh"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 else
-    log_success "Homebrew already installed"
+    log_info "Intel Mac detected, using MacPorts..."
+    bash "${SCRIPT_DIR}/lib/install-macports.sh"
+    export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 fi
-
-log_info "Updating Homebrew..."
-brew update
-
-log_info "Running brew doctor..."
-brew doctor || log_warn "Homebrew doctor found issues (non-fatal)"
-
-# 4. Install packages from package lists
-log_info "Installing Homebrew formulae..."
-while IFS= read -r package; do
-    # Skip comments and empty lines
-    [[ -z "$package" || "$package" =~ ^[[:space:]]*# ]] && continue
-    package="$(echo "$package" | xargs)"
-    [[ -z "$package" ]] && continue
-
-    if brew list "$package" &>/dev/null; then
-        log_info "Already installed: $package"
-    else
-        log_info "Installing $package..."
-        brew install "$package" || log_warn "Failed to install $package"
-    fi
-done < "${SCRIPT_DIR}/packages/macos-brew.txt"
-
-log_info "Installing Homebrew casks..."
-while IFS= read -r cask; do
-    # Skip comments and empty lines
-    [[ -z "$cask" || "$cask" =~ ^[[:space:]]*# ]] && continue
-    cask="$(echo "$cask" | xargs)"
-    [[ -z "$cask" ]] && continue
-
-    if brew list --cask "$cask" &>/dev/null; then
-        log_info "Already installed: $cask"
-    else
-        log_info "Installing $cask..."
-        brew install --cask "$cask" || log_warn "Failed to install $cask"
-    fi
-done < "${SCRIPT_DIR}/packages/macos-casks.txt"
 
 # 5. Run shared installation scripts
 log_info "Installing zsh and oh-my-zsh..."

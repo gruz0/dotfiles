@@ -22,7 +22,7 @@ fi
 # Test 2: Verify all lib scripts exist
 echo ""
 echo "Test 2: Checking lib scripts..."
-for script in utils install-zsh install-ruby install-neovim install-tmux install-python-tools deploy-configs verify-installation; do
+for script in utils install-homebrew install-macports install-zsh install-ruby install-neovim install-tmux install-python-tools deploy-configs verify-installation; do
     if [[ -f "${DOTFILES_DIR}/lib/${script}.sh" ]]; then
         echo "✓ lib/${script}.sh exists"
     else
@@ -38,6 +38,13 @@ if [[ -f "${DOTFILES_DIR}/packages/macos-brew.txt" ]]; then
     echo "✓ packages/macos-brew.txt exists"
 else
     echo "✗ packages/macos-brew.txt not found"
+    ((FAILED++))
+fi
+
+if [[ -f "${DOTFILES_DIR}/packages/macos-ports.txt" ]]; then
+    echo "✓ packages/macos-ports.txt exists"
+else
+    echo "✗ packages/macos-ports.txt not found"
     ((FAILED++))
 fi
 

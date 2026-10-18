@@ -1,0 +1,46 @@
+# macOS MacPorts Packages (CLI Tools, Intel Macs only)
+# These packages will be installed via 'sudo port install'
+# Apple Silicon Macs use packages/macos-brew.txt instead.
+# Search for package names at https://ports.macports.org
+
+# Build tools
+automake
+cmake
+pkgconfig
+
+# Development languages
+go
+nodejs24
+npm11
+# Keep the Python version in sync with lib/install-macports.sh
+python313
+py313-pip
+deno
+
+# Version control
+git
+
+# CLI utilities
+bat
+curl
+git-delta
+gnupg2
+jq
+neovim
+shellcheck
+ssh-copy-id
+tmux
+tree
+watch
+witr
+wget
+zsh
+
+# Development tools
+# Note: the port named 'ansible' is an outdated 2017 release
+py313-ansible
+hadolint
+
+# System libraries
+coreutils
+zlib
